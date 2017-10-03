@@ -1348,7 +1348,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 							this.warn("Error in leaf");
 						
 						//parse leaf
-						//this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]);
+						this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]));
                         sizeChildren++;
 					}
 					else
@@ -1426,7 +1426,7 @@ MySceneGraph.prototype.displayScene = function() {
 	// remove log below to avoid performance issues
     //console.log(this.nodes.root);
 
-    x = this.nodes.root.getLeaves();
+    x = this.nodes.root.getChildren();
 
     //console.log(x);
 

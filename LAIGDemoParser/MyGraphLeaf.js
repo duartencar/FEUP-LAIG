@@ -4,5 +4,13 @@
 **/
 
 function MyGraphLeaf(graph, xmlelem) {
+
+    this.graph = graph;
+
+    this.xmlelem = xmlelem;
 }
 
+MyGraphLeaf.prototype.processXmlelem = function ()
+{
+
+}

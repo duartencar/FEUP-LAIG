@@ -34,7 +34,7 @@ MyGraphNode.prototype.addChild = function(nodeID) {
 /**
  * Adds a leaf to this node's leaves array.
  */
-MyGraphNode.prototype.addChild = function(leaf) {
+MyGraphNode.prototype.addLeaf = function(leaf) {
     this.leaves.push(leaf);
 }
 
@@ -53,17 +53,27 @@ MyGraphNode.prototype.getLeaves = function()
     return this.leaves;
 }
 
-MyGraphNode.prototype.analyse = function (id) {
-    var nodeLeafs = this.getLeaves();
+MyGraphNode.prototype.getChildren = function ()
+{
+    return this.children;
+}
 
-    if(nodeLeafs.length != 0)
+MyGraphNode.prototype.analyse = function (id) {
+    var nodeChildren = this.getChildren();
+
+    if(nodeChildren.length != 0)
     {
-        for(var i = 0; i <  nodeLeafs.length; i++)
-            this.graph.nodes[nodeLeafs[i]].analyse(nodeLeafs[i]);
+        for(var i = 0; i <  nodeChildren.length; i++)
+            this.graph.nodes[nodeChildren[i]].analyse(nodeChildren[i]);
     }
     else
     {
         console.log("got to bottom at " + id);
+
+        var nodeLeafs = this.getLeaves();
+
+        for(var i = 0; i <  nodeLeafs.length; i++)
+            console.log("   LEAF ->  " + nodeLeafs[i].xmlelem.attributes[0].nodeValue);
     }
 }
 
