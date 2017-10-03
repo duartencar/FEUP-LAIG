@@ -53,4 +53,18 @@ MyGraphNode.prototype.getLeaves = function()
     return this.leaves;
 }
 
+MyGraphNode.prototype.analyse = function (id) {
+    var nodeLeafs = this.getLeaves();
+
+    if(nodeLeafs.length != 0)
+    {
+        for(var i = 0; i <  nodeLeafs.length; i++)
+            this.graph.nodes[nodeLeafs[i]].analyse(nodeLeafs[i]);
+    }
+    else
+    {
+        console.log("got to bottom at " + id);
+    }
+}
+
 

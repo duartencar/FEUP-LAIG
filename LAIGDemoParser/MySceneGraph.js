@@ -1424,15 +1424,20 @@ MySceneGraph.generateRandomString = function(length) {
 MySceneGraph.prototype.displayScene = function() {
 	// entry point for graph rendering
 	// remove log below to avoid performance issues
-    console.log(this.nodes.root);
+    //console.log(this.nodes.root);
 
     x = this.nodes.root.getLeaves();
 
-    console.log(x);
+    //console.log(x);
 
     for(var i = 0; i < x.length; i++)
-        console.log(this.nodes.root.graph[x[i]]);
+    {
+        //console.log(x[i]);
 
+        //console.log(this.nodes[x[i]]);
+
+        this.nodes[x[i]].analyse(x[i]);
+    }
 
 
 }
