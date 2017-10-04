@@ -12,11 +12,61 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LAIGDemoParser/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MySceneGraph.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MySceneGraph.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-120">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/LAIGDemoParser/main.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MyGraphNode.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphNode.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>displayScene</find>
       <find>log</find>
+      <find>3</find>
+      <find>luz</find>
+      <find>processing</find>
     </findStrings>
+    <dirStrings>
+      <dir>C:\Users\dnc18\Documents\Programação\GitHub\LAIG-FEUP</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -25,8 +75,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/main.js" />
-        <option value="$PROJECT_DIR$/LAIGDemoParser/MyGraphNode.js" />
+        <option value="$PROJECT_DIR$/LAIGDemoParser/scenes/demo.xml" />
         <option value="$PROJECT_DIR$/LAIGDemoParser/MySceneGraph.js" />
+        <option value="$PROJECT_DIR$/LAIGDemoParser/MyGraphNode.js" />
       </list>
     </option>
   </component>
@@ -42,6 +93,7 @@
     <option name="width" value="3872" />
     <option name="height" value="2092" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -58,7 +110,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -71,10 +122,16 @@
               <item name="LAIG-FEUP" type="462c0819:PsiDirectoryNode" />
               <item name="LAIGDemoParser" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="LAIG-FEUP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LAIG-FEUP" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -122,11 +179,20 @@
       <workItem from="1506337570460" duration="225000" />
       <workItem from="1506360238120" duration="391000" />
       <workItem from="1506581760749" duration="6218000" />
+      <workItem from="1506590120300" duration="621000" />
+      <workItem from="1506591954710" duration="2272000" />
+      <workItem from="1506600283574" duration="3971000" />
+      <workItem from="1506681547921" duration="3005000" />
+      <workItem from="1506691051181" duration="592000" />
+      <workItem from="1506873862485" duration="593000" />
+      <workItem from="1507019550313" duration="2122000" />
+      <workItem from="1507022055441" duration="64000" />
+      <workItem from="1507022190390" duration="63000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6834000" />
+    <option name="totallyTimeSpent" value="20137000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="3872" height="2092" extended-state="6" />
@@ -134,7 +200,6 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13958333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971212" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971212" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -146,6 +211,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971212" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -158,5 +224,92 @@
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyInterface.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphLeaf.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/scenes/demo.xml" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MySceneGraph.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/XMLscene.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphNode.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyInterface.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphLeaf.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/scenes/demo.xml" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MySceneGraph.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphNode.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyInterface.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphLeaf.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/scenes/demo.xml" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MySceneGraph.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyInterface.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphLeaf.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/XMLscene.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphNode.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MySceneGraph.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphNode.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyInterface.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphLeaf.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/XMLscene.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MySceneGraph.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphNode.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyInterface.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphLeaf.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/XMLscene.js" />
+    <entry file="file://$PROJECT_DIR$/main.js" />
+    <entry file="file://$PROJECT_DIR$/MyGraphLeaf.js" />
+    <entry file="file://$PROJECT_DIR$/MyGraphNode.js" />
+    <entry file="file://$PROJECT_DIR$/MyInterface.js" />
+    <entry file="file://$PROJECT_DIR$/XMLscene.js" />
+    <entry file="file://$PROJECT_DIR$/main.js" />
+    <entry file="file://$PROJECT_DIR$/XMLscene.js" />
+    <entry file="file://$PROJECT_DIR$/README.md" />
+    <entry file="file://$PROJECT_DIR$/MyGraphLeaf.js" />
+    <entry file="file://$PROJECT_DIR$/MyGraphNode.js" />
+    <entry file="file://$PROJECT_DIR$/MyInterface.js" />
+    <entry file="file://$PROJECT_DIR$/XMLscene.js" />
+    <entry file="file://$PROJECT_DIR$/main.js" />
+    <entry file="file://$PROJECT_DIR$/../../CGRA/Sites/Final/proj/LightingScene.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/scenes/demo.xml" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/XMLscene.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphLeaf.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyInterface.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphNode.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MySceneGraph.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-120">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>

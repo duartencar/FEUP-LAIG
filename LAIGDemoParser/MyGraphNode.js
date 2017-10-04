@@ -38,15 +38,7 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
     this.leaves.push(leaf);
 }
 
-MyGraphNode.prototype.showLeaves = function()
-{
-    console.log(this.leaves);
-}
 
-MyGraphNode.prototype.showChildren = function()
-{
-    console.log(this.children);
-}
 
 MyGraphNode.prototype.getLeaves = function()
 {
