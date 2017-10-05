@@ -14,3 +14,8 @@ MyGraphLeaf.prototype.processXmlelem = function ()
 {
 
 }
+
+MyGraphLeaf.prototype.logGeometry = function ()
+{
+    return this.xmlelem.text;
+}
