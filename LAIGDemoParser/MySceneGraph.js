@@ -1437,6 +1437,6 @@ MySceneGraph.prototype.displayScene = function() {
 
     //console.log(this.nodes[x[i]]);
 
-    this.nodes[x[i]].analyse(x[i]);
+    this.nodes[x[i]].analyse(this.scene, x[i]);
   }
 }

@@ -62,14 +62,14 @@ MyGraphNode.prototype.getChildren = function ()
   return this.children;
 }
 
-MyGraphNode.prototype.analyse = function (id)
+MyGraphNode.prototype.analyse = function (scene, id)
 {
   var nodeChildren = this.getChildren();
 
   if(nodeChildren.length != 0)
   {
     for(var i = 0; i <  nodeChildren.length; i++)
-      this.graph.nodes[nodeChildren[i]].analyse(nodeChildren[i]);
+      this.graph.nodes[nodeChildren[i]].analyse(scene, nodeChildren[i]);
   }
   else
   {
@@ -82,7 +82,11 @@ MyGraphNode.prototype.analyse = function (id)
       console.log("   LEAF ->  " + nodeLeafs[i].xmlelem.attributes[0].nodeValue);
 
       if(nodeLeafs[i].xmlelem.attributes[0].nodeValue == "rectangle")
-        var rec = myRectangle(this.scene, -1, 1, 1, -1);
+      {
+
+        var rec = new myRectangle(scene, -1, 1, 1, -1);
+        rec.display();
+      }
 
     }
   }
