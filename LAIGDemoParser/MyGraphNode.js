@@ -85,7 +85,11 @@ MyGraphNode.prototype.analyse = function (scene, id)
       {
 
         var rec = new myRectangle(scene, -1, 1, 1, -1);
-        rec.display();
+        scene.pushMatrix();
+          scene.multMatrix(this.graph.nodes[id].transformMatrix);
+          console.log(this.graph.nodes[id].transformMatrix);
+          rec.display();
+        scene.popMatrix();
       }
 
     }
