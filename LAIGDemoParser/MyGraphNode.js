@@ -62,34 +62,50 @@ MyGraphNode.prototype.getChildren = function ()
   return this.children;
 }
 
-MyGraphNode.prototype.analyse = function (scene, id)
+MyGraphNode.prototype.analyse = function (scene, id, stack)
 {
   var nodeChildren = this.getChildren();
 
   if(nodeChildren.length != 0)
   {
+    var nextStack = stack;
+
+    nextStack.push(this.transformMatrix);
+
+    //console.log(stack);
+
     for(var i = 0; i <  nodeChildren.length; i++)
-      this.graph.nodes[nodeChildren[i]].analyse(scene, nodeChildren[i]);
+      this.graph.nodes[nodeChildren[i]].analyse(scene, nodeChildren[i], nextStack);
   }
   else
   {
-    console.log("got to bottom at " + id);
+    //console.log("got to bottom at " + id);
 
     var nodeLeafs = this.getLeaves();
 
     for(var i = 0; i <  nodeLeafs.length; i++)
     {
-      console.log("   LEAF ->  " + nodeLeafs[i].xmlelem.attributes[0].nodeValue);
+      //console.log("   LEAF ->  " + nodeLeafs[i].xmlelem.attributes[0].nodeValue);
+
+      console.log(stack);
 
       if(nodeLeafs[i].xmlelem.attributes[0].nodeValue == "rectangle")
       {
-        var rec = new myRectangle(scene, -1, 1, 1, -1);
+        var argsV = nodeLeafs[i].xmlelem.attributes[1].nodeValue;
+
+        var args = argsV.split(" ");
+
+        if(args.length != 4)
+          console.log("Worng number of args for rectangle ( must be 4)");
+
+        var rec = new myRectangle(scene, args[0], args[1], args[2], args[3]);
 
         scene.pushMatrix();
 
-          scene.multMatrix(this.graph.nodes[id].transformMatrix);
+          for(var i = 0; i < stack.length; i++)
+            scene.multMatrix(stack.pop());
 
-          console.log(this.graph.nodes[id].transformMatrix);
+          scene.multMatrix(this.graph.nodes[id].transformMatrix);
 
           rec.display();
 
@@ -97,13 +113,26 @@ MyGraphNode.prototype.analyse = function (scene, id)
       }
       else if(nodeLeafs[i].xmlelem.attributes[0].nodeValue == "cylinder")
       {
-        var cyl = new myTube(scene, 2, 10, 10, 10, 10);
+
+        var argsV = nodeLeafs[i].xmlelem.attributes[1].value;
+
+        var args = argsV.split(" ");
+
+        //console.log("Cyl ARGS = " + args);
+
+        if(args.length != 5)
+          console.log("Worng number of args for cylinder ( must be 5)");
+
+        var cyl = new myTube(scene, args[0], args[1], args[2], args[3], args[4]);
 
         scene.pushMatrix();
 
-          scene.multMatrix(this.graph.nodes[id].transformMatrix);
+          for(var i = 0; i < stack.length; i++)
+            scene.multMatrix(stack.pop());
 
-          console.log(this.graph.nodes[id].transformMatrix);
+          scene.multMatrix(stack.pop());
+
+          scene.multMatrix(this.graph.nodes[id].transformMatrix);
 
           cyl.display();
 
@@ -111,13 +140,21 @@ MyGraphNode.prototype.analyse = function (scene, id)
       }
       else if(nodeLeafs[i].xmlelem.attributes[0].nodeValue == "sphere1")
       {
-        var sphere = new mySphere(scene, 5, 32, 32);
+        var argsV = nodeLeafs[i].xmlelem.attributes[2].nodeValue;
+
+        var args = argsV.split(" ");
+
+        if(args.length != 3)
+          console.log("Worng number of args for sphere ( must be 3)");
+
+        var sphere = new mySphere(scene, args[0], args[1], args[2]);
 
         scene.pushMatrix();
 
-          scene.multMatrix(this.graph.nodes[id].transformMatrix);
+          for(var i = 0; i < stack.length; i++)
+            scene.multMatrix(stack.pop());
 
-          console.log(this.graph.nodes[id].transformMatrix);
+          scene.multMatrix(this.graph.nodes[id].transformMatrix);
 
           sphere.display();
 

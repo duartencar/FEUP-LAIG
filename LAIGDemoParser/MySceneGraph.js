@@ -1429,6 +1429,10 @@ MySceneGraph.prototype.displayScene = function() {
 
   x = this.nodes.root.getChildren();
 
+  var transformationStack = [];
+
+  transformationStack.push(this.nodes.root.transformMatrix);
+
   //console.log(x);
 
   for(var i = 0; i < x.length; i++)
@@ -1437,6 +1441,6 @@ MySceneGraph.prototype.displayScene = function() {
 
     //console.log(this.nodes[x[i]]);
 
-    this.nodes[x[i]].analyse(this.scene, x[i]);
+    this.nodes[x[i]].analyse(this.scene, x[i], transformationStack);
   }
 }
