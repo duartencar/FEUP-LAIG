@@ -83,15 +83,32 @@ MyGraphNode.prototype.analyse = function (scene, id)
 
       if(nodeLeafs[i].xmlelem.attributes[0].nodeValue == "rectangle")
       {
-
         var rec = new myRectangle(scene, -1, 1, 1, -1);
+
         scene.pushMatrix();
+
           scene.multMatrix(this.graph.nodes[id].transformMatrix);
+
           console.log(this.graph.nodes[id].transformMatrix);
+
           rec.display();
+
         scene.popMatrix();
       }
+      else if(nodeLeafs[i].xmlelem.attributes[0].nodeValue == "cylinder")
+      {
+        var cyl = new myTube(scene, 5, 5, 10, 10, 10);
 
+        scene.pushMatrix();
+
+          scene.multMatrix(this.graph.nodes[id].transformMatrix);
+
+          console.log(this.graph.nodes[id].transformMatrix);
+
+          cyl.display();
+
+        scene.popMatrix();
+      }
     }
   }
 }
