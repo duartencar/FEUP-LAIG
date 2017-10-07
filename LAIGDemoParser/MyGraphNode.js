@@ -97,7 +97,7 @@ MyGraphNode.prototype.analyse = function (scene, id)
       }
       else if(nodeLeafs[i].xmlelem.attributes[0].nodeValue == "cylinder")
       {
-        var cyl = new myTube(scene, 5, 5, 10, 10, 10);
+        var cyl = new myTube(scene, 2, 10, 10, 10, 10);
 
         scene.pushMatrix();
 
@@ -106,6 +106,20 @@ MyGraphNode.prototype.analyse = function (scene, id)
           console.log(this.graph.nodes[id].transformMatrix);
 
           cyl.display();
+
+        scene.popMatrix();
+      }
+      else if(nodeLeafs[i].xmlelem.attributes[0].nodeValue == "sphere1")
+      {
+        var sphere = new mySphere(scene, 5, 32, 32);
+
+        scene.pushMatrix();
+
+          scene.multMatrix(this.graph.nodes[id].transformMatrix);
+
+          console.log(this.graph.nodes[id].transformMatrix);
+
+          sphere.display();
 
         scene.popMatrix();
       }
