@@ -96,7 +96,7 @@ MyGraphNode.prototype.analyse = function (scene, id, stack)
         var args = argsV.split(" ");
 
         if(args.length != 4)
-          console.log("Worng number of args for rectangle ( must be 4)");
+          console.log("Wrong number of args for rectangle ( must be 4)");
 
         var rec = new myRectangle(scene, args[0], args[1], args[2], args[3]);
 
@@ -121,7 +121,7 @@ MyGraphNode.prototype.analyse = function (scene, id, stack)
         //console.log("Cyl ARGS = " + args);
 
         if(args.length != 5)
-          console.log("Worng number of args for cylinder ( must be 5)");
+          console.log("Wrong number of args for cylinder ( must be 5)");
 
         var cyl = new myTube(scene, args[0], args[1], args[2], args[3], args[4]);
 
@@ -145,7 +145,7 @@ MyGraphNode.prototype.analyse = function (scene, id, stack)
         var args = argsV.split(" ");
 
         if(args.length != 3)
-          console.log("Worng number of args for sphere ( must be 3)");
+          console.log("Wrong number of args for sphere ( must be 3)");
 
         var sphere = new mySphere(scene, args[0], args[1], args[2]);
 
