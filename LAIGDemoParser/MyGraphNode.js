@@ -83,10 +83,13 @@ MyGraphNode.prototype.analyse = function (scene, id, stack)
 
     var nodeLeafs = this.getLeaves();
 
+    var LeafsArray = new Array();
+
     for(var i = 0; i <  nodeLeafs.length; i++)
     {
       //console.log("   LEAF ->  " + nodeLeafs[i].xmlelem.attributes[0].nodeValue);
 
+<<<<<<< Updated upstream
       console.log(stack);
 
       if(nodeLeafs[i].xmlelem.attributes[0].nodeValue == "rectangle")
@@ -117,27 +120,35 @@ MyGraphNode.prototype.analyse = function (scene, id, stack)
         var argsV = nodeLeafs[i].xmlelem.attributes[1].value;
 
         var args = argsV.split(" ");
+=======
+      var Leaf = new MyGraphLeaf(nodeLeafs[i].graph, nodeLeafs[i].xmlelem);
+>>>>>>> Stashed changes
 
-        //console.log("Cyl ARGS = " + args);
+      LeafsArray.push(Leaf);
 
+<<<<<<< Updated upstream
         if(args.length != 5)
           console.log("Wrong number of args for cylinder ( must be 5)");
 
         var cyl = new myTube(scene, args[0], args[1], args[2], args[3], args[4]);
+=======
+      console.log(stack);
+>>>>>>> Stashed changes
 
-        scene.pushMatrix();
+      var obj = Leaf.getLeaf(scene);
 
-          for(var i = 0; i < stack.length; i++)
-            scene.multMatrix(stack.pop());
+      scene.pushMatrix();
 
+        for(var i = 0; i < stack.length; i++)
           scene.multMatrix(stack.pop());
 
-          scene.multMatrix(this.graph.nodes[id].transformMatrix);
+        scene.multMatrix(this.graph.nodes[id].transformMatrix);
 
-          cyl.display();
+        obj.display();
 
-        scene.popMatrix();
+      scene.popMatrix();
       }
+<<<<<<< Updated upstream
       else if(nodeLeafs[i].xmlelem.attributes[0].nodeValue == "sphere1")
       {
         var argsV = nodeLeafs[i].xmlelem.attributes[2].nodeValue;
@@ -155,11 +166,16 @@ MyGraphNode.prototype.analyse = function (scene, id, stack)
             scene.multMatrix(stack.pop());
 
           scene.multMatrix(this.graph.nodes[id].transformMatrix);
-
-          sphere.display();
-
-        scene.popMatrix();
-      }
+=======
     }
-  }
+>>>>>>> Stashed changes
+
+    /*for(var i = 0; i < LeafsArray.length; i++)
+    {
+      LeafsArray[i].printxmlelem();
+      LeafsArray[i].printLeafType();
+      LeafsArray[i].printLeafArgs();
+      LeafsArray[i].drawLeaf(scene, stack);
+    }*/
+
 }
