@@ -2,7 +2,7 @@
  * Created by juntas on 06-10-2017.
  */
 
-function myTube(scene, height, base, top, slices, stacks)
+function myTube(scene, base, top, height, slices, stacks)
 {
   CGFobject.call(this, scene);
 

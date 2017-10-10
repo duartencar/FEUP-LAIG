@@ -41,7 +41,10 @@ MyGraphLeaf.prototype.getLeaf = function (scene)
         }
         else
         {
-          var Leaf = new myTube(scene, this.LeafArgs[0], this.LeafArgs[1], this.LeafArgs[2], this.LeafArgs[3], this.LeafArgs[4]);
+          /*this.LeafArgs[0], this.LeafArgs[1], this.LeafArgs[2], this.LeafArgs[3], this.LeafArgs[4]*/
+
+          console.log(this.LeafArgs);
+          var Leaf = new myCylinder(scene, 4,1,1,20,20);
           break;
         }
 
@@ -81,14 +84,5 @@ MyGraphLeaf.prototype.getLeaf = function (scene)
   }
 
   return Leaf;
-
-  /*scene.pushMatrix();
-
-    for(var i = 0; i < TransformStack.length; i++)
-      scene.multMatrix(TransformStack.pop());
-
-    Leaf.display();
-
-  scene.popMatrix();*/
 }
 
