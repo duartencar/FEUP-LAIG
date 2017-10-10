@@ -34,17 +34,14 @@ MyGraphLeaf.prototype.getLeaf = function (scene)
   switch(this.LeafType)
   {
     case "cylinder":
-        if(this.LeafArgs.length != 5)
+        if(this.LeafArgs.length != 7)
         {
-            console.log("Worng number of args for cylinder ( must be 5)");
+            console.log("Worng number of args for cylinder ( must be 7)");
             break;
         }
         else
         {
-          /*this.LeafArgs[0], this.LeafArgs[1], this.LeafArgs[2], this.LeafArgs[3], this.LeafArgs[4]*/
-
-          console.log(this.LeafArgs);
-          var Leaf = new myCylinder(scene, 4,1,1,20,20);
+          var Leaf = new myCylinder(scene, parseFloat(this.LeafArgs[0]), parseFloat(this.LeafArgs[1]), parseFloat(this.LeafArgs[2]), parseFloat(this.LeafArgs[3]), parseFloat(this.LeafArgs[4]), this.LeafArgs[5], this.LeafArgs[6]);
           break;
         }
 
