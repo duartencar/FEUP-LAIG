@@ -16,10 +16,10 @@ function MyGraphNode(graph, nodeID)
   this.leaves = [];
 
   // The material ID.
-  this.materialID = null ;
+  this.materialID = null;
 
   // The texture ID.
-  this.textureID = null ;
+  this.textureID = null;
 
   this.transformMatrix = mat4.create();
 
@@ -62,47 +62,32 @@ MyGraphNode.prototype.getChildren = function ()
   return this.children;
 }
 
-MyGraphNode.prototype.analyse = function (scene, id, stack)
+MyGraphNode.prototype.analyse = function (scene, id, Tmatrix)
 {
   var nodeChildren = this.getChildren();
 
-  if (nodeChildren.length != 0)
+  var nodeLeafs = this.getLeaves();
+
+  var newMatrix = mat4.create();
+
+  mat4.multiply(newMatrix, Tmatrix, this.transformMatrix);
+
+  for (var i = 0; i < nodeChildren.length; i++)
+    this.graph.nodes[nodeChildren[i]].analyse(scene, nodeChildren[i], newMatrix);
+
+  for(var i = 0; i < nodeLeafs.length; i++)
   {
-    //console.log(stack);
-
-    for (var i = 0; i < nodeChildren.length; i++)
-    {
-      stack.push(this.graph.nodes[nodeChildren[i]].transformMatrix);
-
-      this.graph.nodes[nodeChildren[i]].analyse(scene, nodeChildren[i], stack);
-
-      stack.pop();
-    }
-  }
-  else
-  {
-    //console.log("got to bottom at " + id);
-
-    var nodeLeafs = this.getLeaves();
-
-    var LeafsArray = new Array();
-
     for (var i = 0; i < nodeLeafs.length; i++)
     {
       var Leaf = new MyGraphLeaf(nodeLeafs[i].graph, nodeLeafs[i].xmlelem);
-
-      LeafsArray.push(Leaf);
 
       var toDraw = Leaf.getLeaf(scene);
 
       scene.pushMatrix();
 
-      for(var i = 0; i < stack.length; i++)
-        scene.multMatrix(stack[i]);
+        scene.multMatrix(newMatrix);
 
-      //console.log(this.graph.nodes[nodeLeafs[i]].transformMatrix);
-
-      toDraw.display();
+        toDraw.display();
 
       scene.popMatrix();
     }

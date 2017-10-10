@@ -1422,26 +1422,15 @@ MySceneGraph.generateRandomString = function(length) {
 /**
  * Displays the scene, processing each node, starting in the root node.
  */
-MySceneGraph.prototype.displayScene = function() {
-	// entry point for graph rendering
-	// remove log below to avoid performance issues
-  //console.log(this.nodes.root);
+MySceneGraph.prototype.displayScene = function()
+{
 
   x = this.nodes.root.getChildren();
 
-  var stack = [];
-
-  stack.push(this.nodes.root.transformMatrix);
-
-
+  var inititalMatrix = mat4.create();
+  
   //console.log(x);
 
   for(var i = 0; i < x.length; i++)
-  {
-    //console.log(x[i]);
-
-    //console.log(this.nodes[x[i]]);
-
-    this.nodes[x[i]].analyse(this.scene, x[i], stack);
-  }
+    this.nodes[x[i]].analyse(this.scene, x[i], inititalMatrix);
 }
