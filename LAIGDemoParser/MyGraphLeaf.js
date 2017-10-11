@@ -92,8 +92,8 @@ MyGraphLeaf.prototype.draw = function(scene, toDraw, Matrix, Texture, Material)
     else
       var appearance = scene.graph.materials[Material];
 
-    /*if(Texture != "null")
-      appearance.setTexture(Texture);*/
+    if(Texture != "clear" && Material != "null")
+      appearance.setTexture(scene.graph.textures[Texture][0]);
 
     appearance.apply();
 

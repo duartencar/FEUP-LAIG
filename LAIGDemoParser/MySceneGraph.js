@@ -1428,9 +1428,9 @@ MySceneGraph.prototype.displayScene = function()
 
   var inititalMatrix = mat4.create();
 
-  var initialText = this.nodes.root.getMaterialID()
+  var initialText = this.nodes.root.getTextureID();
 
-  var initialMaterial = this.nodes.root.getTextureID();
+  var initialMaterial = this.nodes.root.getMaterialID();
 
   for(var i = 0; i < x.length; i++)
     this.nodes[x[i]].analyse(this.scene, inititalMatrix, initialText, initialMaterial);

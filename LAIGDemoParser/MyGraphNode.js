@@ -80,9 +80,25 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat)
 
   var newMatrix = mat4.create();
 
-  var newText = this.getTextureID() || Text;
+  if(this.getTextureID() == "null")
+  {
+    if(Text != null)
+      var newText = Text;
+    else
+      var newText = this.getTextureID();
+  }
+  else
+    var newText = this.getTextureID();
 
-  var newMat = this.getMaterialID() || Mat;
+  if(this.getMaterialID() == "null")
+  {
+    if (Mat != null)
+      var newMat = Mat;
+    else
+      var newMat = this.getMaterialID();
+  }
+  else
+    var newMat = this.getMaterialID();
 
   mat4.multiply(newMatrix, Tmatrix, this.transformMatrix);
 

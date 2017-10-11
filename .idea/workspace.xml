@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b880d5c-4373-4237-823f-237f9b9638f2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LAIGDemoParser/MyGraphLeaf.js" afterPath="$PROJECT_DIR$/LAIGDemoParser/MyGraphLeaf.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LAIGDemoParser/MyGraphNode.js" afterPath="$PROJECT_DIR$/LAIGDemoParser/MyGraphNode.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LAIGDemoParser/MySceneGraph.js" afterPath="$PROJECT_DIR$/LAIGDemoParser/MySceneGraph.js" />
@@ -23,11 +22,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MyGraphLeaf.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MyGraphLeaf.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphLeaf.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="35" lean-forward="true" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
+            <state relative-caret-position="620">
+              <caret line="94" column="24" lean-forward="false" selection-start-line="94" selection-start-column="24" selection-end-line="94" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -36,18 +35,18 @@
       <file leaf-file-name="MyGraphNode.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphNode.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="82" column="2" lean-forward="false" selection-start-line="82" selection-start-column="2" selection-end-line="82" selection-end-column="2" />
+            <state relative-caret-position="187">
+              <caret line="80" column="32" lean-forward="false" selection-start-line="80" selection-start-column="32" selection-end-line="80" selection-end-column="32" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MySceneGraph.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MySceneGraph.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MySceneGraph.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="637">
-              <caret line="1426" column="6" lean-forward="false" selection-start-line="1426" selection-start-column="6" selection-end-line="1426" selection-end-column="6" />
+            <state relative-caret-position="-9">
+              <caret line="1388" column="3" lean-forward="true" selection-start-line="1388" selection-start-column="3" selection-end-line="1388" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -93,9 +92,9 @@
         <option value="$PROJECT_DIR$/LAIGDemoParser/Leafs/Tube.js" />
         <option value="$PROJECT_DIR$/LAIGDemoParser/Leafs/Cylinder.js" />
         <option value="$PROJECT_DIR$/LAIGDemoParser/scenes/demo.xml" />
+        <option value="$PROJECT_DIR$/LAIGDemoParser/MySceneGraph.js" />
         <option value="$PROJECT_DIR$/LAIGDemoParser/MyGraphNode.js" />
         <option value="$PROJECT_DIR$/LAIGDemoParser/MyGraphLeaf.js" />
-        <option value="$PROJECT_DIR$/LAIGDemoParser/MySceneGraph.js" />
       </list>
     </option>
   </component>
@@ -267,12 +266,12 @@
       <workItem from="1507623920150" duration="2690000" />
       <workItem from="1507633930087" duration="820000" />
       <workItem from="1507641187774" duration="3639000" />
-      <workItem from="1507710185791" duration="3379000" />
+      <workItem from="1507710185791" duration="5628000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68999000" />
+    <option name="totallyTimeSpent" value="71248000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -434,26 +433,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphLeaf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="35" lean-forward="true" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphNode.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="82" column="2" lean-forward="false" selection-start-line="82" selection-start-column="2" selection-end-line="82" selection-end-column="2" />
+        <state relative-caret-position="187">
+          <caret line="80" column="32" lean-forward="false" selection-start-line="80" selection-start-column="32" selection-end-line="80" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MySceneGraph.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="637">
-          <caret line="1426" column="6" lean-forward="false" selection-start-line="1426" selection-start-column="6" selection-end-line="1426" selection-end-column="6" />
+        <state relative-caret-position="-9">
+          <caret line="1388" column="3" lean-forward="true" selection-start-line="1388" selection-start-column="3" selection-end-line="1388" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphLeaf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="620">
+          <caret line="94" column="24" lean-forward="false" selection-start-line="94" selection-start-column="24" selection-end-line="94" selection-end-column="24" />
           <folding />
         </state>
       </provider>
