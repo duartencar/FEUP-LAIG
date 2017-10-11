@@ -3,8 +3,8 @@
  * @constructor
 **/
 
-function MyGraphLeaf(graph, xmlelem) {
-
+function MyGraphLeaf(graph, xmlelem)
+{
     this.graph = graph;
 
     this.xmlelem = xmlelem;
@@ -81,5 +81,26 @@ MyGraphLeaf.prototype.getLeaf = function (scene)
   }
 
   return Leaf;
+}
+
+MyGraphLeaf.prototype.draw = function(scene, toDraw, Matrix, Texture, Material)
+{
+  scene.pushMatrix();
+
+    if(Material == "null")
+      var appearance = scene.graph.materials["defaultMaterial"];
+    else
+      var appearance = scene.graph.materials[Material];
+
+    /*if(Texture != "null")
+      appearance.setTexture(Texture);*/
+
+    appearance.apply();
+
+    scene.multMatrix(Matrix);
+
+    toDraw.display();
+
+  scene.popMatrix();
 }
 

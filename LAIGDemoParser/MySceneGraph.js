@@ -1424,13 +1424,14 @@ MySceneGraph.generateRandomString = function(length) {
  */
 MySceneGraph.prototype.displayScene = function()
 {
-
-  x = this.nodes.root.getChildren();
+  var x = this.nodes.root.getChildren();
 
   var inititalMatrix = mat4.create();
-  
-  //console.log(x);
+
+  var initialText = this.nodes.root.getMaterialID()
+
+  var initialMaterial = this.nodes.root.getTextureID();
 
   for(var i = 0; i < x.length; i++)
-    this.nodes[x[i]].analyse(this.scene, x[i], inititalMatrix);
+    this.nodes[x[i]].analyse(this.scene, inititalMatrix, initialText, initialMaterial);
 }

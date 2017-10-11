@@ -52,6 +52,16 @@ MyGraphNode.prototype.showChildren = function()
   console.log(this.children);
 }
 
+MyGraphNode.prototype.getMaterialID = function ()
+{
+  return this.materialID;
+}
+
+MyGraphNode.prototype.getTextureID = function ()
+{
+  return this.textureID;
+}
+
 MyGraphNode.prototype.getLeaves = function()
 {
   return this.leaves;
@@ -62,7 +72,7 @@ MyGraphNode.prototype.getChildren = function ()
   return this.children;
 }
 
-MyGraphNode.prototype.analyse = function (scene, id, Tmatrix)
+MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat)
 {
   var nodeChildren = this.getChildren();
 
@@ -70,26 +80,24 @@ MyGraphNode.prototype.analyse = function (scene, id, Tmatrix)
 
   var newMatrix = mat4.create();
 
+  var newText = this.getTextureID() || Text;
+
+  var newMat = this.getMaterialID() || Mat;
+
   mat4.multiply(newMatrix, Tmatrix, this.transformMatrix);
 
   for (var i = 0; i < nodeChildren.length; i++)
-    this.graph.nodes[nodeChildren[i]].analyse(scene, nodeChildren[i], newMatrix);
+    this.graph.nodes[nodeChildren[i]].analyse(scene, newMatrix, newText, newMat);
 
   for(var i = 0; i < nodeLeafs.length; i++)
   {
     for (var i = 0; i < nodeLeafs.length; i++)
     {
-      var Leaf = new MyGraphLeaf(nodeLeafs[i].graph, nodeLeafs[i].xmlelem);
+      var Leaf = new MyGraphLeaf(nodeLeafs[i].graph, nodeLeafs[i].xmlelem, scene);
 
       var toDraw = Leaf.getLeaf(scene);
 
-      scene.pushMatrix();
-
-        scene.multMatrix(newMatrix);
-
-        toDraw.display();
-
-      scene.popMatrix();
+      Leaf.draw(scene, toDraw, newMatrix, newText, newMat);
     }
   }
 }
