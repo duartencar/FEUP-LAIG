@@ -93,7 +93,12 @@ MyGraphLeaf.prototype.draw = function(scene, toDraw, Matrix, Texture, Material)
       var appearance = scene.graph.materials[Material];
 
     if(Texture != "clear" && Material != "null")
+    {
       appearance.setTexture(scene.graph.textures[Texture][0]);
+
+      if(scene.graph.textures[Texture][1] > 1 && scene.graph.textures[Texture][2] > 1 && (toDraw instanceof myRectangle || toDraw instanceof myTriangle))
+        toDraw.ampText(scene.graph.textures[Texture][1], scene.graph.textures[Texture][2]);
+    }
 
     appearance.apply();
 

@@ -57,3 +57,19 @@ myRectangle.prototype.initBuffers = function()
 
   this.initGLBuffers();
 };
+
+myRectangle.prototype.ampText = function(ampS, ampT)
+{
+  var newTextCoords = [];
+
+  for(var i = 0; i < this.texCoords.length; i += 2)
+  {
+    newTextCoords.push(this.texCoords[i] / ampS);
+
+    newTextCoords.push(this.texCoords[i + 1] / ampT);
+  }
+
+  this.texCoords = newTextCoords;
+
+  this.updateTexCoordsGLBuffers();
+}
