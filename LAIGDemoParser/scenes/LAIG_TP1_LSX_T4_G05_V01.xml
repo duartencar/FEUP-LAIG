@@ -134,6 +134,7 @@
                 <NODEREF id="bancos" />
                 <NODEREF id="mesa" />
                 <NODEREF id="cadeiras" />
+                <NODEREF id="piramides" />
             </DESCENDANTS>
 
         </NODE>
@@ -563,6 +564,85 @@
             <SCALE sx="1" sy="1.25" sz="1" />
             <DESCENDANTS>
                 <LEAF  type="rectangle" args="0 4 5 0" />
+            </DESCENDANTS>
+        </NODE>
+
+        <!-- Pyramids -->
+        <NODE id="piramides">
+            <MATERIAL id="defaultMaterial" />
+            <TEXTURE id="wood" />
+
+            <DESCENDANTS>
+                <NODEREF id="piramide1" />
+            </DESCENDANTS>
+        </NODE>
+
+        <NODE id="piramide1">
+            <MATERIAL id="defaultMaterial" />
+            <TEXTURE id="tableTex"/>
+
+            <TRANSLATION x="22" y="15" z="15"/>
+            <SCALE sx="0.2" sy="0.2" sz="0.2"/>
+
+            <DESCENDANTS>
+                <NODEREF id="meiaPiramide1"/>
+                <NODEREF id="meiaPiramide2"/>
+                <NODEREF id="basePiramide"/>
+            </DESCENDANTS>
+        </NODE>
+
+        <NODE id="meiaPiramide1">
+            <MATERIAL id="defaultMaterial"/>
+            <TEXTURE id="wood"/>
+
+            <DESCENDANTS>
+                <NODEREF id="meiaPiramide"/>
+            </DESCENDANTS>
+        </NODE>
+
+        <NODE id="meiaPiramide2">
+            <MATERIAL id="defaultMaterial"/>
+            <TEXTURE id="wood"/>
+
+            <DESCENDANTS>
+                <NODEREF id="meiaPiramide"/>
+            </DESCENDANTS>
+        </NODE>
+
+        <NODE id="meiaPiramide">
+            <MATERIAL id="defaultMaterial"/>
+            <TEXTURE id="wood"/>
+
+            <DESCENDANTS>
+                <NODEREF id="facePiramide1"/>
+                <NODEREF id="facePiramide2"/>
+            </DESCENDANTS>
+        </NODE>
+
+        <NODE id="facePiramide1">
+            <MATERIAL id="defaultMaterial"/>
+            <TEXTURE id="wood"/>
+
+            <TRANSLATION x="8" y="4" z="13" />
+            <ROTATION axis="x" angle="44.42" />
+            <ROTATION axis="y" angle="-45" />
+
+            <DESCENDANTS>
+                <LEAF id="triangle1" type="triangle" args="2 0 12 12 0 2 0 0 0"/>
+            </DESCENDANTS>
+        </NODE>
+
+        <NODE id="facePiramide2">
+            <MATERIAL id="defaultMaterial" />
+            <TEXTURE id="wood" />
+
+            <TRANSLATION x="10" y="4" z="15" />
+            <TRANSLATION x="-2" y="0" z="-2" />
+            <ROTATION axis="z" angle="-44.42" />
+            <ROTATION axis="y" angle="45" />
+
+            <DESCENDANTS>
+                <LEAF id="triangle1" type="triangle" args="2 0 12 12 0 2 0 0 0" />
             </DESCENDANTS>
         </NODE>
     </NODES>
