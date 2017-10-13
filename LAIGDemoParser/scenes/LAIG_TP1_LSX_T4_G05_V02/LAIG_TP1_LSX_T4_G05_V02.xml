@@ -58,7 +58,7 @@
         <!-- Tree leaves -->
         <TEXTURE id="wood">
             <file path="images/wood.jpg" />
-            <amplif_factor s="3" t="4" />
+            <amplif_factor s="1.5" t="1.5" />
         </TEXTURE>
 
         <!-- Rocks -->

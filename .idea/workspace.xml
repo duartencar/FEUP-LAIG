@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4b880d5c-4373-4237-823f-237f9b9638f2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LAIGDemoParser/Leafs/Rectangle.js" afterPath="$PROJECT_DIR$/LAIGDemoParser/Leafs/Rectangle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LAIGDemoParser/Leafs/Triangle.js" afterPath="$PROJECT_DIR$/LAIGDemoParser/Leafs/Triangle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LAIGDemoParser/MyGraphLeaf.js" afterPath="$PROJECT_DIR$/LAIGDemoParser/MyGraphLeaf.js" />
-    </list>
+    <list default="true" id="4b880d5c-4373-4237-823f-237f9b9638f2" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -17,27 +12,26 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="LAIG-FEUP" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MyGraphLeaf.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MyGraphLeaf.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphLeaf.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="685">
-              <caret line="98" column="8" lean-forward="true" selection-start-line="98" selection-start-column="8" selection-end-line="98" selection-end-column="8" />
+            <state relative-caret-position="40">
+              <caret line="75" column="10" lean-forward="false" selection-start-line="75" selection-start-column="10" selection-end-line="75" selection-end-column="10" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Rectangle.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Rectangle.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LAIGDemoParser/Leafs/Rectangle.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="767">
-              <caret line="68" column="51" lean-forward="false" selection-start-line="68" selection-start-column="51" selection-end-line="68" selection-end-column="51" />
+            <state relative-caret-position="784">
+              <caret line="70" column="0" lean-forward="true" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -46,18 +40,18 @@
       <file leaf-file-name="Triangle.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LAIGDemoParser/Leafs/Triangle.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="733">
-              <caret line="78" column="4" lean-forward="false" selection-start-line="78" selection-start-column="4" selection-end-line="78" selection-end-column="4" />
+            <state relative-caret-position="1040">
+              <caret line="59" column="15" lean-forward="true" selection-start-line="59" selection-start-column="7" selection-end-line="59" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyGraphNode.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphNode.js">
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LAIGDemoParser/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="80" column="32" lean-forward="false" selection-start-line="80" selection-start-column="32" selection-end-line="80" selection-end-column="32" />
+            <state relative-caret-position="1123">
+              <caret line="35" column="48" lean-forward="false" selection-start-line="35" selection-start-column="48" selection-end-line="35" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -66,8 +60,8 @@
       <file leaf-file-name="MySceneGraph.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MySceneGraph.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="1388" column="3" lean-forward="false" selection-start-line="1388" selection-start-column="3" selection-end-line="1388" selection-end-column="3" />
+            <state relative-caret-position="553">
+              <caret line="1354" column="31" lean-forward="false" selection-start-line="1354" selection-start-column="31" selection-end-line="1354" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -93,6 +87,8 @@
       <find>demo</find>
       <find>cylinder</find>
       <find>id</find>
+      <find>getSt</find>
+      <find>getString</find>
     </findStrings>
     <dirStrings>
       <dir>C:\Users\dnc18\Documents\Programação\GitHub\LAIG-FEUP</dir>
@@ -106,16 +102,17 @@
       <list>
         <option value="$PROJECT_DIR$/main.js" />
         <option value="$PROJECT_DIR$/LAIGDemoParser/Leafs/sphere.js" />
-        <option value="$PROJECT_DIR$/LAIGDemoParser/main.js" />
         <option value="$PROJECT_DIR$/LAIGDemoParser/Leafs/Circle.js" />
         <option value="$PROJECT_DIR$/LAIGDemoParser/Leafs/Tube.js" />
         <option value="$PROJECT_DIR$/LAIGDemoParser/Leafs/Cylinder.js" />
         <option value="$PROJECT_DIR$/LAIGDemoParser/scenes/demo.xml" />
-        <option value="$PROJECT_DIR$/LAIGDemoParser/MySceneGraph.js" />
         <option value="$PROJECT_DIR$/LAIGDemoParser/MyGraphNode.js" />
         <option value="$PROJECT_DIR$/LAIGDemoParser/Leafs/Triangle.js" />
-        <option value="$PROJECT_DIR$/LAIGDemoParser/Leafs/Rectangle.js" />
         <option value="$PROJECT_DIR$/LAIGDemoParser/MyGraphLeaf.js" />
+        <option value="$PROJECT_DIR$/LAIGDemoParser/MySceneGraph.js" />
+        <option value="$PROJECT_DIR$/LAIGDemoParser/scenes/LAIG_TP1_LSX_T4_G05_V02.xml" />
+        <option value="$PROJECT_DIR$/LAIGDemoParser/main.js" />
+        <option value="$PROJECT_DIR$/LAIGDemoParser/Leafs/Rectangle.js" />
       </list>
     </option>
   </component>
@@ -126,10 +123,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1089" />
-    <option name="y" value="-4" />
-    <option name="width" value="1855" />
-    <option name="height" value="1084" />
+    <option name="x" value="-14" />
+    <option name="width" value="1948" />
+    <option name="height" value="2074" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -167,11 +163,13 @@
     </option>
   </component>
   <component name="RunManager" selected="JavaScript Debug.index.html (1)">
-    <configuration default="false" name="index.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/LAIG-FEUP/index.html">
-      <method />
-    </configuration>
-    <configuration default="false" name="index.html (1)" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/LAIG-FEUP/LAIGDemoParser/index.html">
-      <method />
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
     </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <method />
@@ -210,15 +208,6 @@
       <option name="filePath" />
       <method />
     </configuration>
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <gulpfile />
-      <tasks />
-      <arguments />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
       <command value="run" />
       <scripts />
@@ -239,6 +228,8 @@
       <recursive>false</recursive>
       <method />
     </configuration>
+    <configuration name="index.html (1)" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/LAIG-FEUP/LAIGDemoParser/index.html" />
+    <configuration name="index.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/LAIG-FEUP/index.html" />
     <list size="2">
       <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
       <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.index.html (1)" />
@@ -289,11 +280,14 @@
       <workItem from="1507641187774" duration="3639000" />
       <workItem from="1507710185791" duration="6144000" />
       <workItem from="1507734742197" duration="1833000" />
+      <workItem from="1507740194445" duration="186000" />
+      <workItem from="1507887774084" duration="681000" />
+      <workItem from="1507899197564" duration="2220000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73597000" />
+    <option name="totallyTimeSpent" value="76684000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -305,18 +299,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1089" y="-4" width="1855" height="1084" extended-state="6" />
+    <frame x="-14" y="0" width="1948" height="2074" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22413793" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971212" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3998903" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -327,7 +321,7 @@
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="processedProjectFiles" value="true" />
+    <option name="version" value="1" />
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -337,7 +331,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/scenes/demo.xml" />
     <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MySceneGraph.js" />
     <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphNode.js" />
     <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyInterface.js" />
@@ -372,7 +365,7 @@
     <entry file="file://$PROJECT_DIR$/XMLscene.js" />
     <entry file="file://$PROJECT_DIR$/main.js" />
     <entry file="file://$USER_HOME$/CGRA/Sites/Final/proj/LightingScene.js" />
-    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/Leafs/sphere.js" />
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/Leafs/Sphere.js" />
     <entry file="file://$PROJECT_DIR$/LAIGDemoParser/Leafs/Sphere.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
@@ -380,13 +373,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/Leafs/Circle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="658">
-          <caret line="53" column="34" lean-forward="false" selection-start-line="53" selection-start-column="34" selection-end-line="53" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/Leafs/Circle.js" />
     <entry file="file://$PROJECT_DIR$/LAIGDemoParser/scenes/MyScene.xml" />
     <entry file="file://$PROJECT_DIR$/LAIGDemoParser/XMLscene.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -417,21 +404,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/Leafs/Cylinder.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="44" column="2" lean-forward="false" selection-start-line="44" selection-start-column="2" selection-end-line="44" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="35" column="44" lean-forward="false" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/Leafs/Cylinder.js" />
     <entry file="file://$PROJECT_DIR$/LAIGDemoParser/scenes/demo.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="866">
@@ -439,42 +412,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/Leafs/Triangle.js">
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphLeaf.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="733">
-          <caret line="78" column="4" lean-forward="false" selection-start-line="78" selection-start-column="4" selection-end-line="78" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/Leafs/Rectangle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="767">
-          <caret line="68" column="51" lean-forward="false" selection-start-line="68" selection-start-column="51" selection-end-line="68" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphNode.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="80" column="32" lean-forward="false" selection-start-line="80" selection-start-column="32" selection-end-line="80" selection-end-column="32" />
+        <state relative-caret-position="40">
+          <caret line="75" column="10" lean-forward="false" selection-start-line="75" selection-start-column="10" selection-end-line="75" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MySceneGraph.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1388" column="3" lean-forward="false" selection-start-line="1388" selection-start-column="3" selection-end-line="1388" selection-end-column="3" />
+        <state relative-caret-position="553">
+          <caret line="1354" column="31" lean-forward="false" selection-start-line="1354" selection-start-column="31" selection-end-line="1354" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphLeaf.js">
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/scenes/LAIG_TP1_LSX_T4_G05_V02.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="685">
-          <caret line="98" column="8" lean-forward="true" selection-start-line="98" selection-start-column="8" selection-end-line="98" selection-end-column="8" />
+        <state relative-caret-position="2280">
+          <caret line="60" column="41" lean-forward="false" selection-start-line="60" selection-start-column="41" selection-end-line="60" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/MyGraphNode.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3211">
+          <caret line="93" column="3" lean-forward="false" selection-start-line="93" selection-start-column="3" selection-end-line="93" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/Leafs/Triangle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1040">
+          <caret line="59" column="15" lean-forward="true" selection-start-line="59" selection-start-column="7" selection-end-line="59" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1123">
+          <caret line="35" column="48" lean-forward="false" selection-start-line="35" selection-start-column="48" selection-end-line="35" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LAIGDemoParser/Leafs/Rectangle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="784">
+          <caret line="70" column="0" lean-forward="true" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
           <folding />
         </state>
       </provider>

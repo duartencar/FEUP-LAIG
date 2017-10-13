@@ -39,17 +39,17 @@ myRectangle.prototype.initBuffers = function()
       2, 3, 0
   ];
 
-  this.normals = [
-      0, 0, 1,
-      0, 0, 1,
-      0, 0, 1,
-      0, 0, 1
-  ];
+    this.normals = [
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1
+    ];
 
-  this.texCoords = [
+  this.texCoords  = [
       this.minS, this.maxT,
-      this.maxS, this.maxT,
       this.minS, this.minT,
+      this.maxS, this.maxT,
       this.maxS, this.minT
   ];
 
@@ -60,16 +60,16 @@ myRectangle.prototype.initBuffers = function()
 
 myRectangle.prototype.ampText = function(ampS, ampT)
 {
-  var newTextCoords = [];
+    var newTextCoords = [];
 
-  for(var i = 0; i < this.texCoords.length; i += 2)
-  {
-    newTextCoords.push(this.texCoords[i] / ampS);
+    for(var i = 0; i < this.texCoords.length; i += 2)
+    {
+        newTextCoords.push(this.texCoords[i] / ampS);
 
-    newTextCoords.push(this.texCoords[i + 1] / ampT);
-  }
+        newTextCoords.push(this.texCoords[i + 1] / ampT);
+    }
 
-  this.texCoords = newTextCoords;
+    this.texCoords = newTextCoords;
 
-  this.updateTexCoordsGLBuffers();
+    this.updateTexCoordsGLBuffers();
 }

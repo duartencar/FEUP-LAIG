@@ -1340,10 +1340,17 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                 else
 					if (descendants[j].nodeName == "LEAF")
 					{
-						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle']);
+						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch']);
 
 						if (type != null)
-							this.log("   Leaf: "+ type);
+						{
+                            this.log("   Leaf: " + type);
+
+                            /*if(type == 'patch')
+                            {
+
+                            }*/
+                        }
 						else
 							this.warn("Error in leaf");
 
