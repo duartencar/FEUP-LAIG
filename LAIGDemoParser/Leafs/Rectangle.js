@@ -28,23 +28,23 @@ myRectangle.prototype.constructor = myRectangle;
 myRectangle.prototype.initBuffers = function()
 {
   this.vertices = [
-      this.lx, this.ly, 0, //0
-      this.lx, this.ry, 0, //1
-      this.rx, this.ry, 0, //2
-      this.rx, this.ly, 0  //3
+    this.lx, this.ly, 0, //0
+    this.lx, this.ry, 0, //1
+    this.rx, this.ry, 0, //2
+    this.rx, this.ly, 0  //3
   ];
 
   this.indices = [
-      0, 1, 2,
-      2, 3, 0
+    0, 1, 2,
+    2, 3, 0
   ];
 
-    this.normals = [
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1
-    ];
+  this.normals = [
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1
+  ];
 
   this.texCoords  = [
     this.minS, this.maxT,
@@ -60,16 +60,16 @@ myRectangle.prototype.initBuffers = function()
 
 myRectangle.prototype.ampText = function(ampS, ampT)
 {
-    var newTextCoords = [];
+  var newTextCoords = [];
 
-    for(var i = 0; i < this.texCoords.length; i += 2)
-    {
-        newTextCoords.push(this.texCoords[i] / ampS);
+  for(var i = 0; i < this.texCoords.length; i += 2)
+  {
+    newTextCoords.push(this.texCoords[i] / ampS);
 
-        newTextCoords.push(this.texCoords[i + 1] / ampT);
-    }
+    newTextCoords.push(this.texCoords[i + 1] / ampT);
+  }
 
-    this.texCoords = newTextCoords;
+  this.texCoords = newTextCoords;
 
-    this.updateTexCoordsGLBuffers();
-}
+  this.updateTexCoordsGLBuffers();
+};
