@@ -1373,13 +1373,13 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                 {
                   var point = [];
 
-                  point.push(descendants[k].children[l].attributes[0].value);
+                  point.push(descendants[k].children[l].attributes[0].value); //x
 
-                  point.push(descendants[k].children[l].attributes[1].value);
+                  point.push(descendants[k].children[l].attributes[1].value); //y
 
-                  point.push(descendants[k].children[l].attributes[2].value);
+                  point.push(descendants[k].children[l].attributes[2].value); //z
 
-                  point.push(descendants[k].children[l].attributes[3].value);
+                  point.push(descendants[k].children[l].attributes[3].value); //w
 
                   lineVector.push(point);
                 }
@@ -1471,14 +1471,14 @@ MySceneGraph.generateRandomString = function(length) {
 */
 MySceneGraph.prototype.displayScene = function()
 {
-  var x = this.nodes.root.getChildren();
+  var x = this.nodes.root.getChildren(); //gets root children
 
-  var inititalMatrix = mat4.create();
+  var inititalMatrix = mat4.create(); //create an initial matrix
 
-  var initialText = this.nodes.root.getTextureID();
+  var initialText = this.nodes.root.getTextureID(); //get a initital texture
 
-  var initialMaterial = this.nodes.root.getMaterialID();
+  var initialMaterial = this.nodes.root.getMaterialID(); //get a initital material
 
   for(var i = 0; i < x.length; i++)
-  this.nodes[x[i]].analyse(this.scene, inititalMatrix, initialText, initialMaterial);
+    this.nodes[x[i]].analyse(this.scene, inititalMatrix, initialText, initialMaterial);
 }

@@ -13,12 +13,7 @@ function MyGraphLeaf(graph, xmlelem)
 
     this.LeafArgs = xmlelem.getAttribute("args").split(" ");
 
-    //console.log("XML info: ");
-    //console.log(this.xmlelem);
-
     this.patchLines = [];
-
-    //MyGraphLeaf.prototype.printxmlelem();
 }
 
 MyGraphLeaf.prototype.printLeafType = function ()
