@@ -109,11 +109,9 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat)
   {
     for (var i = 0; i < nodeLeafs.length; i++)
     {
-      var Leaf = new MyGraphLeaf(nodeLeafs[i].graph, nodeLeafs[i].xmlelem, scene);
+      var toDraw = nodeLeafs[i].getLeaf(scene);
 
-      var toDraw = Leaf.getLeaf(scene);
-
-      Leaf.draw(scene, toDraw, newMatrix, newText, newMat);
+      nodeLeafs[i].draw(scene, toDraw, newMatrix, newText, newMat);
     }
   }
 }

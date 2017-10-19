@@ -1320,44 +1320,79 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
             var descendants = nodeSpecs[descendantsIndex].children;
 
             var sizeChildren = 0;
-            for (var j = 0; j < descendants.length; j++) {
-                if (descendants[j].nodeName == "NODEREF")
-				{
+            for (var j = 0; j < descendants.length; j++)
+            {
+              if (descendants[j].nodeName == "NODEREF")
+              {
 
-					var curId = this.reader.getString(descendants[j], 'id');
+                var curId = this.reader.getString(descendants[j], 'id');
 
-					this.log("   Descendant: "+curId);
+					      this.log("   Descendant: "+curId);
 
-                    if (curId == null )
-                        this.onXMLMinorError("unable to parse descendant id");
-                    else if (curId == nodeID)
-                        return "a node may not be a child of its own";
-                    else {
-                        this.nodes[nodeID].addChild(curId);
-                        sizeChildren++;
-                    }
-                }
+                if (curId == null )
+                  this.onXMLMinorError("unable to parse descendant id");
+                else if (curId == nodeID)
+                  return "a node may not be a child of its own";
                 else
-					if (descendants[j].nodeName == "LEAF")
-					{
-						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch']);
+                {
+                  this.nodes[nodeID].addChild(curId);
 
-						if (type != null)
-						{
-                            this.log("   Leaf: " + type);
+                  sizeChildren++;
+                }
+              }
+              else if (descendants[j].nodeName == "LEAF")
+              {
+						    var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch']);
 
-                            /*if(type == 'patch')
-                            {
+						    if (type == null)
+                  this.warn("Error in leaf");
+						    else
+                {
+              var newLeaf = new MyGraphLeaf(this, descendants[j]);
 
-                            }*/
-                        }
-						else
-							this.warn("Error in leaf");
+              if (type != 'patch')
+                this.log("   Leaf: " + type);
+
+              else if (type == 'patch')
+              {
+                var lineVector = new Array();
+
+                for(var k = j + 1; j < descendants.length; k++)
+                {
+                    if(k == descendants.length - 1)
+                        break;
+
+                    for(var l = 0; l < descendants[k].children.length; l++)
+                    {
+                      var point = [];
+
+                      point.push(descendants[k].children[l].attributes[0].value);
+
+                      point.push(descendants[k].children[l].attributes[1].value);
+
+                      point.push(descendants[k].children[l].attributes[2].value);
+
+                      point.push(descendants[k].children[l].attributes[3].value);
+
+                      lineVector.push(point);
+                    }
+
+                  newLeaf.addPatchLine(lineVector);
+
+                  lineVector = [];
+                }
+
+              }
+            }
 
 						//parse leaf
-						this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, descendants[j]));
-						console.log(descendants[j]);
-                        sizeChildren++;
+                console.log("Leaf lines");
+						    console.log(newLeaf.patchLines);
+						this.nodes[nodeID].addLeaf(newLeaf);
+
+						console.log("Descendentes: " + descendants[j]);
+
+						sizeChildren++;
 					}
 					else
 						this.onXMLMinorError("unknown tag <" + descendants[j].nodeName + ">");
