@@ -1366,7 +1366,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
               for(var k = j + 1; j < descendants.length; k++)
               {
-                if(k == descendants.length - 1)
+                if(k == descendants.length)
                   break;
 
                 for(var l = 0; l < descendants[k].children.length; l++)
