@@ -2,45 +2,20 @@
  * Created by juntas on 15-10-2017.
  */
 
-function myPatch(scene, Udivs, Vdivs) //Udivs e Vdivs estao indicados na Leaf
+function myPatch(scene, Udivs, Vdivs, CpLines) //Udivs e Vdivs estao indicados na Leaf
 {
-  CGFobject.call(this, scene);
+  this.scene = scene;
 
   this.Udivs = Udivs;
 
   this.Vdivs = Vdivs;
 
-  this.CpLines;
-}
+  this.CpLines = CpLines;
 
-myPatch.prototype = Object.create(CGFobject.prototype);
-
-myPatch.prototype.constructor = myPatch;
-
-myPatch.prototype.setCpLines = function (x)
-{
-  this.CpLines = x;
-}
-
-myPatch.prototype.getKnotsVector = function (degree)
-{
-  var v = new Array();
-
-  for(var i = 0;  i <= degree; i++)
-    v.push(0);
-
-  for(var i = 0; i <= degree; i++)
-    v.push(1);
-
-  return v;
-}
-
-myPatch.prototype.makeSurface = function(scene)
-{
   getDegree = function(x)
   {
     return x.length - 1;
-  }
+  };
 
   this.Udegree = getDegree(this.CpLines);//the size of the vector is the degree in U + 1
 
@@ -55,11 +30,25 @@ myPatch.prototype.makeSurface = function(scene)
   getSurfacePoint = function(u, v)
   {
     return nurbsSurface.getPoint(u, v);
-  }
+  };
 
-  var obj = CGFnurbsObject(scene, getSurfacePoint, this.Udivs, this.Vdivs);
+  CGFnurbsObject.call(this, this.scene, getSurfacePoint, parseInt(this.Udivs), parseInt(this.Vdivs));
 
-  //obj.initBuffers();
+};
 
-  return obj;
-}
+myPatch.prototype = Object.create(CGFnurbsObject.prototype);
+
+myPatch.prototype.constructor = myPatch;
+
+myPatch.prototype.getKnotsVector = function (degree)
+{
+  var v = new Array();
+
+  for(var i = 0;  i <= degree; i++)
+    v.push(0);
+
+  for(var i = 0; i <= degree; i++)
+    v.push(1);
+
+  return v;
+};

@@ -110,8 +110,7 @@ MyGraphLeaf.prototype.getLeaf = function (scene)
       }
       else
       {
-        var Leaf = new myPatch(scene, this.LeafArgs[0], this.LeafArgs[1]);
-        Leaf.setCpLines(this.patchLines);
+        var Leaf = new myPatch(scene, this.LeafArgs[0], this.LeafArgs[1], this.patchLines);
         break;
       }
     default:
@@ -131,9 +130,6 @@ MyGraphLeaf.prototype.getLeaf = function (scene)
 MyGraphLeaf.prototype.draw = function(scene, toDraw, Matrix, Texture, Material)
 {
   scene.pushMatrix();
-
-    if(toDraw instanceof myPatch)
-      toDraw = toDraw.makeSurface(scene);
 
     //If there is no meterial the default one will be applied
     if(Material == "null")
