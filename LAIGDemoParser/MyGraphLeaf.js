@@ -144,7 +144,7 @@ MyGraphLeaf.prototype.draw = function(scene, toDraw, Matrix, Texture, Material)
       appearance.setTexture(scene.graph.textures[Texture][0]);
 
       //if the object is a rectangle or a triangle it will check for the amplif_factor attribute
-      if(toDraw instanceof myRectangle || toDraw instanceof myTriangle)
+      if(toDraw instanceof myRectangle || toDraw instanceof myTriangle || toDraw instanceof myPatch)
         toDraw.ampText(scene.graph.textures[Texture][1], scene.graph.textures[Texture][2]);
     }
 
