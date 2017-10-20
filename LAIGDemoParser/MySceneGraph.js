@@ -1364,22 +1364,22 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
             {
               var lineVector = new Array();
 
-              for(var k = j + 1; j < descendants.length; k++)
+              for(j= j + 1; j < descendants.length; j++)
               {
-                if(k == descendants.length)
+                if(j == descendants.length)
                   break;
 
-                for(var l = 0; l < descendants[k].children.length; l++)
+                for(var l = 0; l < descendants[j].children.length; l++)
                 {
                   var point = [];
 
-                  point.push(descendants[k].children[l].attributes[0].value); //x
+                  point.push(descendants[j].children[l].attributes[0].value); //x
 
-                  point.push(descendants[k].children[l].attributes[1].value); //y
+                  point.push(descendants[j].children[l].attributes[1].value); //y
 
-                  point.push(descendants[k].children[l].attributes[2].value); //z
+                  point.push(descendants[j].children[l].attributes[2].value); //z
 
-                  point.push(descendants[k].children[l].attributes[3].value); //w
+                  point.push(descendants[j].children[l].attributes[3].value); //w
 
                   lineVector.push(point);
                 }
