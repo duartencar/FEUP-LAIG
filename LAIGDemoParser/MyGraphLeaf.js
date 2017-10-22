@@ -173,6 +173,8 @@ MyGraphLeaf.prototype.draw = function(scene, toDraw, Matrix, Texture, Material)
     //displays object
     toDraw.display();
 
+    appearance.setTexture(null);
+
   scene.popMatrix();
 };
 
