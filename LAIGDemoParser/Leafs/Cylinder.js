@@ -28,7 +28,8 @@ myCylinder.prototype = Object.create(CGFobject.prototype);
 
 myCylinder.prototype.constructor = myCylinder;
 
-myCylinder.prototype.display = function() {
+myCylinder.prototype.display = function()
+{
   this.tube.display();
 
   if(this.up != null)
@@ -54,15 +55,4 @@ myCylinder.prototype.display = function() {
 
     this.scene.popMatrix();
   }
-};
-
-myCylinder.prototype.ampText = function(ampS, ampT)
-{
-  this.tube.ampText(ampS, ampT);
-
-  if(this.up != null)
-    this.up.ampText(ampS, ampT);
-
-  if(this.down != null)
-    this.down.ampText(ampS, ampT);
 };

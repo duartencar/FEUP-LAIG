@@ -1358,7 +1358,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
             var newLeaf = new MyGraphLeaf(this, descendants[j]);
 
             if (type != 'patch')
-            this.log("   Leaf: " + type);
+              this.log("   Leaf: " + type);
 
             else if (type == 'patch')
             {
