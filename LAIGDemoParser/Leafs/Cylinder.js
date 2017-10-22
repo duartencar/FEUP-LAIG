@@ -5,15 +5,15 @@ function myCylinder(scene, height, base, top, slices, stacks, Tup, Tdown)
 {
   CGFobject.call(this, scene);
 
-  this.base = base || 10;
+  this.base = base;
 
-  this.top = top || 10;
+  this.top = top;
 
-  this.height = height || 10;
+  this.height = height;
 
-  this.slices = slices || 10;
+  this.slices = slices;
 
-  this.stacks = stacks || 10;
+  this.stacks = stacks;
 
   this.tube = new myTube(scene, this.base, this.top, this.height, this.slices, this.stacks);
 
@@ -54,4 +54,15 @@ myCylinder.prototype.display = function() {
 
     this.scene.popMatrix();
   }
-}
+};
+
+myCylinder.prototype.ampText = function(ampS, ampT)
+{
+  this.tube.ampText(ampS, ampT);
+
+  if(this.up != null)
+    this.up.ampText(ampS, ampT);
+
+  if(this.down != null)
+    this.down.ampText(ampS, ampT);
+};

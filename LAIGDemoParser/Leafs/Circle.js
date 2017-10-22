@@ -56,7 +56,10 @@ myCircle.prototype.initBuffers = function(){
 	this.primitiveType = this.scene.gl.TRIANGLES;
 
 	this.initGLBuffers();
-}
+};
+
+/*Just to guarantee  inheritance*/
+myCircle.prototype.ampText = function(ampS, ampT){};
 
 
 
