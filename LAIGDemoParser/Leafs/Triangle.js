@@ -41,26 +41,27 @@ myTriangle.prototype.initBuffers = function()
     0, 0, 1
   ];
 
-  var x = Math.sqrt((this.p3[0] - this.p2[0]) * (this.p3[0] - this.p2[0]) +
-    (this.p3[1] - this.p2[1]) * (this.p3[1] - this.p2[1]) +
-    (this.p3[2] - this.p2[2]) * (this.p3[2] - this.p2[2]));
-
-  var y = Math.sqrt((this.p1[0] - this.p3[0]) * (this.p1[0] - this.p3[0]) +
+  var a = Math.sqrt((this.p1[0] - this.p3[0]) * (this.p1[0] - this.p3[0]) +
     (this.p1[1] - this.p3[1]) * (this.p1[1] - this.p3[1]) +
     (this.p1[2] - this.p3[2]) * (this.p1[2] - this.p3[2]));
 
-  var z = Math.sqrt((this.p2[0] - this.p1[0]) * (this.p2[0] - this.p1[0]) +
-    (this.p2[1] - this.p1[1]) * (this.p2[1] - this.p1[1]) +
-    (this.p2[2] - this.p1[2]) * (this.p2[2] - this.p1[2]));
+  var b = Math.sqrt((this.p2[0] - this.p1[0]) * (this.p2[0] - this.p1[0]) +
+      (this.p2[1] - this.p1[1]) * (this.p2[1] - this.p1[1]) +
+      (this.p2[2] - this.p1[2]) * (this.p2[2] - this.p1[2]));
 
-  var cos = (Math.pow(x, 2) - Math.pow(y, 2) + Math.pow(z, 2)) / (2 * x * z);
+  var c = Math.sqrt((this.p3[0] - this.p2[0]) * (this.p3[0] - this.p2[0]) +
+      (this.p3[1] - this.p2[1]) * (this.p3[1] - this.p2[1]) +
+      (this.p3[2] - this.p2[2]) * (this.p3[2] - this.p2[2]));
 
-  var acos = Math.acos(cos);
+
+  var cos = (Math.pow(a, 2) - Math.pow(b, 2) + Math.pow(c, 2)) / (2 * a * c);
+
+  var B = Math.acos(cos);
 
   this.initaltext = [
-    0, 0,
-    z, 0,
-    z - x * cos, x * Math.sin(acos)
+      c - a * cos, a * Math.sin(B),
+      0, this.maxS,
+      c, this.maxS
   ];
 
   this.texCoords = this.initaltext.slice();
