@@ -31,8 +31,6 @@ myTriangle.prototype.initBuffers = function()
 
   this.vertices = this.vertices.concat(this.p3);
 
-  console.log(this.vertices);
-
   this.indices = [
     0, 1, 2
   ];
