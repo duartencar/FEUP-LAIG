@@ -10,6 +10,6 @@ On this first project we were suposed to:
 
 # result
 
-![FIRST](https://github.com/duartencar/LAIG-FEUP/blob/master/Project%201/LAIGDemoParser/scenes/LAIG_TP1_LSX_T4_G05_V03/images/scene_V03_longe.png)
+<img src="https://github.com/duartencar/LAIG-FEUP/blob/master/Project%201/LAIGDemoParser/scenes/LAIG_TP1_LSX_T4_G05_V03/images/scene_V03_longe.png" width="500">
 
-![SECOND](https://github.com/duartencar/LAIG-FEUP/blob/master/Project%201/LAIGDemoParser/scenes/LAIG_TP1_LSX_T4_G05_V03/images/scene_V03_menosLonge.png)
+<img src="https://github.com/duartencar/LAIG-FEUP/blob/master/Project%201/LAIGDemoParser/scenes/LAIG_TP1_LSX_T4_G05_V03/images/scene_V03_menosLonge.png width="500">
