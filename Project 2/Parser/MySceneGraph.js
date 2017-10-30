@@ -9,6 +9,9 @@ var MATERIALS_INDEX = 4;
 var LEAVES_INDEX = 5;
 var NODES_INDEX = 6;
 
+var d = new Date();
+var t = d.getTime();
+
 /**
 * MySceneGraph class, representing the scene graph.
 * @constructor
@@ -415,8 +418,9 @@ MySceneGraph.prototype.parseIllumination = function(illuminationNode) {
   // Reads the ambient and background values.
   var children = illuminationNode.children;
   var nodeNames = [];
+
   for (var i = 0; i < children.length; i++)
-  nodeNames.push(children[i].nodeName);
+    nodeNames.push(children[i].nodeName);
 
   // Retrieves the global ambient illumination.
   this.ambientIllumination = [0, 0, 0, 1];
@@ -1469,6 +1473,10 @@ MySceneGraph.generateRandomString = function(length) {
 */
 MySceneGraph.prototype.displayScene = function()
 {
+  var c = new Date();
+
+  console.log("ELAPSED TIME: " + (c.getTime() - t) / 1000 + " s");
+
   var x = this.nodes.root.getChildren(); //gets root children
 
   var inititalMatrix = mat4.create(); //create an initial matrix

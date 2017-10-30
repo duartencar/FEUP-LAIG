@@ -62,21 +62,19 @@ serialInclude.l = new Array();
 function getUrlVars()
 {
   var vars = {};
-
   var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
-
-  function(m, key, value) {
+  function(m,key,value) {
     vars[decodeURIComponent(key)] = decodeURIComponent(value);
   });
-
   return vars;
 }
 
 serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
-'MyGraphNode.js', 'MyGraphLeaf.js', 'MyInterface.js',
-'./Leafs/Triangle.js', './Leafs/Rectangle.js', './Leafs/Tube.js',
-'./Leafs/Sphere.js', './Leafs/Cylinder.js', './Leafs/Circle.js',
-'./Leafs/Patch.js',
+        'MyGraphNode.js', 'MyGraphLeaf.js', 'MyInterface.js',
+        '../Leafs/Triangle.js', '../Leafs/Rectangle.js', '../Leafs/Tube.js',
+        '../Leafs/Sphere.js', '../Leafs/Cylinder.js', '../Leafs/Circle.js',
+        '../Leafs/Patch.js', '../Animations/Animation.js',
+        '../Animations/LinearAnimation.js', '../Animations/CircularAnimation.js',
 
 main=function()
 {
@@ -95,7 +93,7 @@ main=function()
   // get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml
   // or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
 
-  var filename=getUrlVars()['file'] || "LAIG_TP1_LSX_T4_G05_V03.xml";
+  var filename=getUrlVars()['file'] || "demo.xml";
 
   // create and load graph, and associate it to scene.
   // Check console for loading errors
