@@ -2,7 +2,6 @@
  * Animation class, representing an animation assign to an object.
  * This class is an abstract class, and contains an animation basic information.
 **/
-
 class Animation
 {
   constructor(scene, id, duration)

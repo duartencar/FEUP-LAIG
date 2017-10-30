@@ -16,7 +16,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
         './Leafs/Triangle.js', './Leafs/Rectangle.js', './Leafs/Tube.js',
         './Leafs/Sphere.js', './Leafs/Cylinder.js', './Leafs/Circle.js',
         './Leafs/Patch.js', './Animations/Animation.js',
-        './Animations/LinearAnimation.js',
+        './Animations/LinearAnimation.js', './Animations/CircularAnimation.js',
 
 main=function()
 {

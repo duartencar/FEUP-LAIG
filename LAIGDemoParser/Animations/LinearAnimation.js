@@ -1,4 +1,8 @@
-
+/**
+ * LinearAnimation class that is an extension of Animation class.
+ * This class makes an object travel linearly through a scene,
+ *between assign control point with a certain spee.
+**/
 class LinearAnimation extends Animation
 {
   constructor(scene, id, duration, controlPoints, animationSpeed)
@@ -10,7 +14,7 @@ class LinearAnimation extends Animation
     this.cPoints = controlPoints;
 
     //the animation speed
-    this.aSpeed = animationSpeed
+    this.aSpeed = animationSpeed;
   }
 
   //returns animation ID
