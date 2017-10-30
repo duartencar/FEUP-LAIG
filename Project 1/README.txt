@@ -1,8 +1,15 @@
-LAIG Demo Parser
+# Project 1
 
-Base code and demo scene provided by:
-- Rui Pedro Peixoto Cardoso - up201305469@fe.up.pt
-- Diogo da Silva Amaral - up201306082@fe.up.pt
+On this first project we were suposed to:
 
-Adapted by:
-- Rui Rodrigues - rui.rodrigues@fe.up.pt
+- read an XML file with a scene
+
+- create nodes and leafs from the read file
+
+- draw the the scene that is contained
+
+# result
+
+![FIRST](https://github.com/duartencar/LAIG-FEUP/blob/master/Project%201/LAIGDemoParser/scenes/LAIG_TP1_LSX_T4_G05_V03/images/scene_V03_longe.png)
+
+![SECOND](https://github.com/duartencar/LAIG-FEUP/blob/master/Project%201/LAIGDemoParser/scenes/LAIG_TP1_LSX_T4_G05_V03/images/scene_V03_menosLonge.png)
