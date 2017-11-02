@@ -21,6 +21,9 @@ function MyGraphNode(graph, nodeID)
   // The texture ID.
   this.textureID = null;
 
+  // The animation ID.
+  this.animationID = null;
+
   // The node Matrix creation
   this.transformMatrix = mat4.create();
 
@@ -58,6 +61,30 @@ MyGraphNode.prototype.showLeaves = function()
 MyGraphNode.prototype.showChildren = function()
 {
   console.log(this.children);
+};
+
+/**
+ * Sets the value of animationID
+ */
+MyGraphNode.prototype.setAnimationID = function(animationID)
+{
+  this.animationID = animationID;
+};
+
+/**
+ * Sets the value of materialID
+ */
+MyGraphNode.prototype.setMaterialID = function(materialID)
+{
+  this.materialID = materialID;
+};
+
+/**
+ * Sets the value of textureID
+ */
+MyGraphNode.prototype.setTextureID = function(textureID)
+{
+  this.textureID = textureID;
 };
 
 /**

@@ -7,7 +7,8 @@ var LIGHTS_INDEX = 2;
 var TEXTURES_INDEX = 3;
 var MATERIALS_INDEX = 4;
 var LEAVES_INDEX = 5;
-var NODES_INDEX = 6;
+var ANIMATIONS_INDEX = 6;
+var NODES_INDEX = 7;
 
 var d = new Date();
 var t = d.getTime();
@@ -69,16 +70,18 @@ MySceneGraph.prototype.onXMLReady = function()
 /**
 * Parses the LSX file, processing each block.
 */
-MySceneGraph.prototype.parseLSXFile = function(rootElement) {
+MySceneGraph.prototype.parseLSXFile = function(rootElement)
+{
   if (rootElement.nodeName != "SCENE")
-  return "root tag <SCENE> missing";
+    return "root tag <SCENE> missing";
 
   var nodes = rootElement.children;
 
   // Reads the names of the nodes to an auxiliary buffer.
   var nodeNames = [];
 
-  for (var i = 0; i < nodes.length; i++) {
+  for (var i = 0; i < nodes.length; i++)
+  {
     nodeNames.push(nodes[i].nodeName);
   }
 
@@ -89,18 +92,19 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement) {
   // <INITIALS>
   var index;
   if ((index = nodeNames.indexOf("INITIALS")) == -1)
-  return "tag <INITIALS> missing";
-  else {
+    return "tag <INITIALS> missing";
+  else
+  {
     if (index != INITIALS_INDEX)
-    this.onXMLMinorError("tag <INITIALS> out of order");
+      this.onXMLMinorError("tag <INITIALS> out of order");
 
     if ((error = this.parseInitials(nodes[index])) != null )
-    return error;
+      return error;
   }
 
   // <ILLUMINATION>
   if ((index = nodeNames.indexOf("ILLUMINATION")) == -1)
-  return "tag <ILLUMINATION> missing";
+    return "tag <ILLUMINATION> missing";
   else {
     if (index != ILLUMINATION_INDEX)
     this.onXMLMinorError("tag <ILLUMINATION> out of order");
@@ -111,7 +115,7 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement) {
 
   // <LIGHTS>
   if ((index = nodeNames.indexOf("LIGHTS")) == -1)
-  return "tag <LIGHTS> missing";
+    return "tag <LIGHTS> missing";
   else {
     if (index != LIGHTS_INDEX)
     this.onXMLMinorError("tag <LIGHTS> out of order");
@@ -142,17 +146,29 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement) {
     return error;
   }
 
-  // <NODES>
-  if ((index = nodeNames.indexOf("NODES")) == -1)
-  return "tag <NODES> missing";
-  else {
-    if (index != NODES_INDEX)
-    this.onXMLMinorError("tag <NODES> out of order");
+  // <ANIMATIONS>
+  if((index = nodeNames.indexOf("ANIMATIONS")) == -1)
+    return "tag <ANIMATIONS> missing";
+  else
+  {
+    if(index != ANIMATIONS_INDEX)
+      this.onXMLMinorError("tag <ANIMATIONS> out of order");
 
     if ((error = this.parseNodes(nodes[index])) != null )
-    return error;
+      return error;
   }
 
+  // <NODES>
+  if ((index = nodeNames.indexOf("NODES")) == -1)
+    return "tag <NODES> missing";
+  else
+  {
+    if (index != NODES_INDEX)
+      this.onXMLMinorError("tag <NODES> out of order");
+
+    if ((error = this.parseNodes(nodes[index])) != null )
+      return error;
+  }
 }
 
 /**
@@ -1162,6 +1178,14 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
   console.log("Parsed materials");
 }
 
+/**
+* Parses the <ANIMATIONS> block.
+*/
+MySceneGraph.prototype.parseAnimations = function(animationsNode)
+{
+  //estava aqui
+}
+
 
 /**
 * Parses the <NODES> block.
@@ -1184,14 +1208,17 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
         this.idRoot = root;
       }
     }
-    else if (nodeName == "NODE") {
+    else if (nodeName == "NODE")
+    {
       // Retrieves node ID.
       var nodeID = this.reader.getString(children[i], 'id');
+
       if (nodeID == null )
-      return "failed to retrieve node ID";
+        return "failed to retrieve node ID";
+
       // Checks if ID is valid.
       if (this.nodes[nodeID] != null )
-      return "node ID must be unique (conflict: ID = " + nodeID + ")";
+        return "node ID must be unique (conflict: ID = " + nodeID + ")";
 
       this.log("Processing node "+nodeID);
 
@@ -1200,124 +1227,168 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
       // Gathers child nodes.
       var nodeSpecs = children[i].children;
+
       var specsNames = [];
-      var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "DESCENDANTS"];
-      for (var j = 0; j < nodeSpecs.length; j++) {
+
+      var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "DESCENDANTS", "ANIMATION"];
+
+      for (var j = 0; j < nodeSpecs.length; j++)
+      {
         var name = nodeSpecs[j].nodeName;
+
         specsNames.push(nodeSpecs[j].nodeName);
 
         // Warns against possible invalid tag names.
         if (possibleValues.indexOf(name) == -1)
-        this.onXMLMinorError("unknown tag <" + name + ">");
+          this.onXMLMinorError("unknown tag <" + name + ">");
+      }
+
+      // Retrieves animation ID
+      if(specsNames.indexOf("ANIMATION") != -1)
+      {
+        var animationIndex = specsNames.indexOf("ANIMATION");
+
+        var animationID = this.reader.getString(nodeSpecs[animationIndex], 'id');
+
+        if (animationID == null )
+          return "unable to parse animationID ID (node ID = " + nodeID + ")";
+
+        if (animationID != "null" && this.animations[animationID] == null )
+          return "ID does not correspond to a valid animation (node ID = " + nodeID + ")";
+
+        this.nodes[nodeID].setAnimationID(animationID);
       }
 
       // Retrieves material ID.
       var materialIndex = specsNames.indexOf("MATERIAL");
-      if (materialIndex == -1)
-      return "material must be defined (node ID = " + nodeID + ")";
-      var materialID = this.reader.getString(nodeSpecs[materialIndex], 'id');
-      if (materialID == null )
-      return "unable to parse material ID (node ID = " + nodeID + ")";
-      if (materialID != "null" && this.materials[materialID] == null )
-      return "ID does not correspond to a valid material (node ID = " + nodeID + ")";
 
-      this.nodes[nodeID].materialID = materialID;
+      if (materialIndex == -1)
+        return "material must be defined (node ID = " + nodeID + ")";
+
+      var materialID = this.reader.getString(nodeSpecs[materialIndex], 'id');
+
+      if (materialID == null )
+        return "unable to parse material ID (node ID = " + nodeID + ")";
+
+      if (materialID != "null" && this.materials[materialID] == null )
+        return "ID does not correspond to a valid material (node ID = " + nodeID + ")";
+
+      this.nodes[nodeID].setMaterialID(materialID);
 
       // Retrieves texture ID.
       var textureIndex = specsNames.indexOf("TEXTURE");
-      if (textureIndex == -1)
-      return "texture must be defined (node ID = " + nodeID + ")";
-      var textureID = this.reader.getString(nodeSpecs[textureIndex], 'id');
-      if (textureID == null )
-      return "unable to parse texture ID (node ID = " + nodeID + ")";
-      if (textureID != "null" && textureID != "clear" && this.textures[textureID] == null )
-      return "ID does not correspond to a valid texture (node ID = " + nodeID + ")";
 
-      this.nodes[nodeID].textureID = textureID;
+      if (textureIndex == -1)
+        return "texture must be defined (node ID = " + nodeID + ")";
+
+      var textureID = this.reader.getString(nodeSpecs[textureIndex], 'id');
+
+      if (textureID == null )
+        return "unable to parse texture ID (node ID = " + nodeID + ")";
+
+      if (textureID != "null" && textureID != "clear" && this.textures[textureID] == null )
+        return "ID does not correspond to a valid texture (node ID = " + nodeID + ")";
+
+      this.nodes[nodeID].setTextureID(textureID);
 
       // Retrieves possible transformations.
       for (var j = 0; j < nodeSpecs.length; j++) {
-        switch (nodeSpecs[j].nodeName) {
+        switch (nodeSpecs[j].nodeName)
+        {
           case "TRANSLATION":
-          // Retrieves translation parameters.
-          var x = this.reader.getFloat(nodeSpecs[j], 'x');
-          if (x == null ) {
-            this.onXMLMinorError("unable to parse x-coordinate of translation; discarding transform");
-            break;
-          }
-          else if (isNaN(x))
-          return "non-numeric value for x-coordinate of translation (node ID = " + nodeID + ")";
+            // Retrieves translation parameters.
+            var x = this.reader.getFloat(nodeSpecs[j], 'x');
 
-          var y = this.reader.getFloat(nodeSpecs[j], 'y');
-          if (y == null ) {
-            this.onXMLMinorError("unable to parse y-coordinate of translation; discarding transform");
-            break;
-          }
-          else if (isNaN(y))
-          return "non-numeric value for y-coordinate of translation (node ID = " + nodeID + ")";
+            if (x == null )
+            {
+              this.onXMLMinorError("unable to parse x-coordinate of translation; discarding transform");
+              break;
+            }
+            else if (isNaN(x))
+              return "non-numeric value for x-coordinate of translation (node ID = " + nodeID + ")";
 
-          var z = this.reader.getFloat(nodeSpecs[j], 'z');
-          if (z == null ) {
-            this.onXMLMinorError("unable to parse z-coordinate of translation; discarding transform");
-            break;
-          }
-          else if (isNaN(z))
-          return "non-numeric value for z-coordinate of translation (node ID = " + nodeID + ")";
+            var y = this.reader.getFloat(nodeSpecs[j], 'y');
 
-          mat4.translate(this.nodes[nodeID].transformMatrix, this.nodes[nodeID].transformMatrix, [x, y, z]);
-          break;
+            if (y == null )
+            {
+              this.onXMLMinorError("unable to parse y-coordinate of translation; discarding transform");
+              break;
+            }
+            else if (isNaN(y))
+              return "non-numeric value for y-coordinate of translation (node ID = " + nodeID + ")";
+
+            var z = this.reader.getFloat(nodeSpecs[j], 'z');
+
+            if (z == null )
+            {
+              this.onXMLMinorError("unable to parse z-coordinate of translation; discarding transform");
+              break;
+            }
+
+            else if (isNaN(z))
+              return "non-numeric value for z-coordinate of translation (node ID = " + nodeID + ")";
+
+            mat4.translate(this.nodes[nodeID].transformMatrix, this.nodes[nodeID].transformMatrix, [x, y, z]);
+            break;
           case "ROTATION":
-          // Retrieves rotation parameters.
-          var axis = this.reader.getItem(nodeSpecs[j], 'axis', ['x', 'y', 'z']);
-          if (axis == null ) {
-            this.onXMLMinorError("unable to parse rotation axis; discarding transform");
-            break;
-          }
-          var angle = this.reader.getFloat(nodeSpecs[j], 'angle');
-          if (angle == null ) {
-            this.onXMLMinorError("unable to parse rotation angle; discarding transform");
-            break;
-          }
-          else if (isNaN(angle))
-            return "non-numeric value for rotation angle (node ID = " + nodeID + ")";
+            // Retrieves rotation parameters.
+            var axis = this.reader.getItem(nodeSpecs[j], 'axis', ['x', 'y', 'z']);
 
-          mat4.rotate(this.nodes[nodeID].transformMatrix, this.nodes[nodeID].transformMatrix, angle * DEGREE_TO_RAD, this.axisCoords[axis]);
-          break;
+            if (axis == null )
+            {
+              this.onXMLMinorError("unable to parse rotation axis; discarding transform");
+              break;
+            }
+
+            var angle = this.reader.getFloat(nodeSpecs[j], 'angle');
+
+            if (angle == null )
+            {
+              this.onXMLMinorError("unable to parse rotation angle; discarding transform");
+              break;
+            }
+
+            else if (isNaN(angle))
+              return "non-numeric value for rotation angle (node ID = " + nodeID + ")";
+
+            mat4.rotate(this.nodes[nodeID].transformMatrix, this.nodes[nodeID].transformMatrix, angle * DEGREE_TO_RAD, this.axisCoords[axis]);
+            break;
             case "SCALE":
-            // Retrieves scale parameters.
-            var sx = this.reader.getFloat(nodeSpecs[j], 'sx');
+              // Retrieves scale parameters.
+              var sx = this.reader.getFloat(nodeSpecs[j], 'sx');
 
-            if (sx == null )
-            {
-              this.onXMLMinorError("unable to parse x component of scaling; discarding transform");
+              if (sx == null )
+              {
+                this.onXMLMinorError("unable to parse x component of scaling; discarding transform");
+                break;
+              }
+
+              else if (isNaN(sx))
+                return "non-numeric value for x component of scaling (node ID = " + nodeID + ")";
+
+              var sy = this.reader.getFloat(nodeSpecs[j], 'sy');
+
+              if (sy == null )
+              {
+                this.onXMLMinorError("unable to parse y component of scaling; discarding transform");
+                break;
+              }
+              else if (isNaN(sy))
+                return "non-numeric value for y component of scaling (node ID = " + nodeID + ")";
+
+              var sz = this.reader.getFloat(nodeSpecs[j], 'sz');
+
+              if (sz == null )
+              {
+                this.onXMLMinorError("unable to parse z component of scaling; discarding transform");
+                break;
+              }
+              else if (isNaN(sz))
+                return "non-numeric value for z component of scaling (node ID = " + nodeID + ")";
+              mat4.scale(this.nodes[nodeID].transformMatrix, this.nodes[nodeID].transformMatrix, [sx, sy, sz]);
               break;
-            }
-            else if (isNaN(sx))
-              return "non-numeric value for x component of scaling (node ID = " + nodeID + ")";
-
-            var sy = this.reader.getFloat(nodeSpecs[j], 'sy');
-
-            if (sy == null )
-            {
-              this.onXMLMinorError("unable to parse y component of scaling; discarding transform");
+            default:
               break;
-            }
-            else if (isNaN(sy))
-              return "non-numeric value for y component of scaling (node ID = " + nodeID + ")";
-
-            var sz = this.reader.getFloat(nodeSpecs[j], 'sz');
-
-            if (sz == null )
-            {
-              this.onXMLMinorError("unable to parse z component of scaling; discarding transform");
-              break;
-            }
-            else if (isNaN(sz))
-              return "non-numeric value for z component of scaling (node ID = " + nodeID + ")";
-            mat4.scale(this.nodes[nodeID].transformMatrix, this.nodes[nodeID].transformMatrix, [sx, sy, sz]);
-            break;
-          default:
-            break;
         }
       }
 
