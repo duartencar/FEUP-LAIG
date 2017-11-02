@@ -5,10 +5,10 @@
 **/
 class CircularAnimation extends Animation
 {
-  constructor(scene, id, duration, centerCoords, radius, initAng, rotAng, speed)
+  constructor(scene, id, centerCoords, radius, initAng, rotAng, animationSpeed)
   {
     //calls the parent class constructor (Animation)
-    super(scene, id, duration);
+    super(scene, id, animationSpeed);
 
     //animation center coordinates
     this.centerCoords = centerCoords;
@@ -21,9 +21,6 @@ class CircularAnimation extends Animation
 
     //animation ending angle in degrees
     this.rotAng = rotAng;
-
-    //the animation speed
-    this.aSpeed = animationSpeed;
   }
 
   //returns animation ID
@@ -32,16 +29,10 @@ class CircularAnimation extends Animation
     return this.ID;
   }
 
-  //returns animaton duration
-  get duration ()
-  {
-    return this.duration;
-  }
-
   //returns animation speed
   get animationSpeed()
   {
-    return this.aSpeed;
+    return this.speed;
   }
 
   //returns animation radius to the center

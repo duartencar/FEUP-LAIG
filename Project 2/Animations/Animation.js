@@ -4,15 +4,15 @@
 **/
 class Animation
 {
-  constructor(scene, id, duration)
+  constructor(scene, id, speed)
   {
     this.scene = scene;
 
     //animation id
     this.ID = id;
 
-    //animation duration
-    this.duration = duration;
+    //animation speed
+    this.speed = speed;
 
     //animation initial matrix
     this.animationMatrix = mat4.create();
