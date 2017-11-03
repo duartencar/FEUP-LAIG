@@ -1211,8 +1211,6 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
 */
 MySceneGraph.prototype.parseAnimations = function(animationsNode)
 {
-  console.log("PARSING ANIMATIONS");
-
   this.animations = [];
 
   var children = animationsNode.children;
@@ -1221,7 +1219,6 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode)
 
   for(var i = 0; i < children.length; i++)
   {
-    console.log(children[i].nodeName);
     if(children[i].nodeName == "ANIMATION")
     {
       var animationID = this.reader.getString(children[i], 'id');
