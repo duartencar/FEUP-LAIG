@@ -1291,6 +1291,49 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode)
 
           var newAnimation = new LinearAnimation(this.scene, animationID, animationSpeed, Cpoints);
           break;
+        case 'bezier':
+          var Cpoints = [];
+
+          var point = [];
+
+          var rawPoints = children[i].children;
+
+          if(rawPoints.length != 4)
+            return 'bezier animation must have 4 control points!';
+
+          for(var n = 0; n < 4; n++)
+          {
+            point = [];
+
+            if(rawPoints[n].nodeName == 'CONTROLPOINT')
+            {
+              //getting control-point x value
+              var x = this.reader.getFloat(rawPoints[n], 'x');
+
+              if(x == null)
+                return 'failed to parse animation x value on control point'
+
+              //getting control-point y value
+              var y = this.reader.getFloat(rawPoints[n], 'y');
+
+              if(y == null)
+                return 'failed to parse animation y value on control point'
+
+              //getting control-point z value
+              var z = this.reader.getFloat(rawPoints[n], 'z');
+
+              if(z == null)
+                return 'failed to parse animation z value on control point'
+
+              point = [x, y, z];
+
+              Cpoints.push(point);
+            }
+            else
+              this.onXMLMinorError('unknown tag name <' + rawPoints[n] + '> in animation');
+          }
+          var newAnimation = new BezierAnimation(this.scene, animationID, animationSpeed, Cpoints);
+          break;
         default:
           return 'something went wrong in animations parser';
       }
