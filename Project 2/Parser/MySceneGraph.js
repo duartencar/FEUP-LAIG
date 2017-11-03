@@ -1706,9 +1706,7 @@ MySceneGraph.generateRandomString = function(length) {
 */
 MySceneGraph.prototype.displayScene = function()
 {
-  /*var c = new Date();
-
-  console.log("ELAPSED TIME: " + (c.getTime() - t) / 1000 + " s");*/
+  var c = new Date();
 
   var x = this.nodes.root.getChildren(); //gets root children
 
@@ -1718,6 +1716,8 @@ MySceneGraph.prototype.displayScene = function()
 
   var initialMaterial = this.nodes.root.getMaterialID(); //get a initital material
 
+  var initialAnimation = this.nodes.root.getAnimationID(); //get a initital animation
+
   for(var i = 0; i < x.length; i++)
-    this.nodes[x[i]].analyse(this.scene, inititalMatrix, initialText, initialMaterial);
+    this.nodes[x[i]].analyse(this.scene, inititalMatrix, initialText, initialMaterial, initialAnimation, (c.getTime() - t) / 1000);
 }

@@ -104,6 +104,14 @@ MyGraphNode.prototype.getTextureID = function ()
 };
 
 /**
+ * Returns the Animation ID of the node.
+ */
+MyGraphNode.prototype.getAnimationID = function ()
+{
+  return this.animationID;
+};
+
+/**
  * Returns the leaves of the node.
  */
 MyGraphNode.prototype.getLeaves = function()
@@ -122,7 +130,7 @@ MyGraphNode.prototype.getChildren = function ()
 /**
  * Analyses a node. It's a recursive funtion.
  */
-MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat)
+MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Ani, Time)
 {
   //Get the node children
   var nodeChildren = this.getChildren();
@@ -134,7 +142,7 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat)
   var newMatrix = mat4.create();
 
   //If this node doesn t has a texture it inherits the fathers node texture
-  if(this.getTextureID() == "null")
+  if(this.getTextureID() == 'null')
   {
     if(Text != null)
       var newText = Text;
@@ -145,7 +153,7 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat)
     var newText = this.getTextureID();
 
   //If this node doesn t has a material it inherits the fathers node material
-  if(this.getMaterialID() == "null")
+  if(this.getMaterialID() == 'null')
   {
     if (Mat != null)
       var newMat = Mat;
@@ -155,12 +163,23 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat)
   else
     var newMat = this.getMaterialID();
 
+  //If this node doesn t has a animation it inherits the fathers node animation
+  if(this.getAnimationID() == null)
+  {
+    if(Ani != 'null')
+      var newAni = Ani;
+    else
+      var newAni = this.getAnimationID();
+  }
+  else
+    var newAni = this.getAnimationID();
+
   //Set the newMatrix to be the multiplication of the parent node matrix and this node matrix
   mat4.multiply(newMatrix, Tmatrix, this.transformMatrix);
 
   //Analyses all the node children, calling this function
   for (var i = 0; i < nodeChildren.length; i++)
-    this.graph.nodes[nodeChildren[i]].analyse(scene, newMatrix, newText, newMat);
+    this.graph.nodes[nodeChildren[i]].analyse(scene, newMatrix, newText, newMat, newAni, Time);
 
   //Displays all the node Leafs
   for (var i = 0; i < nodeLeafs.length; i++)
