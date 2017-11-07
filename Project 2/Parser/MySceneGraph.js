@@ -1352,6 +1352,33 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode)
           }
           var newAnimation = new BezierAnimation(this.scene, animationID, animationSpeed, Cpoints);
           break;
+        case 'combo':
+          var childAnimations = children[i].children;
+
+          var parsedAnimations = [];
+
+          var ani = null;
+
+          for(var s = 0; s < childAnimations.length; s++)
+          {
+            if(childAnimations[s].nodename == 'SPANREF')
+            {
+              ani = this.reader.getString(childAnimations[s], 'id');
+
+              if(ani = null)
+                return 'failed to parse child animation id' + childAnimations[s];
+
+              if(this.animations.indexOf(ani) == -1)
+                return 'parsed animation name is not defined';
+
+              parsedAnimations.push(ani);
+            }
+            else
+              this.onXMLMinorError('unknown tag name <' + childAnimations[s] + '> in animation');
+          }
+
+          var newAnimation = new ComboAnimation(this.scene, animationID, parsedAnimations);
+          break;
         default:
           return 'something went wrong in animations parser';
       }
