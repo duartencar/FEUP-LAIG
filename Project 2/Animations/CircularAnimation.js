@@ -5,7 +5,7 @@
 **/
 class CircularAnimation extends Animation
 {
-  constructor(scene, id, centerCoords, radius, initAng, rotAng, animationSpeed)
+  constructor(scene, id, animationSpeed, centerCoords, radius, initAng, rotAng)
   {
     //calls the parent class constructor (Animation)
     super(scene, id, animationSpeed);
@@ -14,12 +14,12 @@ class CircularAnimation extends Animation
     this.centerCoords = centerCoords;
 
     //rotation radius
-    this.radius = radius;
+    this.rad = radius;
 
     //initial angle of rotation in degrees
     this.initAng = initAng;
 
-    //animation ending angle in degrees
+    //animation rotation angle
     this.rotAng = rotAng;
   }
 

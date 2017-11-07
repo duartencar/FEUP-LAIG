@@ -1255,31 +1255,31 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode)
           var rawPoints = children[i].children;
 
           if(rawPoints.length < 2)
-            return 'not enough control points to make a linear animation'
+            return 'not enough control points to make a linear animation';
 
           for(var n = 0; n < rawPoints.length; n++)
           {
             point = [];
 
-            if(rawPoints[n].nodeName == 'CONTROLPOINT')
+            if(rawPoints[n].nodeName == 'controlpoint')
             {
               //getting control-point x value
-              var x = this.reader.getFloat(rawPoints[n], 'x');
+              var x = this.reader.getFloat(rawPoints[n], 'xx');
 
               if(x == null)
-                return 'failed to parse animation x value on control point'
+                return 'failed to parse animation x value on control point';
 
               //getting control-point y value
-              var y = this.reader.getFloat(rawPoints[n], 'y');
+              var y = this.reader.getFloat(rawPoints[n], 'yy');
 
               if(y == null)
-                return 'failed to parse animation y value on control point'
+                return 'failed to parse animation y value on control point';
 
               //getting control-point z value
-              var z = this.reader.getFloat(rawPoints[n], 'z');
+              var z = this.reader.getFloat(rawPoints[n], 'zz');
 
               if(z == null)
-                return 'failed to parse animation z value on control point'
+                return 'failed to parse animation z value on control point';
 
               point = [x, y, z];
 
@@ -1290,6 +1290,36 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode)
           }
 
           var newAnimation = new LinearAnimation(this.scene, animationID, animationSpeed, Cpoints);
+          break;
+        case 'circular':
+          var centerCoords = [];
+
+          var valuesToParse = [
+            'centerx', 'centery', 'centerz',
+            'radius', 'startang', 'rotang'
+          ];
+
+          // Will contain parsed values
+          var pars = [];
+
+          var value;
+
+          for(var s = 0; s < valuesToParse.length; s++)
+          {
+            value = this.reader.getFloat(children[i], valuesToParse[s]);
+
+            if(value == null)
+              return 'failed to parse circular animation argument ' + valuesToParse[s];
+            else
+              pars.push(value);
+          }
+
+          var newAnimation = new CircularAnimation
+          (
+            this.scene, animationID, animationSpeed,
+            [pars[0], pars[1], pars[2]], pars[3], pars[4], pars[5]
+          );
+
           break;
         case 'bezier':
           var Cpoints = [];
@@ -1305,25 +1335,25 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode)
           {
             point = [];
 
-            if(rawPoints[n].nodeName == 'CONTROLPOINT')
+            if(rawPoints[n].nodeName == 'controlpoint')
             {
               //getting control-point x value
-              var x = this.reader.getFloat(rawPoints[n], 'x');
+              var x = this.reader.getFloat(rawPoints[n], 'xx');
 
               if(x == null)
-                return 'failed to parse animation x value on control point'
+                return 'failed to parse animation x value on control point';
 
               //getting control-point y value
-              var y = this.reader.getFloat(rawPoints[n], 'y');
+              var y = this.reader.getFloat(rawPoints[n], 'yy');
 
               if(y == null)
-                return 'failed to parse animation y value on control point'
+                return 'failed to parse animation y value on control point';
 
               //getting control-point z value
-              var z = this.reader.getFloat(rawPoints[n], 'z');
+              var z = this.reader.getFloat(rawPoints[n], 'zz');
 
               if(z == null)
-                return 'failed to parse animation z value on control point'
+                return 'failed to parse animation z value on control point';
 
               point = [x, y, z];
 
