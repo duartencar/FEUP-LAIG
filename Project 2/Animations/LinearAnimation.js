@@ -19,6 +19,7 @@ class LinearAnimation extends Animation
   {
     return this.ID;
   }
+
   //returns animation speed
   get animationSpeed()
   {

@@ -1252,6 +1252,10 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode)
 
           var point = [];
 
+          var valuesToParse = ['xx', 'yy', 'zz'];
+
+          var value = null;
+
           var rawPoints = children[i].children;
 
           if(rawPoints.length < 2)
@@ -1263,25 +1267,15 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode)
 
             if(rawPoints[n].nodeName == 'controlpoint')
             {
-              //getting control-point x value
-              var x = this.reader.getFloat(rawPoints[n], 'xx');
+              for(var s = 0; s < valuesToParse.length; s++)
+              {
+                value = this.reader.getFloat(rawPoints[n], valuesToParse[s]);
 
-              if(x == null)
-                return 'failed to parse animation x value on control point';
-
-              //getting control-point y value
-              var y = this.reader.getFloat(rawPoints[n], 'yy');
-
-              if(y == null)
-                return 'failed to parse animation y value on control point';
-
-              //getting control-point z value
-              var z = this.reader.getFloat(rawPoints[n], 'zz');
-
-              if(z == null)
-                return 'failed to parse animation z value on control point';
-
-              point = [x, y, z];
+                if(value == null)
+                  return 'failed to parse animation ' + valuesToParse[s] + ' value on control point';
+                else
+                  point.push(value);
+              }
 
               Cpoints.push(point);
             }
@@ -1328,6 +1322,10 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode)
 
           var rawPoints = children[i].children;
 
+          var valuesToParse = ['xx', 'yy', 'zz'];
+
+          var value = null;
+
           if(rawPoints.length != 4)
             return 'bezier animation must have 4 control points!';
 
@@ -1337,25 +1335,15 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode)
 
             if(rawPoints[n].nodeName == 'controlpoint')
             {
-              //getting control-point x value
-              var x = this.reader.getFloat(rawPoints[n], 'xx');
+              for(var s = 0; s < valuesToParse.length; s++)
+              {
+                value = this.reader.getFloat(rawPoints[n], valuesToParse[s]);
 
-              if(x == null)
-                return 'failed to parse animation x value on control point';
-
-              //getting control-point y value
-              var y = this.reader.getFloat(rawPoints[n], 'yy');
-
-              if(y == null)
-                return 'failed to parse animation y value on control point';
-
-              //getting control-point z value
-              var z = this.reader.getFloat(rawPoints[n], 'zz');
-
-              if(z == null)
-                return 'failed to parse animation z value on control point';
-
-              point = [x, y, z];
+                if(value == null)
+                  return 'failed to parse animation ' + valuesToParse[s] + ' value on bezier control point';
+                else
+                  point.push(value);
+              }
 
               Cpoints.push(point);
             }
