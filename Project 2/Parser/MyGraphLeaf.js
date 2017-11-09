@@ -143,7 +143,7 @@ MyGraphLeaf.prototype.getLeaf = function (scene)
  * Texture - the texture that will be apllied to the object
  * Material- the material that will be applied to the object
  **/
-MyGraphLeaf.prototype.draw = function(scene, toDraw, Matrix, Texture, Material)
+MyGraphLeaf.prototype.draw = function(scene, toDraw, Matrix, Texture, Material, Animation, Time)
 {
   scene.pushMatrix();
 
@@ -167,6 +167,15 @@ MyGraphLeaf.prototype.draw = function(scene, toDraw, Matrix, Texture, Material)
     //applies the appearance
     appearance.apply();
 
+    if(Animation != null && Animation[0] instanceof LinearAnimation)
+    {
+      Animation[0].elapsedTime = Time;
+
+      var dir = Animation[0].currentDirection(Time);
+
+      console.log(dir);
+    }
+
     //applies the transformation matrix
     scene.multMatrix(Matrix);
 
@@ -178,4 +187,3 @@ MyGraphLeaf.prototype.draw = function(scene, toDraw, Matrix, Texture, Material)
 
   scene.popMatrix();
 };
-

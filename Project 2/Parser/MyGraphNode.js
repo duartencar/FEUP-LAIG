@@ -22,7 +22,7 @@ function MyGraphNode(graph, nodeID)
   this.textureID = null;
 
   // The animation ID.
-  this.animationID = null;
+  this.animations = [];
 
   // The node Matrix creation
   this.transformMatrix = mat4.create();
@@ -64,11 +64,11 @@ MyGraphNode.prototype.showChildren = function()
 };
 
 /**
- * Sets the value of animationID
+ * Adds an animations
  */
-MyGraphNode.prototype.setAnimationID = function(animationID)
+MyGraphNode.prototype.addAnimation = function(animation)
 {
-  this.animationID = animationID;
+  this.animations.push(animation);
 };
 
 /**
@@ -106,9 +106,12 @@ MyGraphNode.prototype.getTextureID = function ()
 /**
  * Returns the Animation ID of the node.
  */
-MyGraphNode.prototype.getAnimationID = function ()
+MyGraphNode.prototype.getAnimations = function ()
 {
-  return this.animationID;
+  if(this.animations.length == 0)
+    return null;
+  else
+    return this.animations;
 };
 
 /**
@@ -164,15 +167,15 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Ani, Time)
     var newMat = this.getMaterialID();
 
   //If this node doesn t has a animation it inherits the fathers node animation
-  if(this.getAnimationID() == null)
+  if(this.getAnimations() == null)
   {
-    if(Ani != 'null')
+    if(Ani != null)
       var newAni = Ani;
     else
-      var newAni = this.getAnimationID();
+      var newAni = this.getAnimations();
   }
   else
-    var newAni = this.getAnimationID();
+    var newAni = this.getAnimations();
 
   //Set the newMatrix to be the multiplication of the parent node matrix and this node matrix
   mat4.multiply(newMatrix, Tmatrix, this.transformMatrix);
@@ -188,6 +191,6 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Ani, Time)
     var toDraw = nodeLeafs[i].getLeaf(scene);
 
     //draws it
-    nodeLeafs[i].draw(scene, toDraw, newMatrix, newText, newMat);
+    nodeLeafs[i].draw(scene, toDraw, newMatrix, newText, newMat, newAni, Time);
   }
 };
