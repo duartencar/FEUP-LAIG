@@ -12,6 +12,9 @@ class LinearAnimation extends Animation
 
     //contains animations control points
     this.cPoints = controlPoints;
+
+    //elapsed time
+    this.elapsedTime = 0;
   }
 
   //returns animation ID
@@ -25,4 +28,43 @@ class LinearAnimation extends Animation
   {
     return this.speed;
   }
+
+  //returns the number of times that an object must change direction
+  get numberOfDirections()
+  {
+    return this.cPoints.length - 1;
+  }
+
+  get controlP()
+  {
+    return this.cPoints;
+  }
+
+  get directions()
+  {
+    var dir = [];
+
+    var x, y, z;
+
+    var num = this.numberOfDirections;
+
+    var points = this.controlP;
+
+    for(var i = 0; i < num; i++)
+    {
+      x = points[i + 1][0] - points[i][0];
+      y = points[i + 1][1] - points[i][1];
+      z = points[i + 1][2] - points[i][2];
+
+      dir.push([x, y, z]);
+    }
+
+    return dir;
+  }
+
+  /*//returns a matrix with the transformation matrix
+  get movement()
+  {
+
+  }*/
 }

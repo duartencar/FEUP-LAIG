@@ -1,5 +1,5 @@
 
-class ComboAnimation extends animations
+class ComboAnimation
 {
   constructor(scene, id, animations)
   {
