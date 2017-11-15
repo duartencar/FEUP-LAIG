@@ -17,4 +17,17 @@ class Animation
     //animation initial matrix
     this.animationMatrix = mat4.create();
   }
+
+  //returns the animation Matrix
+  get Matrix()
+  {
+    return this.animationMatrix;
+  }
+
+  //transforms the matrix with a given 'anotherMatrix'
+  transformMatrix(anotherMatrix)
+  {
+    mat4.multiply(this.animationMatrix, this.animationMatrix, anotherMatrix);
+  }
+
 }

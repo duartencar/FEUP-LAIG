@@ -22,6 +22,7 @@ function MySceneGraph(filename, scene) {
 
   // Establish bidirectional references between scene and graph.
   this.scene = scene;
+
   scene.graph = this;
 
   this.nodes = [];
@@ -1756,10 +1757,8 @@ MySceneGraph.generateRandomString = function(length) {
 /**
 * Displays the scene, processing each node, starting in the root node.
 */
-MySceneGraph.prototype.displayScene = function()
+MySceneGraph.prototype.displayScene = function(diffTime)
 {
-  var c = new Date();
-
   var x = this.nodes.root.getChildren(); //gets root children
 
   var inititalMatrix = mat4.create(); //create an initial matrix
@@ -1771,5 +1770,5 @@ MySceneGraph.prototype.displayScene = function()
   var initialAnimation = this.nodes.root.getAnimations(); //get a initital animation
 
   for(var i = 0; i < x.length; i++)
-    this.nodes[x[i]].analyse(this.scene, inititalMatrix, initialText, initialMaterial, initialAnimation, (c.getTime() - t) / 1000);
+    this.nodes[x[i]].analyse(this.scene, inititalMatrix, initialText, initialMaterial, initialAnimation, diffTime);
 }

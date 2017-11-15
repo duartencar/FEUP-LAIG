@@ -167,16 +167,40 @@ MyGraphLeaf.prototype.draw = function(scene, toDraw, Matrix, Texture, Material, 
     //applies the appearance
     appearance.apply();
 
+    var rot = 0;
+
     if(Animation != null && Animation[0] instanceof LinearAnimation)
     {
-      Animation[0].elapsedTime = Time;
+      var AnimationMatrix;
 
-      var dir = Animation[0].currentDirection(Time);
+      if(scene.elapsedTime >= Animation[0].animationSpan())
+        AnimationMatrix = Animation[0].Matrix;
+      else
+      {
+        if(scene.elapsedTime != Animation[0].elapsedTime)
+        {
+          Animation[0].updateElpasedTime(scene.elapsedTime);
 
-      console.log(dir);
+          var dir = Animation[0].currentDirection();
+
+          var getAngle = function (x, z)
+          {
+            return Math.atan(x / z); //returns angle of rotation
+          }
+
+          rot = getAngle(dir[0], dir[2]);
+
+          AnimationMatrix = Animation[0].position(Time);
+        }
+        else
+          AnimationMatrix = Animation[0].Matrix;
+      }
     }
 
-    //applies the transformation matrix
+    //applies the animation matrix
+    scene.multMatrix(AnimationMatrix);
+
+    //applies tho normal scene Matrix
     scene.multMatrix(Matrix);
 
     //displays object

@@ -18,9 +18,9 @@ class LinearAnimation extends Animation
   }
 
   //sets elapsed time
-  elapsed(time)
+  updateElpasedTime(Time)
   {
-    this.elapsedTime = time;
+    this.elapsedTime = Time;
   }
 
   //returns animation ID
@@ -90,14 +90,14 @@ class LinearAnimation extends Animation
       return Math.hypot(dx, dy, dz);
     }
 
-    for(var i = 0; i < points.lenght - 1; i++)
+    for(var i = 0; i < points.length - 1; i++)
       total += distanceBetweenPoints(points[i], points[i+1]);
 
     return total;
   }
 
   //returns the time that will take from the begin to the end of the animation
-  get animationSpan()
+  animationSpan()
   {
     return this.totalDistance / this.animationSpeed;
   }
@@ -134,9 +134,30 @@ class LinearAnimation extends Animation
     return dir[points.length - 1];
   }
 
-  /*//returns a matrix with the transformation matrix
-  get movement()
+  //returns a matrix with the movement in a certain interval of time
+  movement(diff)
   {
+    var Matrix = mat4.create();
 
-  }*/
+    var dir = this.currentDirection();
+
+    var trans = [
+                dir[0] * this.speed * diff, //x
+                dir[1] * this.speed * diff, //y
+                dir[2] * this.speed * diff, //z
+              ];
+
+    Matrix = mat4.translate(Matrix, mat4.create(), trans);
+
+    return Matrix;
+  }
+  //returns the new position
+  position(diff)
+  {
+    var translation = this.movement(diff);
+
+    this.transformMatrix(translation);
+
+    return this.Matrix;
+  }
 }
