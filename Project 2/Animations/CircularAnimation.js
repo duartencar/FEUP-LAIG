@@ -139,6 +139,15 @@ class CircularAnimation extends Animation
     return [x, z];
   }
 
+  rotation(){     // FEITO
+    
+    var rotMatrix = mat4.create();
+
+    mat4.rotateY(rotMatrix, rotMatrix, this.currentAngle);
+
+    return rotMatrix;
+  }
+
   //returns the movement matrix
   movement(diff)
   {
