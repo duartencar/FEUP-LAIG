@@ -17,13 +17,13 @@ class CircularAnimation extends Animation
     this.rad = radius;
 
     //initial angle of rotation in degrees
-    this.initAng = initAng;
+    this.initAng = initAng * DEGREE_TO_RAD;
 
     //animation rotation angle
-    this.rotAng = rotAng;
+    this.rotAng = rotAng * DEGREE_TO_RAD;
 
     //contains the angle of rotation of an animation at a given moment
-    this.currAngle = initAng;
+    this.currAngle = initAng * DEGREE_TO_RAD;
 
     //animation rotation angle
     this.elapsedTime = 0;
@@ -52,13 +52,13 @@ class CircularAnimation extends Animation
 
     mat4.translate(transMatrix, transMatrix, translation);
 
-    mat4.rotateY(rotMatrix, rotMatrix, initAng * DEGREE_TO_RAD);
+    mat4.rotateY(rotMatrix, rotMatrix, initAng);
 
     mat4.multiply(this.animationMatrix, rotMatrix, transMatrix);
   }
 
   //sets elapsed time
-  set updateElpasedTime(Time)
+  updateElpasedTime(Time)
   {
     this.elapsedTime = Time;
   }
@@ -78,7 +78,7 @@ class CircularAnimation extends Animation
   //returns animation radius to the center
   get radius()
   {
-    return this.radius;
+    return this.rad;
   }
 
   //returns the starting angle of the animation
@@ -102,19 +102,19 @@ class CircularAnimation extends Animation
   //returns the distance of an animation
   get totalDistance ()
   {
-    return this.rotAng * Math.PI * this.radius / 180;
+    return (this.rotAng * this.radius); //VAI DAR MERDA, CORRIGIR
   }
 
   //returns the span of an animation
-  get animationSpan ()
+  animationSpan()
   {
-    return this.totalDistance / this.speed;
+    return (this.totalDistance / this.speed);
   }
 
   //returns angular speed
   get angularSpeed()
   {
-    return this.rotAng / this.animationSpan;
+    return (this.rotAng / this.animationSpan());
   }
 
   //returns current angle value
@@ -126,7 +126,7 @@ class CircularAnimation extends Animation
   //updates current angle value acording to rotation speed and time interval
   updateCurrentAngle(diff)
   {
-    this.currAnlge += this.angularSpeed * diff;
+    this.currAngle += this.angularSpeed * diff;
   }
 
   //returns the current direction of the animation
@@ -139,45 +139,50 @@ class CircularAnimation extends Animation
     return [x, z];
   }
 
-  rotation(){     // FEITO
-    
+  //returns the rotation of the object
+  rotation()
+  {
     var rotMatrix = mat4.create();
 
-    mat4.rotateY(rotMatrix, rotMatrix, this.currentAngle);
+    mat4.rotateY(rotMatrix, rotMatrix, this.currentAngle % (2 * Math.PI));
 
     return rotMatrix;
+  }
+
+  cos(rad)
+  {
+    return Math.cos(rad);
+  }
+
+  sin(rad)
+  {
+    return Math.sin(rad);
+  }
+
+  rcos(rad)
+  {
+    return this.radius * this.cos(rad);
+  }
+
+  rsin(rad)
+  {
+    return this.radius * this.sin(rad);
   }
 
   //returns the movement matrix
   movement(diff)
   {
-    let cos = Math.cos(this.currAngle);
-
-    let sin = Math.sin(this.currAngle);
-
-    let rcos = this.radius * cos;
-
-    let rsin = this.radius * sin;
-
     let previous = vec3.create();
 
     let now = vec3.create();
 
-    vec3.set(previous, rcos, 0, rsin);
+    vec3.set(previous, this.rcos(this.currAngle), 0, this.rsin(this.currAngle));
 
     this.updateCurrentAngle(diff);
 
-    let cos = Math.cos(this.currAngle);
+    vec3.set(now, this.rcos(this.currAngle), 0, this.rsin(this.currAngle));
 
-    let sin = Math.sin(this.currAngle); //CRIAR METODOS
-
-    let rcos = this.radius * cos;
-
-    let rsin = this.radius * sin;
-
-    vec3.set(now,  rcos, 0, rsin);
-
-    now.sub(previous);
+    vec3.sub(now, now, previous);
 
     var movMatrix = mat4.create();
 
@@ -186,9 +191,28 @@ class CircularAnimation extends Animation
     return movMatrix;
   }
 
+  rotateMatrix(rotationMatrix)
+  {
+    this.animationMatrix[0] = 1;
+
+    this.animationMatrix[2] = 0;
+
+    this.animationMatrix[8] = 0;
+
+    this.animationMatrix[10] = 1;
+
+    this.transformMatrix(rotationMatrix);
+  }
+
   //returns the final matrix
   position(diff)
   {
+    var translation = this.movement(diff);
 
+    var rot = this.rotation();
+
+    this.rotateMatrix(rot);
+
+    return this.Matrix;
   }
 }

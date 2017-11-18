@@ -197,6 +197,33 @@ MyGraphLeaf.prototype.draw = function(scene, toDraw, Matrix, Texture, Material, 
       }
     }
 
+    if(Animation != null && Animation[0] instanceof CircularAnimation)
+    {
+      var AnimationMatrix;
+
+      if(scene.elapsedTime >= Animation[0].animationSpan())
+        AnimationMatrix = Animation[0].Matrix;
+      else
+      {
+        if(scene.elapsedTime != Animation[0].elapsedTime)
+        {
+          Animation[0].updateElpasedTime(scene.elapsedTime);
+
+          /*var dir = Animation[0].currentDirection();
+
+          var getAngle = function (x, z)
+          {
+            return Math.atan(x / z); //returns angle of rotation
+          }
+
+          rot = getAngle(dir[0], dir[2]);*/
+
+          AnimationMatrix = Animation[0].position(Time);
+        }
+        else
+          AnimationMatrix = Animation[0].Matrix;
+      }
+    }
     //applies the animation matrix
     scene.multMatrix(AnimationMatrix);
 
