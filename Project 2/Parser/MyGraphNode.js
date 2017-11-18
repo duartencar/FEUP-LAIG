@@ -24,6 +24,9 @@ function MyGraphNode(graph, nodeID)
   // The animation ID.
   this.animations = [];
 
+  //this matrix will contain the current transformation matrix
+  this.aniMatrix = mat4.create();
+
   // The node Matrix creation
   this.transformMatrix = mat4.create();
 
@@ -133,7 +136,7 @@ MyGraphNode.prototype.getChildren = function ()
 /**
  * Analyses a node. It's a recursive funtion.
  */
-MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Ani, Time)
+MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time)
 {
   //Get the node children
   var nodeChildren = this.getChildren();
@@ -167,22 +170,29 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Ani, Time)
     var newMat = this.getMaterialID();
 
   //If this node doesn t has a animation it inherits the fathers node animation
-  if(this.getAnimations() == null)
+  if(this.getAnimations() != null)
   {
-    if(Ani != null)
-      var newAni = Ani;
-    else
-      var newAni = this.getAnimations();
+    var animations = this.getAnimations();
+
+    var trans = mat4.create();
+
+    if(animations[0] instanceof LinearAnimation)
+    {
+      trans = animations[0].correctMatrix(Time, scene.elapsedTime);
+
+      mat4.multiply(this.aniMatrix, this.aniMatrix, trans);
+    }
   }
-  else
-    var newAni = this.getAnimations();
+
+  //first applies the animation matrix
+  mat4.multiply(Tmatrix, Tmatrix, this.aniMatrix);
 
   //Set the newMatrix to be the multiplication of the parent node matrix and this node matrix
   mat4.multiply(newMatrix, Tmatrix, this.transformMatrix);
 
   //Analyses all the node children, calling this function
   for (var i = 0; i < nodeChildren.length; i++)
-    this.graph.nodes[nodeChildren[i]].analyse(scene, newMatrix, newText, newMat, newAni, Time);
+    this.graph.nodes[nodeChildren[i]].analyse(scene, newMatrix, newText, newMat, Time);
 
   //Displays all the node Leafs
   for (var i = 0; i < nodeLeafs.length; i++)
@@ -191,6 +201,6 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Ani, Time)
     var toDraw = nodeLeafs[i].getLeaf(scene);
 
     //draws it
-    nodeLeafs[i].draw(scene, toDraw, newMatrix, newText, newMat, newAni, Time);
+    nodeLeafs[i].draw(scene, toDraw, newMatrix, newText, newMat, Time);
   }
 };

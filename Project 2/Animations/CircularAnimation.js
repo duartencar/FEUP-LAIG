@@ -34,21 +34,13 @@ class CircularAnimation extends Animation
   //sets the initial matrix for the animation...
   initialM(center, radius, initAng)
   {
-    let cos = Math.cos(initAng);
-
-    let sin = Math.sin(initAng);
-
-    let rcos = radius * cos;
-
-    let rsin = radius * sin;
-
     let translation = vec4.create();
 
     let transMatrix = mat4.create();
 
     let rotMatrix = mat4.create();
 
-    vec4.set(translation, center[0] + rcos, center[1], center[2] + rsin, 1);
+    vec4.set(translation, center[0] + this.rcos(initAng), center[1], center[2] + this.rsin(initAng), 1);
 
     mat4.translate(transMatrix, transMatrix, translation);
 

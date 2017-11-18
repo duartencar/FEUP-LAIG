@@ -35,6 +35,12 @@ class LinearAnimation extends Animation
     return this.speed;
   }
 
+  //returns initial points
+  get initialPoint()
+  {
+    return this.cPoints[0];
+  }
+
   //returns the number of times that an object must change direction
   get numberOfDirections()
   {
@@ -151,13 +157,31 @@ class LinearAnimation extends Animation
 
     return Matrix;
   }
-  //returns the new position
-  position(diff)
+
+  correctMatrix(diffTime, totalSceneTime)
   {
-    var translation = this.movement(diff);
+    if(totalSceneTime >= this.animationSpan())
+      return this.Matrix;
+    else
+    {
+      if (totalSceneTime != this.elapsedTime)
+      {
+        this.updateElpasedTime(totalSceneTime);
 
-    this.transformMatrix(translation);
+        return this.movement(diffTime);
+      }
+      else if ((totalSceneTime == 0) && (this.elapsedTime == 0))
+      {
+        let Matrix = mat4.create();
 
-    return this.Matrix;
+        let dir = this.initialPoint;
+
+        mat4.translate(Matrix, mat4.create(), dir);
+
+        return Matrix;
+      }
+      else
+        return this.Matrix;
+    }
   }
 }
