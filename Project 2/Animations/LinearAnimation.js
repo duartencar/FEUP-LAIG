@@ -15,12 +15,27 @@ class LinearAnimation extends Animation
 
     //elapsed time
     this.elapsedTime = 0;
+
+    //animation initial matrix
+    this.animationMatrix = mat4.create();
+  }
+
+  //returns the animation Matrix
+  get Matrix()
+  {
+    return this.animationMatrix;
+  }
+
+  //transforms the matrix with a given 'anotherMatrix'
+  transformMatrix(anotherMatrix)
+  {
+    mat4.multiply(this.animationMatrix, this.animationMatrix, anotherMatrix);
   }
 
   //sets elapsed time
   updateElpasedTime(Time)
   {
-    this.elapsedTime = Time;
+    this.elapsedTime += Time;
   }
 
   //returns animation ID
@@ -64,7 +79,7 @@ class LinearAnimation extends Animation
 
     var points = this.controlP;
 
-    for(let i = 0; i < num; i++)
+    for(var i = 0; i < num; i++)
     {
       x = points[i + 1][0] - points[i][0];
       y = points[i + 1][1] - points[i][1];
@@ -108,6 +123,7 @@ class LinearAnimation extends Animation
     return this.totalDistance / this.animationSpeed;
   }
 
+  //returns the movement direction
   currentDirection()
   {
     var distanceCovered = this.animationSpeed * this.elapsedTime;
@@ -129,7 +145,7 @@ class LinearAnimation extends Animation
       return Math.hypot(dx, dy, dz);
     }
 
-    for(let i = 0; i < points.length - 1; i++)
+    for(var i = 0; i < points.length - 1; i++)
     {
       distanceCovered -= distanceBetweenPoints(points[i], points[i+1]);
 
@@ -153,35 +169,49 @@ class LinearAnimation extends Animation
                 dir[2] * this.speed * diff, //z
               ];
 
-    Matrix = mat4.translate(Matrix, mat4.create(), trans);
+    mat4.translate(Matrix, mat4.create(), trans);
 
     return Matrix;
   }
 
+  //returns the correct matrix for a given scene moment
   correctMatrix(diffTime, totalSceneTime)
   {
+    //if time in scene is bigger than animationSpan means that there isn t movement
     if(totalSceneTime >= this.animationSpan())
-      return this.Matrix;
+      return mat4.create(); //returns identity because there sno movement
     else
     {
       if (totalSceneTime != this.elapsedTime)
       {
-        this.updateElpasedTime(totalSceneTime);
+        this.updateElpasedTime(diffTime);
 
-        return this.movement(diffTime);
+        var trans = this.movement(diffTime);
+
+        /*var dir = this.currentDirection();
+
+        var ang = Math.atan(dir[2], dir[0]);
+
+        mat4.rotateY(trans, trans, ang);*/
+
+        return trans;
       }
       else if ((totalSceneTime == 0) && (this.elapsedTime == 0))
       {
-        let Matrix = mat4.create();
+        var Matrix = mat4.create();
 
-        let dir = this.initialPoint;
+        var dir = this.initialPoint;
+
+        var ang = Math.atan(dir[0], dir[2]);
+
+        //mat4.rotateY(Matrix, mat4.create(), ang);
 
         mat4.translate(Matrix, mat4.create(), dir);
 
         return Matrix;
       }
       else
-        return this.Matrix;
+        return mat4.create(); //returns identity because there sno movement
     }
   }
 }

@@ -24,13 +24,13 @@ function MyGraphNode(graph, nodeID)
   // The animation ID.
   this.animations = [];
 
-  //this matrix will contain the current transformation matrix
+  // This matrix will contain the current transformation matrix
   this.aniMatrix = mat4.create();
 
   // The node Matrix creation
   this.transformMatrix = mat4.create();
 
-  //Seting the initial matrix to the identity matrix
+  // Seting the initial matrix to the identity matrix
   mat4.identity(this.transformMatrix);
 }
 
@@ -72,6 +72,20 @@ MyGraphNode.prototype.showChildren = function()
 MyGraphNode.prototype.addAnimation = function(animation)
 {
   this.animations.push(animation);
+};
+
+/**
+ * Adds an animations
+ */
+MyGraphNode.prototype.resetAnimationRotation = function()
+{
+  this.aniMatrix[0] = 1;
+
+  this.aniMatrix[2] = 0;
+
+  this.aniMatrix[8] = 0;
+
+  this.aniMatrix[10] = 1;
 };
 
 /**
@@ -176,7 +190,7 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time)
 
     var trans = mat4.create();
 
-    if(animations[0] instanceof LinearAnimation)
+    if((animations[0] instanceof LinearAnimation) || (animations[0] instanceof CircularAnimation))
     {
       trans = animations[0].correctMatrix(Time, scene.elapsedTime);
 
@@ -185,10 +199,12 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time)
   }
 
   //first applies the animation matrix
-  mat4.multiply(Tmatrix, Tmatrix, this.aniMatrix);
+  mat4.multiply(newMatrix, Tmatrix, this.aniMatrix);
+
+  this.resetAnimationRotation();
 
   //Set the newMatrix to be the multiplication of the parent node matrix and this node matrix
-  mat4.multiply(newMatrix, Tmatrix, this.transformMatrix);
+  mat4.multiply(newMatrix, newMatrix, this.transformMatrix);
 
   //Analyses all the node children, calling this function
   for (var i = 0; i < nodeChildren.length; i++)

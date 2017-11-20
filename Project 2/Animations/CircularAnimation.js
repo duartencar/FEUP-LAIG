@@ -28,31 +28,26 @@ class CircularAnimation extends Animation
     //animation rotation angle
     this.elapsedTime = 0;
 
-    this.initialM(centerCoords, radius, initAng);
+    //animation initial matrix
+    this.animationMatrix = mat4.create();
   }
 
-  //sets the initial matrix for the animation...
-  initialM(center, radius, initAng)
+  //returns the animation Matrix
+  get Matrix()
   {
-    let translation = vec4.create();
+    return this.animationMatrix;
+  }
 
-    let transMatrix = mat4.create();
-
-    let rotMatrix = mat4.create();
-
-    vec4.set(translation, center[0] + this.rcos(initAng), center[1], center[2] + this.rsin(initAng), 1);
-
-    mat4.translate(transMatrix, transMatrix, translation);
-
-    mat4.rotateY(rotMatrix, rotMatrix, initAng);
-
-    mat4.multiply(this.animationMatrix, rotMatrix, transMatrix);
+  //transforms the matrix with a given 'anotherMatrix'
+  transformMatrix(anotherMatrix)
+  {
+    mat4.multiply(this.animationMatrix, this.animationMatrix, anotherMatrix);
   }
 
   //sets elapsed time
   updateElpasedTime(Time)
   {
-    this.elapsedTime = Time;
+    this.elapsedTime += Time;
   }
 
   //returns animation ID
@@ -124,9 +119,9 @@ class CircularAnimation extends Animation
   //returns the current direction of the animation
   currentDirection()
   {
-    let x = -1.0 * this.radius * Math.sin(this.currentAngle);
+    var x = -1.0 * this.radius * Math.sin(this.currentAngle);
 
-    let z = this.radius * Math.cos(this.currentAngle);
+    var z = this.radius * Math.cos(this.currentAngle);
 
     return [x, z];
   }
@@ -164,9 +159,9 @@ class CircularAnimation extends Animation
   //returns the movement matrix
   movement(diff)
   {
-    let previous = vec3.create();
+    var previous = vec3.create();
 
-    let now = vec3.create();
+    var now = vec3.create();
 
     vec3.set(previous, this.rcos(this.currAngle), 0, this.rsin(this.currAngle));
 
@@ -196,6 +191,25 @@ class CircularAnimation extends Animation
     this.transformMatrix(rotationMatrix);
   }
 
+  translateMatrix(translationMatrix)
+  {
+    this.animationMatrix[12] = 0;
+
+    this.animationMatrix[14] = 0;
+
+    this.transformMatrix(translationMatrix);
+  }
+
+  //returns first position (t = 0)
+  initialPoint()
+  {
+    var dir = vec3.create();
+
+    vec3.set(dir, this.rcos(this.initialAngle), 0, this.rsin(this.initialAngle));
+
+    return dir;
+  }
+
   //returns the final matrix
   position(diff)
   {
@@ -205,6 +219,41 @@ class CircularAnimation extends Animation
 
     this.rotateMatrix(rot);
 
+    this.translateMatrix(translation);
+
     return this.Matrix;
+  }
+
+  correctMatrix(diffTime, totalSceneTime)
+  {
+    if(totalSceneTime >= this.animationSpan())
+      return mat4.create();
+    else
+    {
+      if(totalSceneTime != this.elapsedTime)
+      {
+        this.updateElpasedTime(diffTime);
+
+        let Matrix = this.movement(diffTime);
+
+        mat4.rotateY(Matrix, mat4.create(), this.currAngle);
+
+        return Matrix;
+      }
+      else if ((totalSceneTime == 0) && (this.elapsedTime == 0))
+      {
+        var dir = this.initialPoint();
+
+        var Matrix = mat4.create();
+
+        mat4.rotateY(Matrix, Matrix, this.initialAngle);
+
+        mat4.translate(Matrix, Matrix, dir);
+
+        return Matrix;
+      }
+      else
+        return mat4.create();
+    }
   }
 }
