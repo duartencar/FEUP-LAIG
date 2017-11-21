@@ -190,12 +190,9 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time)
 
     var trans = mat4.create();
 
-    if((animations[0] instanceof LinearAnimation) || (animations[0] instanceof CircularAnimation))
-    {
-      trans = animations[0].correctMatrix(Time, scene.elapsedTime);
+    trans = animations[0].correctMatrix(Time, scene.elapsedTime);
 
-      mat4.multiply(this.aniMatrix, this.aniMatrix, trans);
-    }
+    mat4.multiply(this.aniMatrix, this.aniMatrix, trans);
   }
 
   //first applies the animation matrix

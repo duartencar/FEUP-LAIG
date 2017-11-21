@@ -27,21 +27,6 @@ class CircularAnimation extends Animation
 
     //animation rotation angle
     this.elapsedTime = 0;
-
-    //animation initial matrix
-    this.animationMatrix = mat4.create();
-  }
-
-  //returns the animation Matrix
-  get Matrix()
-  {
-    return this.animationMatrix;
-  }
-
-  //transforms the matrix with a given 'anotherMatrix'
-  transformMatrix(anotherMatrix)
-  {
-    mat4.multiply(this.animationMatrix, this.animationMatrix, anotherMatrix);
   }
 
   //sets elapsed time
@@ -242,9 +227,9 @@ class CircularAnimation extends Animation
       }
       else if ((totalSceneTime == 0) && (this.elapsedTime == 0))
       {
-        var dir = this.initialPoint();
+        let dir = this.initialPoint();
 
-        var Matrix = mat4.create();
+        let Matrix = mat4.create();
 
         mat4.rotateY(Matrix, Matrix, this.initialAngle);
 

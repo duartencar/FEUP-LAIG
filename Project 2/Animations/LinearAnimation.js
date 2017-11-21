@@ -15,21 +15,6 @@ class LinearAnimation extends Animation
 
     //elapsed time
     this.elapsedTime = 0;
-
-    //animation initial matrix
-    this.animationMatrix = mat4.create();
-  }
-
-  //returns the animation Matrix
-  get Matrix()
-  {
-    return this.animationMatrix;
-  }
-
-  //transforms the matrix with a given 'anotherMatrix'
-  transformMatrix(anotherMatrix)
-  {
-    mat4.multiply(this.animationMatrix, this.animationMatrix, anotherMatrix);
   }
 
   //sets elapsed time
@@ -94,9 +79,9 @@ class LinearAnimation extends Animation
   //returns the total distance than an object will travel with an animation
   get totalDistance()
   {
-    var total = 0;
+    let total = 0;
 
-    var points = this.controlP;
+    let points = this.controlP;
 
     var distanceBetweenPoints = function(p1, p2)
     {
