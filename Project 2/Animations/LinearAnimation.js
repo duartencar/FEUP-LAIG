@@ -58,11 +58,11 @@ class LinearAnimation extends Animation
   {
     var dir = [];
 
-    var x, y, z;
+    let x, y, z;
 
-    var num = this.numberOfDirections;
+    let num = this.numberOfDirections;
 
-    var points = this.controlP;
+    let points = this.controlP;
 
     for(var i = 0; i < num; i++)
     {
@@ -76,6 +76,26 @@ class LinearAnimation extends Animation
     return dir;
   }
 
+  //returns the traveled distance
+  get traveled()
+  {
+    return this.animationSpeed * this.elapsedTime;
+  }
+
+  //calculates the distance between two points
+  distanceBetweenPoints(p1, p2)
+  {
+    let dx, dy, dz;
+
+    dx = p2[0] - p1[0];
+
+    dy = p2[1] - p1[1];
+
+    dz = p2[2] - p1[2];
+
+    return Math.hypot(dx, dy, dz);
+  }
+
   //returns the total distance than an object will travel with an animation
   get totalDistance()
   {
@@ -83,21 +103,9 @@ class LinearAnimation extends Animation
 
     let points = this.controlP;
 
-    var distanceBetweenPoints = function(p1, p2)
-    {
-      var dx, dy, dz;
-
-      dx = p2[0] - p1[0];
-
-      dy = p2[1] - p1[1];
-
-      dz = p2[2] - p1[2];
-
-      return Math.hypot(dx, dy, dz);
-    }
-
+    //goes through each point and the next to calculate distance between them
     for(var i = 0; i < points.length - 1; i++)
-      total += distanceBetweenPoints(points[i], points[i+1]);
+      total += this.distanceBetweenPoints(points[i], points[i+1]);
 
     return total;
   }
@@ -111,28 +119,18 @@ class LinearAnimation extends Animation
   //returns the movement direction
   currentDirection()
   {
-    var distanceCovered = this.animationSpeed * this.elapsedTime;
+    var distanceCovered = this.traveled; // gets the traveled distance
 
-    var points = this.controlP;
+    var points = this.controlP; //gets animation control points
 
-    var dir = this.directions;
+    var dir = this.directions; //gets the animation directions
 
-    var distanceBetweenPoints = function(p1, p2)
-    {
-      var dx, dy, dz;
-
-      dx = p2[0] - p1[0];
-
-      dy = p2[1] - p1[1];
-
-      dz = p2[2] - p1[2];
-
-      return Math.hypot(dx, dy, dz);
-    }
-
+/*goes through all points, calculates distance between them, and subtracts them.
+ when 'distanceCovered' is equal or less than 0,
+ means that that is the current direction, and returns it*/
     for(var i = 0; i < points.length - 1; i++)
     {
-      distanceCovered -= distanceBetweenPoints(points[i], points[i+1]);
+      distanceCovered -= this.distanceBetweenPoints(points[i], points[i+1]);
 
       if(distanceCovered <= 0)
         return dir[i];
@@ -146,16 +144,20 @@ class LinearAnimation extends Animation
   {
     var Matrix = mat4.create();
 
-    var dir = this.currentDirection();
+    var dir = this.currentDirection(); //gets current direction
 
+    /*calculates a vector (trans), that corresponds to the translation,
+     based on speed and time interval*/
     var trans = [
                 dir[0] * this.speed * diff, //x
                 dir[1] * this.speed * diff, //y
                 dir[2] * this.speed * diff, //z
               ];
 
+    //creates a matrix with the translation
     mat4.translate(Matrix, mat4.create(), trans);
 
+    //returns it
     return Matrix;
   }
 
@@ -167,32 +169,51 @@ class LinearAnimation extends Animation
       return mat4.create(); //returns identity because there sno movement
     else
     {
+      //if time in scene is diferent of the time in animation
       if (totalSceneTime != this.elapsedTime)
       {
+        //updates the animation time
         this.updateElpasedTime(diffTime);
 
-        var trans = this.movement(diffTime);
-
-        /*var dir = this.currentDirection();
-
-        var ang = Math.atan(dir[2], dir[0]);
-
-        mat4.rotateY(trans, trans, ang);*/
-
-        return trans;
-      }
-      else if ((totalSceneTime == 0) && (this.elapsedTime == 0))
-      {
+        //creates a matrix
         var Matrix = mat4.create();
 
+        //gets a matrix with the translation
+        var mov = this.movement(diffTime);
+
+        //gets the current movement direction
+        var dir = this.currentDirection();
+
+        //calculates angle of rotation
+        var ang = Math.atan(dir[2] / dir[0]);
+
+        //mat4.rotateY(Matrix, Matrix, ang);
+
+        //multiplies the matrix for the translation one
+        mat4.multiply(Matrix, Matrix, mov);
+
+        //returns it
+        return Matrix;
+      }
+      //if its the instant t=0 we just want to put the object on the initial point
+      else if ((totalSceneTime == 0) && (this.elapsedTime == 0))
+      {
+        //create a Matrix
+        var Matrix = mat4.create();
+
+        //gets direction, witch is the first point
         var dir = this.initialPoint;
 
-        var ang = Math.atan(dir[0], dir[2]);
+        //gets the angle of rotation
+        var ang = Math.atan(dir[2] / dir[1]);
 
-        //mat4.rotateY(Matrix, mat4.create(), ang);
+        //aplies it to the matrix
+        mat4.rotateY(Matrix, mat4.create(), ang);
 
+        //aplies the translation
         mat4.translate(Matrix, mat4.create(), dir);
 
+        //returns the matrix
         return Matrix;
       }
       else
