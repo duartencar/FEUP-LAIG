@@ -1,7 +1,7 @@
 /**
  * LinearAnimation class that is an extension of Animation class.
  * This class makes an object travel linearly through a scene,
- *between assign control point with a certain spee.
+ * between assign control point with a certain speed.
 **/
 class LinearAnimation extends Animation
 {
