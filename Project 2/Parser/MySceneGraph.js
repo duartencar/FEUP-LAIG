@@ -1366,7 +1366,6 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode)
           var parsedAnimations = [];
 
           var ani = null;
-          console.log(childAnimations);
 
           for(var s = 0; s < childAnimations.length; s++)
           {
@@ -1377,12 +1376,10 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode)
               if(ani == null)
                 return ('failed to parse child animation id ' + childAnimations[s].id);
 
-                console.log(this.animations);
-
               if(this.animations[ani] == null)
                 return ('parsed animation name is not defined ("' + ani + '")"');
 
-              parsedAnimations.push(ani);
+              parsedAnimations.push(this.animations[ani]);
             }
             else
               this.onXMLMinorError('unknown tag name <' + childAnimations[s].nodeName + '> in animation');
