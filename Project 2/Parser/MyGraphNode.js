@@ -21,6 +21,9 @@ function MyGraphNode(graph, nodeID)
   // The texture ID.
   this.textureID = null;
 
+  // If node is selectable or not
+  this.selectable = false;
+
   // The animation ID.
   this.animations = [];
 
@@ -56,6 +59,14 @@ MyGraphNode.prototype.addLeaf = function(leaf)
 MyGraphNode.prototype.showLeaves = function()
 {
   console.log(this.leaves);
+};
+
+/**
+ * Sets node to seletable.
+ */
+MyGraphNode.prototype.setSelectable = function()
+{
+  this.selectable = true;
 };
 
 /**
@@ -186,18 +197,23 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time)
   //If this node doesn t has a animation it inherits the fathers node animation
   if(this.getAnimations() != null)
   {
+    //vector with animations
     var animations = this.getAnimations();
 
+    //creates a Matrix to store the matrix with animation transformation
     var trans = mat4.create();
 
+    //gets the animation transformation matrix
     trans = animations[0].correctMatrix(Time, scene.elapsedTime);
 
+    //apllies no animation matrix that belongs to node
     mat4.multiply(this.aniMatrix, this.aniMatrix, trans);
   }
 
   //first applies the animation matrix
   mat4.multiply(newMatrix, Tmatrix, this.aniMatrix);
 
+  //resets the value of rotations
   this.resetAnimationRotation();
 
   //Set the newMatrix to be the multiplication of the parent node matrix and this node matrix

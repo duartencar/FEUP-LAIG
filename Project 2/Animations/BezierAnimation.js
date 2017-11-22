@@ -115,6 +115,20 @@ class BezierAnimation extends Animation
     return this.transformedPoints.length - 1;
   }
 
+  //returns distance between p1 and p2
+  distanceBetweenPoints(p1, p2)
+  {
+    let dx, dy, dz;
+
+    dx = p2[0] - p1[0];
+
+    dy = p2[1] - p1[1];
+
+    dz = p2[2] - p1[2];
+
+    return Math.hypot(dx, dy, dz);
+  }
+  
   //returns the total distance than an object will travel with an animation
   get totalDistance()
   {
@@ -122,21 +136,8 @@ class BezierAnimation extends Animation
 
     let points = this.P;
 
-    var distanceBetweenPoints = function(p1, p2)
-    {
-      var dx, dy, dz;
-
-      dx = p2[0] - p1[0];
-
-      dy = p2[1] - p1[1];
-
-      dz = p2[2] - p1[2];
-
-      return Math.hypot(dx, dy, dz);
-    }
-
     for(var i = 0; i < points.length - 1; i++)
-      total += distanceBetweenPoints(points[i], points[i+1]);
+      total += this.distanceBetweenPoints(points[i], points[i+1]);
 
     return total;
   }
@@ -204,6 +205,7 @@ class BezierAnimation extends Animation
 
   correctMatrix(diffTime, totalSceneTime)
   {
+
     if(totalSceneTime >= this.animationSpan())
       return mat4.create();
     else

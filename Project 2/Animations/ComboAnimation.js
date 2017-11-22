@@ -17,7 +17,7 @@ class ComboAnimation
   }
 
   //returns animations array
-  get animations()
+  get animationsToDo()
   {
     return this.animations;
   }
