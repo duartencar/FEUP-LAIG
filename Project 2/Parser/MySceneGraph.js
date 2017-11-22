@@ -1240,14 +1240,17 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode)
       if(animationType == null)
         return 'failed to parse animation type';
 
-      // Checks if animation SPEED is valid.
-      var animationSpeed = this.reader.getFloat(children[i], 'speed');
+      if(animationType != 'combo')
+      {
+        // Checks if animation SPEED is valid.
+        var animationSpeed = this.reader.getFloat(children[i], 'speed');
 
-      if(animationSpeed == null)
-        return 'failed to parse animation speed';
+        if(animationSpeed == null)
+          return 'failed to parse animation speed';
 
-      if(animationSpeed <= 0)
-        return 'animation speed must be greater than 0';
+        if(animationSpeed <= 0)
+          return 'animation speed must be greater than 0';
+      }
 
       //Gets control points
       switch (animationType)
@@ -1353,7 +1356,7 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode)
               Cpoints.push(point);
             }
             else
-              this.onXMLMinorError('unknown tag name <' + rawPoints[n] + '> in animation');
+              this.onXMLMinorError('unknown tag name <' + rawPoints[n].nodeName + '> in animation');
           }
           var newAnimation = new BezierAnimation(this.scene, animationID, animationSpeed, Cpoints);
           break;
@@ -1363,23 +1366,26 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode)
           var parsedAnimations = [];
 
           var ani = null;
+          console.log(childAnimations);
 
           for(var s = 0; s < childAnimations.length; s++)
           {
-            if(childAnimations[s].nodename == 'SPANREF')
+            if(childAnimations[s].nodeName == 'SPANREF')
             {
               ani = this.reader.getString(childAnimations[s], 'id');
 
-              if(ani = null)
-                return 'failed to parse child animation id' + childAnimations[s];
+              if(ani == null)
+                return ('failed to parse child animation id ' + childAnimations[s].id);
 
-              if(this.animations.indexOf(ani) == -1)
-                return 'parsed animation name is not defined';
+                console.log(this.animations);
+
+              if(this.animations[ani] == null)
+                return ('parsed animation name is not defined ("' + ani + '")"');
 
               parsedAnimations.push(ani);
             }
             else
-              this.onXMLMinorError('unknown tag name <' + childAnimations[s] + '> in animation');
+              this.onXMLMinorError('unknown tag name <' + childAnimations[s].nodeName + '> in animation');
           }
 
           var newAnimation = new ComboAnimation(this.scene, animationID, parsedAnimations);
@@ -1429,10 +1435,18 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
       if (this.nodes[nodeID] != null )
         return "node ID must be unique (conflict: ID = " + nodeID + ")";
 
-      this.log("Processing node "+nodeID);
+      this.log("Processing node " + nodeID);
 
       // Creates node.
       this.nodes[nodeID] = new MyGraphNode(this,nodeID);
+
+      if(this.reader.hasAttribute(children[i], 'selectable'))
+      {
+        var sel = this.reader.getBoolean(children[i], 'selectable');
+
+        if(sel == true)
+          this.nodes[nodeID].setSelectable();
+      }
 
       // Gathers child nodes.
       var nodeSpecs = children[i].children;
@@ -1467,6 +1481,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
         else
         {
           var ani = this.animations[animationID];
+
           this.nodes[nodeID].addAnimation(ani);
         }
       }
@@ -1623,7 +1638,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
           var curId = this.reader.getString(descendants[j], 'id');
 
-          this.log("   Descendant: "+curId);
+          this.log("   Descendant: "+ curId);
 
           if (curId == null )
             this.onXMLMinorError("unable to parse descendant id");
