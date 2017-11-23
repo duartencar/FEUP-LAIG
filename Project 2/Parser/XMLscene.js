@@ -17,6 +17,8 @@ function XMLscene(interface)
   this.time = d.getTime();
 
   this.elapsedTime = 0;
+  
+  this.selectables = [];
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -114,6 +116,7 @@ XMLscene.prototype.onGraphLoaded = function()
 
   // Adds lights group.
   this.interface.addLightsGroup(this.graph.lights);
+  this.interface.addSelectablesGroup(this.selectables);
 }
 
 /**

@@ -48,3 +48,14 @@ MyInterface.prototype.addLightsGroup = function(lights) {
     }
 }
 
+
+MyInterface.prototype.addSelectablesGroup = function(selectables) {
+	
+	var group = this.gui.addFolder("Selectables ID");
+	group.open();
+	
+	for(i = 0; i < selectables.length; i++){
+		group.add(selectables[i], 'selectable').name(selectables[i].nodeID);
+	}
+}
+

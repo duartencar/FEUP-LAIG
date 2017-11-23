@@ -1441,8 +1441,10 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
       {
         var sel = this.reader.getBoolean(children[i], 'selectable');
 
-        if(sel == true)
-          this.nodes[nodeID].setSelectable();
+        if(sel == true){
+			this.nodes[nodeID].setSelectable();
+			this.scene.selectables.push(this.nodes[nodeID]);
+		}
       }
 
       // Gathers child nodes.
