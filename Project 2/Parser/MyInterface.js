@@ -3,7 +3,7 @@
  * @constructor
  */
 function MyInterface() {
-    //call CGFinterface constructor 
+    //call CGFinterface constructor
     CGFinterface.call(this);
 }
 ;
@@ -21,11 +21,11 @@ MyInterface.prototype.init = function(application) {
 
     // init GUI. For more information on the methods, check:
     //  http://workshop.chromeexperiments.com/examples/gui
-    
+
     this.gui = new dat.GUI();
 
     // add a group of controls (and open/expand by defult)
-    
+
     return true;
 };
 
@@ -51,47 +51,32 @@ MyInterface.prototype.addLightsGroup = function(lights) {
 /*
  * Adds a folder containing the IDs of the nodes which are "selectable" passed as a parameter.
  */
-MyInterface.prototype.addSelectablesGroup = function(selectables) {
-	
-	/*var group = this.gui.addFolder("Selectables ID");
-	group.open();
-	
-	for(i = 0; i < selectables.length; i++){
-		group.add(selectables[i], 'shaderStatus').name(selectables[i].nodeID);
-	}*/
+MyInterface.prototype.addSelectablesGroup = function(selectables)
+{
+  let selectablesDict = {};
 
-    let selectablesDict = [];
-    let string = "{";
+  for(let i = 0; i < selectables.length; i++)
+    selectablesDict[selectables[i].nodeID] = i;
 
-    for(let i = 0; i < selectables.length; i++){
-        selectablesDict[selectables[i].nodeID] = i;
-        string += "'" + selectables[i].nodeID + "'" + ": " + i;
+  this.gui.add(this.scene, 'selectedNode', selectablesDict).name('Node');
 
-        if(i == selectables.length - 1)
-            break;
-        string += ", ";
-    }
-
-    string += "}";
-
-    this.gui.add(this.scene, 'selectedNodeShader', string);
-
-    console.log(selectablesDict);
-    console.log(string);
+  console.log("Added selectables Group");
 }
 
-MyInterface.prototype.addShadersGroup = function(){
+MyInterface.prototype.addShadersGroup = function()
+{
+  this.gui.add(this.scene, 'selectedShader',
+  {
+    'Default Shadding': -1,
+    'Flat Shading': 0,
+    'Passing a scale as uniform': 1,
+    'Passing a varying parameter from VS -> FS': 2,
+    'Simple texturing': 3,
+    'Multiple textures in the FS': 4,
+    'Multiple textures in VS and FS': 5,
+    'Sepia': 6,
+    'Convolution': 7
+  }).name('Shader');
 
-    this.gui.add(this.scene, 'selectedExampleShader', {
-            'Flat Shading': 0, 
-            'Passing a scale as uniform': 1, 
-            'Passing a varying parameter from VS -> FS': 2, 
-            'Simple texturing': 3, 
-            'Multiple textures in the FS': 4, 
-            'Multiple textures in VS and FS': 5,
-            'Sepia': 6,
-            'Convolution': 7
-            
-    }).name('Shader examples');
-
+  console.log("Added Shaders Group");
 }
