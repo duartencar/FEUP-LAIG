@@ -99,6 +99,9 @@ class CircularAnimation extends Animation
   updateCurrentAngle(diff)
   {
     this.currAngle += this.angularSpeed * diff;
+
+    if(this.currAngle > (this.initAng + this.rotAng))
+      this.currAngle = this.initAng + this.rotAng;
   }
 
   //returns the current direction of the animation
@@ -253,7 +256,7 @@ class CircularAnimation extends Animation
         let Matrix = this.movement(diffTime);
 
         //rotates the matrix according to current angle
-        mat4.rotateY(Matrix, mat4.create(), this.currAngle);
+        //mat4.rotateY(Matrix, mat4.create(), this.currAngle);
 
         //returns the matrix
         return Matrix;

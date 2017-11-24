@@ -31,7 +31,7 @@ class ComboAnimation
   }
 
   //returns the total time of combo animation
-  getAnimationSpan()
+  animationSpan()
   {
     let totalSpan = 0;
 
@@ -41,9 +41,37 @@ class ComboAnimation
     return totalSpan;
   }
 
+
+  correctAnimationIndex(Time)
+  {
+    for(let i = 0; i < this.animations.length; i++)
+    {
+      Time -= this.animations[i].animationSpan();
+
+      if(Time < 0)
+        return i;
+    }
+
+    return this.animations[this.animations.length - 1];
+  }
+
   //returns the correct matrix for a given moment
   correctMatrix(diffTime, totalSceneTime)
   {
+    if(totalSceneTime > this.animationSpan())
+      return mat4.create();
+    else
+    {
+      let aniIndex = this.correctAnimationIndex(totalSceneTime);
 
+      let t = totalSceneTime;
+
+      for(let i = 0; i < aniIndex; i++)
+        t -= this.animations[i].animationSpan();
+
+      let Matrix = this.animations[aniIndex].correctMatrix(diffTime, t);
+
+      return Matrix;
+    }
   }
 }

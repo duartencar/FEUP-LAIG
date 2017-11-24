@@ -136,7 +136,7 @@ class LinearAnimation extends Animation
         return dir[i];
     }
 
-    return dir[points.length - 1];
+    return dir[dir.length - 1];
   }
 
   //returns a matrix with the movement in a certain interval of time
