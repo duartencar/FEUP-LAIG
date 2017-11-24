@@ -170,7 +170,7 @@ class LinearAnimation extends Animation
     else
     {
       //if time in scene is diferent of the time in animation
-      if (totalSceneTime != this.elapsedTime)
+      if ((totalSceneTime != this.elapsedTime) && (this.elapsedTime != 0))
       {
         //updates the animation time
         this.updateElpasedTime(diffTime);
@@ -192,11 +192,13 @@ class LinearAnimation extends Animation
         //multiplies the matrix for the translation one
         mat4.multiply(Matrix, Matrix, mov);
 
+        console.log("a retornar linear t-> " + totalSceneTime);
+
         //returns it
         return Matrix;
       }
       //if its the instant t=0 we just want to put the object on the initial point
-      else if ((totalSceneTime == 0) && (this.elapsedTime == 0))
+      else if (this.elapsedTime == 0)
       {
         //create a Matrix
         var Matrix = mat4.create();
@@ -212,6 +214,17 @@ class LinearAnimation extends Animation
 
         //aplies the translation
         mat4.translate(Matrix, mat4.create(), dir);
+
+        //updates the animation time
+        this.updateElpasedTime(diffTime);
+
+        //gets a matrix with the translation
+        var mov = this.movement(diffTime);
+
+        console.log("Transformação inicial(linear)");
+
+        //multiplies the matrix for the translation one
+        mat4.multiply(Matrix, Matrix, mov);
 
         //returns the matrix
         return Matrix;

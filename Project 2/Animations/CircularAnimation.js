@@ -247,7 +247,7 @@ class CircularAnimation extends Animation
     else
     {
       //if the time of the scene is diferent than in the animation
-      if(totalSceneTime != this.elapsedTime)
+      if((totalSceneTime != this.elapsedTime) && (this.elapsedTime != 0))
       {
         //updates the time
         this.updateElpasedTime(diffTime);
@@ -258,11 +258,13 @@ class CircularAnimation extends Animation
         //rotates the matrix according to current angle
         //mat4.rotateY(Matrix, mat4.create(), this.currAngle);
 
+        console.log("a retornar circular t-> " + totalSceneTime);
+
         //returns the matrix
         return Matrix;
       }
       //if it is the initial moment (t=0)
-      else if ((totalSceneTime == 0) && (this.elapsedTime == 0))
+      else if (this.elapsedTime == 0)
       {
         //gets the direction for the initial point
         let dir = this.initialPoint();
@@ -275,6 +277,15 @@ class CircularAnimation extends Animation
 
         //translates it in direction
         mat4.translate(Matrix, Matrix, dir);
+
+        //updates the time
+        this.updateElpasedTime(diffTime);
+
+        //creates a matrix with the translation
+        let mov = this.movement(diffTime);
+
+        //multiplies the matrix for the translation one
+        mat4.multiply(Matrix, Matrix, mov);
 
         //returns the matrix
         return Matrix;

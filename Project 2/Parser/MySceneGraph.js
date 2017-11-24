@@ -1379,7 +1379,9 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode)
               if(this.animations[ani] == null)
                 return ('parsed animation name is not defined ("' + ani + '")"');
 
-              parsedAnimations.push(this.animations[ani]);
+              let newAni = this.animations[ani];
+
+              parsedAnimations.push(newAni);
             }
             else
               this.onXMLMinorError('unknown tag name <' + childAnimations[s].nodeName + '> in animation');

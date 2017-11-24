@@ -128,7 +128,7 @@ class BezierAnimation extends Animation
 
     return Math.hypot(dx, dy, dz);
   }
-  
+
   //returns the total distance than an object will travel with an animation
   get totalDistance()
   {
@@ -210,19 +210,27 @@ class BezierAnimation extends Animation
       return mat4.create();
     else
     {
-      if(totalSceneTime != this.elapsedTime)
+      if((totalSceneTime != this.elapsedTime) && (this.elapsedTime != 0))
       {
         let trans = this.movement(diffTime);
 
+        console.log("a retornar bezier t-> " + totalSceneTime);
+
         return trans;
       }
-      else if((totalSceneTime == 0) && (this.elapsedTime == 0))
+      else if(this.elapsedTime == 0)
       {
         let dir = this.initialPoint();
 
         let Matrix = mat4.create();
 
         mat4.translate(Matrix, Matrix, dir);
+
+        console.log("Transformação inicial");
+
+        let trans = this.movement(diffTime);
+
+        mat4.multiply(Matrix, Matrix, trans);
 
         return Matrix;
       }

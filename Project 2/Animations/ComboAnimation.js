@@ -41,7 +41,7 @@ class ComboAnimation
     return totalSpan;
   }
 
-
+  //returns the adequate animation index according to time
   correctAnimationIndex(Time)
   {
     for(let i = 0; i < this.animations.length; i++)
@@ -68,6 +68,8 @@ class ComboAnimation
 
       for(let i = 0; i < aniIndex; i++)
         t -= this.animations[i].animationSpan();
+
+        console.log("a retornar combo t-> " + totalSceneTime);
 
       let Matrix = this.animations[aniIndex].correctMatrix(diffTime, t);
 
