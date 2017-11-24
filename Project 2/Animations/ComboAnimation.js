@@ -73,6 +73,8 @@ class ComboAnimation
 
       let Matrix = this.animations[aniIndex].correctMatrix(diffTime, t);
 
+      console.log(Matrix);
+
       return Matrix;
     }
   }
