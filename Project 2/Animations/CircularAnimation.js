@@ -101,7 +101,7 @@ class CircularAnimation extends Animation
     this.currAngle += this.angularSpeed * diff;
 
     if((this.currAngle % (2 * Math.Pi)) > (this.initAng + this.rotAng))
-      this.currAngle = this.initAng + this.rotAng;*/
+      this.currAngle = this.initAng + this.rotAng;
   }
 
   //returns the current direction of the animation
