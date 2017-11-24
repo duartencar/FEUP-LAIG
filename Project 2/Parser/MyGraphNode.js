@@ -24,6 +24,9 @@ function MyGraphNode(graph, nodeID)
   // If node is selectable or not
   this.selectable = false;
 
+  // Shader applied status
+  this.shaderStatus = false;
+
   // The animation ID.
   this.animations = [];
 
