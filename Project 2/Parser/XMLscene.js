@@ -23,6 +23,8 @@ function XMLscene(interface)
   this.selectedShader = 0;
 
   this.selectedNode = 0;
+
+  this.shaders = [];
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -118,12 +120,36 @@ XMLscene.prototype.onGraphLoaded = function()
 
   this.initLights();
 
+  this.loadShaders();
+
   // Adds lights group.
   this.interface.addLightsGroup(this.graph.lights);
 
   this.interface.addSelectablesGroup(this.selectables);
 
   this.interface.addShadersGroup();
+}
+
+//Loads done shaders
+XMLscene.prototype.loadShaders = function()
+{
+  console.log("Loading Shaders");
+
+  let Shaders =
+  [
+		new CGFshader(this.gl, "../shaders/flat.vert", "../shaders/flat.frag"),
+		new CGFshader(this.gl, "../shaders/uScale.vert", "../shaders/uScale.frag"),
+		new CGFshader(this.gl, "../shaders/varying.vert", "../shaders/varying.frag"),
+		new CGFshader(this.gl, "../shaders/texture1.vert", "../shaders/texture1.frag"),
+		new CGFshader(this.gl, "../shaders/texture2.vert", "../shaders/texture2.frag"),
+		new CGFshader(this.gl, "../shaders/texture3.vert", "../shaders/texture3.frag"),
+		new CGFshader(this.gl, "../shaders/texture3.vert", "../shaders/sepia.frag"),
+		new CGFshader(this.gl, "../shaders/texture3.vert", "../shaders/convolution.frag")
+	];
+
+  this.Shaders = Shaders;
+
+  console.log("Done!");
 }
 
 /**
