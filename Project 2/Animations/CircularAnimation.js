@@ -100,7 +100,7 @@ class CircularAnimation extends Animation
   {
     this.currAngle += this.angularSpeed * diff;
 
-    /*if(this.currAngle > (this.initAng + this.rotAng))
+    if((this.currAngle % (2 * Math.Pi)) > (this.initAng + this.rotAng))
       this.currAngle = this.initAng + this.rotAng;*/
   }
 
@@ -257,8 +257,6 @@ class CircularAnimation extends Animation
 
         //rotates the matrix according to current angle
         //mat4.rotateY(Matrix, mat4.create(), this.currAngle);
-
-        console.log("a retornar circular t-> " + totalSceneTime);
 
         //returns the matrix
         return Matrix;

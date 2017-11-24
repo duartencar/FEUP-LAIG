@@ -214,8 +214,6 @@ class BezierAnimation extends Animation
       {
         let trans = this.movement(diffTime);
 
-        console.log("a retornar bezier t-> " + totalSceneTime);
-
         return trans;
       }
       else if(this.elapsedTime == 0)
@@ -225,8 +223,6 @@ class BezierAnimation extends Animation
         let Matrix = mat4.create();
 
         mat4.translate(Matrix, Matrix, dir);
-
-        console.log("Transformação inicial");
 
         let trans = this.movement(diffTime);
 

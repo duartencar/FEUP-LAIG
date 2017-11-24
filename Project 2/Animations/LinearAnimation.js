@@ -192,8 +192,6 @@ class LinearAnimation extends Animation
         //multiplies the matrix for the translation one
         mat4.multiply(Matrix, Matrix, mov);
 
-        console.log("a retornar linear t-> " + totalSceneTime);
-
         //returns it
         return Matrix;
       }
@@ -220,8 +218,6 @@ class LinearAnimation extends Animation
 
         //gets a matrix with the translation
         var mov = this.movement(diffTime);
-
-        console.log("Transformação inicial(linear)");
 
         //multiplies the matrix for the translation one
         mat4.multiply(Matrix, Matrix, mov);

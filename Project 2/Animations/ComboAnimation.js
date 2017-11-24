@@ -69,11 +69,7 @@ class ComboAnimation
       for(let i = 0; i < aniIndex; i++)
         t -= this.animations[i].animationSpan();
 
-        console.log("a retornar combo t-> " + totalSceneTime);
-
       let Matrix = this.animations[aniIndex].correctMatrix(diffTime, t);
-
-      console.log(Matrix);
 
       return Matrix;
     }
