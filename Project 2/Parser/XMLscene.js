@@ -147,9 +147,18 @@ XMLscene.prototype.loadShaders = function()
 		new CGFshader(this.gl, "../shaders/texture3.vert", "../shaders/convolution.frag")
 	];
 
-  this.Shaders = Shaders;
+  this.shaders = Shaders;
 
   console.log("Done!");
+}
+
+XMLscene.prototype.updateScaleFactor = function(v)
+{
+	this.shaders[1].setUniformsValues({t: Math.cos(v)});
+
+  this.shaders[2].setUniformsValues({t: Math.cos(v)});
+
+  this.shaders[5].setUniformsValues({t: Math.cos(v)});
 }
 
 /**
@@ -212,6 +221,8 @@ XMLscene.prototype.display = function()
     let t = d.getTime();
 
     diff = (t - this.time) / 1000;
+
+    this.updateScaleFactor((t % 2 * Math.PI));
 
     // Displays the scene.
     this.graph.displayScene(diff);
