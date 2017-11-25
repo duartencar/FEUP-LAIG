@@ -206,7 +206,7 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
 
   let Diff;
 
-  if (DifferentShader == false)
+  if ((DifferentShader == false) && (scene.selectables.length != 0))
   {
     if(this.nodeID == scene.selectables[scene.selectedNode].nodeID)
       Diff = true;
