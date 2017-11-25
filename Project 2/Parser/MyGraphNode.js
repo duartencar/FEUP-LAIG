@@ -164,7 +164,7 @@ MyGraphNode.prototype.getChildren = function ()
 /**
  * Analyses a node. It's a recursive funtion.
  */
-MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time)
+MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, DifferentShader)
 {
   //Get the node children
   var nodeChildren = this.getChildren();
@@ -174,6 +174,18 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time)
 
   //Create a new Matrix
   var newMatrix = mat4.create();
+
+  let Diff;
+
+  if (DifferentShader == false)
+  {
+    if(this.nodeID == scene.selectables[scene.selectedNode].nodeID)
+      Diff = true;
+    else
+      Diff = false;
+  }
+  else
+    Diff = true;
 
   //If this node doesn t has a texture it inherits the fathers node texture
   if(this.getTextureID() == 'null')
@@ -224,7 +236,7 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time)
 
   //Analyses all the node children, calling this function
   for (var i = 0; i < nodeChildren.length; i++)
-    this.graph.nodes[nodeChildren[i]].analyse(scene, newMatrix, newText, newMat, Time);
+    this.graph.nodes[nodeChildren[i]].analyse(scene, newMatrix, newText, newMat, Time, Diff);
 
   //Displays all the node Leafs
   for (var i = 0; i < nodeLeafs.length; i++)
@@ -233,6 +245,6 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time)
     var toDraw = nodeLeafs[i].getLeaf(scene);
 
     //draws it
-    nodeLeafs[i].draw(scene, toDraw, newMatrix, newText, newMat, Time);
+    nodeLeafs[i].draw(scene, toDraw, newMatrix, newText, newMat, Time, Diff);
   }
 };

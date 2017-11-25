@@ -143,8 +143,14 @@ MyGraphLeaf.prototype.getLeaf = function (scene)
  * Texture - the texture that will be apllied to the object
  * Material- the material that will be applied to the object
  **/
-MyGraphLeaf.prototype.draw = function(scene, toDraw, Matrix, Texture, Material, Time)
+MyGraphLeaf.prototype.draw = function(scene, toDraw, Matrix, Texture, Material, Time, DifferentShader)
 {
+  //scene.setActiveShader(scene.shaders[scene.selectedShader]);
+  if(DifferentShader == true)
+    console.log("Usar shader diferente");
+  else {
+      console.log("Usar shader normal");
+  }
   scene.pushMatrix();
 
     //If there is no meterial the default one will be applied
@@ -177,4 +183,6 @@ MyGraphLeaf.prototype.draw = function(scene, toDraw, Matrix, Texture, Material, 
     appearance.setTexture(null);
 
   scene.popMatrix();
+
+  //scene.setActiveShader(scene.defaultShader);
 };

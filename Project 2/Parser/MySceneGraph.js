@@ -1444,7 +1444,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
         var sel = this.reader.getBoolean(children[i], 'selectable');
 
         if(sel == true){
-          
+
 			   this.nodes[nodeID].setSelectable();
 			   this.scene.selectables.push(this.nodes[nodeID]);
 		}
@@ -1785,5 +1785,5 @@ MySceneGraph.prototype.displayScene = function(diffTime)
   var initialMaterial = this.nodes.root.getMaterialID(); //get a initital material
 
   for(var i = 0; i < x.length; i++)
-    this.nodes[x[i]].analyse(this.scene, inititalMatrix, initialText, initialMaterial, diffTime);
+    this.nodes[x[i]].analyse(this.scene, inititalMatrix, initialText, initialMaterial, diffTime, false);
 }

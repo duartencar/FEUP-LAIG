@@ -78,7 +78,7 @@ MyInterface.prototype.addShadersGroup = function()
   {
     'Default Shadding': -1,
     'Flat Shading': 0,
-    'Passing a scale as uniform': 1,
+    'Scale over time': 1,
     'Passing a varying parameter from VS -> FS': 2,
     'Simple texturing': 3,
     'Multiple textures in the FS': 4,
