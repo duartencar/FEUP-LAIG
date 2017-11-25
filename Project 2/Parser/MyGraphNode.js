@@ -30,6 +30,9 @@ function MyGraphNode(graph, nodeID)
   // The animation ID.
   this.animations = [];
 
+  //the total duration of the node animation
+  this.animationsSpan = 0;
+
   // This matrix will contain the current transformation matrix
   this.aniMatrix = mat4.create();
 
@@ -101,6 +104,32 @@ MyGraphNode.prototype.resetAnimationRotation = function()
 
   this.aniMatrix[10] = 1;
 };
+
+/**
+ * Returns the total time of the nodes animation
+ */
+MyGraphNode.prototype.getNodeAnimationsDuration = function ()
+{
+  let t = 0;
+
+  for(let i = 0; i < this.animations.length; i++)
+    t += this.animations[i].animationSpan();
+
+  return t;
+}
+
+MyGraphNode.prototype.correctAnimationIndex = function (sceneTime)
+{
+  for(let i = 0; i < this.animations.length; i++)
+  {
+    sceneTime -= this.animations[i].animationSpan();
+
+    if(sceneTime < 0)
+      return i;
+  }
+
+  return this.animations.length - 1;
+}
 
 /**
  * Sets the value of materialID
@@ -215,11 +244,18 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
     //vector with animations
     var animations = this.getAnimations();
 
+    let animationIndex = this.correctAnimationIndex(scene.elapsedTime);
+
+    let t = scene.elapsedTime;
+
+    for(let i = 0; i < animationIndex; i++)
+      t -= this.animations[i].animationSpan();
+
     //creates a Matrix to store the matrix with animation transformation
     var trans = mat4.create();
 
     //gets the animation transformation matrix
-    trans = animations[0].correctMatrix(Time, scene.elapsedTime);
+    trans = animations[animationIndex].correctMatrix(Time, t);
 
     //apllies no animation matrix that belongs to node
     mat4.multiply(this.aniMatrix, this.aniMatrix, trans);

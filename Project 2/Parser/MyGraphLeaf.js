@@ -146,11 +146,11 @@ MyGraphLeaf.prototype.getLeaf = function (scene)
 MyGraphLeaf.prototype.draw = function(scene, toDraw, Matrix, Texture, Material, Time, DifferentShader)
 {
   //scene.setActiveShader(scene.shaders[scene.selectedShader]);
-  if(DifferentShader == true)
+  /*if(DifferentShader == true)
     console.log("Usar shader diferente");
   else {
       console.log("Usar shader normal");
-  }
+  }*/
   scene.pushMatrix();
 
     //If there is no meterial the default one will be applied

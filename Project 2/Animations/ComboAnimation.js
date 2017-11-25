@@ -52,7 +52,7 @@ class ComboAnimation
         return i;
     }
 
-    return this.animations[this.animations.length - 1];
+    return this.animations.length - 1;
   }
 
   //returns the correct matrix for a given moment

@@ -1409,16 +1409,22 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
   // Traverses nodes.
   var children = nodesNode.children;
 
-  for (var i = 0; i < children.length; i++) {
+  for (var i = 0; i < children.length; i++)
+  {
     var nodeName;
-    if ((nodeName = children[i].nodeName) == "ROOT") {
+
+    if ((nodeName = children[i].nodeName) == "ROOT")
+    {
       // Retrieves root node.
       if (this.idRoot != null )
         return "there can only be one root node";
-      else {
+      else
+      {
         var root = this.reader.getString(children[i], 'id');
+
         if (root == null )
-        return "failed to retrieve root node ID";
+          return "failed to retrieve root node ID";
+
         this.idRoot = root;
       }
     }
@@ -1437,17 +1443,18 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
       this.log("Processing node " + nodeID);
 
       // Creates node.
-      this.nodes[nodeID] = new MyGraphNode(this,nodeID);
+      this.nodes[nodeID] = new MyGraphNode(this, nodeID);
 
       if(this.reader.hasAttribute(children[i], 'selectable'))
       {
         var sel = this.reader.getBoolean(children[i], 'selectable');
 
-        if(sel == true){
+        if(sel == true)
+        {
+			    this.nodes[nodeID].setSelectable();
 
-			   this.nodes[nodeID].setSelectable();
-			   this.scene.selectables.push(this.nodes[nodeID]);
-		}
+          this.scene.selectables.push(this.nodes[nodeID]);
+		    }
       }
 
       // Gathers child nodes.
@@ -1455,7 +1462,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
       var specsNames = [];
 
-      var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "DESCENDANTS", "ANIMATION"];
+      var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "DESCENDANTS", "ANIMATIONREFS"];
 
       for (var j = 0; j < nodeSpecs.length; j++)
       {
@@ -1469,23 +1476,30 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
       }
 
       // Retrieves animation ID
-      if(specsNames.indexOf("ANIMATION") != -1)
+      if(specsNames.indexOf("ANIMATIONREFS") != -1)
       {
-        var animationIndex = specsNames.indexOf("ANIMATION");
+        var animationIndex = specsNames.indexOf("ANIMATIONREFS");
 
-        var animationID = this.reader.getString(nodeSpecs[animationIndex], 'id');
+        var animations = nodeSpecs[animationIndex].children;
 
-        if (animationID == null )
-          return "unable to parse animationID ID (node ID = " + nodeID + ")";
-
-        if (animationID != "null" && this.animations[animationID] == null )
-          return "ID does not correspond to a valid animation (node ID = " + nodeID + ")";
-        else
+        for(let i = 0; i < animations.length; i++)
         {
-          var ani = this.animations[animationID];
+          let animationID = this.reader.getString(animations[i], 'id');
 
-          this.nodes[nodeID].addAnimation(ani);
+          if (animationID == null )
+            return "unable to parse animationID ID (node ID = " + nodeID + ")";
+
+          if (animationID != "null" && this.animations[animationID] == null )
+            return "ID does not correspond to a valid animation (node ID = " + nodeID + ")";
+          else
+          {
+            var ani = this.animations[animationID];
+
+            this.nodes[nodeID].addAnimation(ani);
+          }
         }
+
+        this.nodes[nodeID].animationsSpan = this.nodes[nodeID].getNodeAnimationsDuration();
       }
 
       // Retrieves material ID.
@@ -1640,7 +1654,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
           var curId = this.reader.getString(descendants[j], 'id');
 
-          this.log("   Descendant: "+ curId);
+          this.log("   Descendant: " + curId);
 
           if (curId == null )
             this.onXMLMinorError("unable to parse descendant id");
