@@ -10,5 +10,5 @@ uniform float t;
 
 void main()
 {
-	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + aVertexNormal * t * 0.1, 1.0);
+	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + aVertexNormal * t * 0.5, 1.0);
 }

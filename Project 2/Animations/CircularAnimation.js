@@ -213,7 +213,7 @@ class CircularAnimation extends Animation
     var dir = vec3.create();
 
     //sets the apropriate values
-    vec3.set(dir, this.rcos(this.initialAngle), 0, this.rsin(this.initialAngle));
+    vec3.set(dir, this.rcos(this.initialAngle) + this.centerCoords[0], 0 + this.centerCoords[1], this.rsin(this.initialAngle) + this.centerCoords[2]);
 
     //returns it
     return dir;
