@@ -94,6 +94,21 @@ MyInterface.prototype.addShadersGroup = function(scene)
     scene.selectedShader = x;
   });
 
+  this.gui.add(this.scene, 'red', 0, 256).name('Red').onChange(function(x)
+	{
+		scene.red = x;
+	});
+
+  this.gui.add(this.scene, 'green', 0, 256).name('Green').onChange(function(x)
+	{
+		scene.green = x;
+	});
+
+  this.gui.add(this.scene, 'blue', 0, 256).name('Blue').onChange(function(x)
+	{
+		scene.blue = x;
+	});
+
   this.gui.add(this.scene, 'selectedSpeed', 200, 2000).name('Speed').onChange(function(x)
 	{
 		scene.selectedSpeed = x;

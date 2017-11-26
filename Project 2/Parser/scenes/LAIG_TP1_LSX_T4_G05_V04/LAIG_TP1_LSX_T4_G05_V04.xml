@@ -157,23 +157,23 @@
           centerz="0" radius="15" startang="0" rotang="-180">
         </ANIMATION>
 
-        <ANIMATION id="Bezier3to2" speed="3" type="bezier">
+        <ANIMATION id="Bezier3to2" speed="5" type="bezier">
           <controlpoint xx="0" yy="0" zz="0"/>
-          <controlpoint xx="20" yy="-10" zz="0"/>
-          <controlpoint xx="30" yy="10" zz="-5"/>
+          <controlpoint xx="20" yy="20" zz="0"/>
+          <controlpoint xx="30" yy="0" zz="-5"/>
           <controlpoint xx="30" yy="0" zz="-20"/>
         </ANIMATION>
 
         <ANIMATION id="BezierHalfWay1" speed="5" type="bezier">
           <controlpoint xx="0" yy="0" zz="0"/>
           <controlpoint xx="5" yy="5" zz="2.5"/>
-          <controlpoint xx="-5" yy="-5" zz="7.5"/>
+          <controlpoint xx="-5" yy="5" zz="7.5"/>
           <controlpoint xx="0" yy="0" zz="10"/>
         </ANIMATION>
 
         <ANIMATION id="BezierHalfWay2" speed="5" type="bezier">
           <controlpoint xx="0" yy="0" zz="0"/>
-          <controlpoint xx="-5" yy="-5" zz="2.5"/>
+          <controlpoint xx="-5" yy="5" zz="2.5"/>
           <controlpoint xx="5" yy="5" zz="7.5"/>
           <controlpoint xx="0" yy="0" zz="10"/>
         </ANIMATION>
@@ -188,7 +188,7 @@
         </ANIMATION>
 
         <ANIMATION id="circular1to2" speed="5" type="circular" centerx="15" centery="0"
-          centerz="0" radius="15" startang="0" rotang="-180"/>
+          centerz="0" radius="15" startang="180" rotang="-180"/>
 
         <ANIMATION id="combination" type="combo">
           <SPANREF id="Circular2to1"/>
@@ -328,26 +328,10 @@
             <MATERIAL id="null" />
             <TEXTURE id="null" />
             <ANIMATIONREFS>
-              <ANIMATIONREF id="BezierHalfWay1"/>
+              <ANIMATIONREF id="BezierHalfWay1"/> <!--BezierHalfWay1 -->
               <ANIMATIONREF id="BezierHalfWay2"/>
               <ANIMATIONREF id="Linear3to1"/>
               <ANIMATIONREF id="circular1to2"/>
-            </ANIMATIONREFS>
-
-            <DESCENDANTS>
-                <NODEREF id="luz_candeeiro" />
-            </DESCENDANTS>
-
-        </NODE>
-
-        <!-- The second light -->
-        <NODE id="light_2" selectable="true">
-            <MATERIAL id="null" />
-            <TEXTURE id="null" />
-
-            <TRANSLATION x="30" y="0" z="0" />
-            <ANIMATIONREFS>
-              <ANIMATIONREF id="combination"/>
             </ANIMATIONREFS>
 
             <DESCENDANTS>
