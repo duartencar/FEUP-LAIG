@@ -83,7 +83,7 @@ MyInterface.prototype.addShadersGroup = function(scene)
     'None': 0,
     'Flat Shading': 1,
     'Scale over time (TP2)': 2,
-    '<- Saturated ->(TP2)': 3,
+    'Passing a varying parameter from VS -> FS': 3,
     'Simple texturing': 4,
     'Multiple textures in the FS': 5,
     'Multiple textures in VS and FS': 6,

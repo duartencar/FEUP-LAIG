@@ -33,6 +33,8 @@ function MyGraphNode(graph, nodeID)
   //the total duration of the node animation
   this.animationsSpan = 0;
 
+  this.animationIndex = 0;
+
   // This matrix will contain the current transformation matrix
   this.aniMatrix = mat4.create();
 
@@ -92,7 +94,7 @@ MyGraphNode.prototype.addAnimation = function(animation)
 };
 
 /**
- * Adds an animations
+ * Resets animation rotation
  */
 MyGraphNode.prototype.resetAnimationRotation = function()
 {
@@ -103,6 +105,14 @@ MyGraphNode.prototype.resetAnimationRotation = function()
   this.aniMatrix[8] = 0;
 
   this.aniMatrix[10] = 1;
+};
+
+/**
+ * Resets animation transformation
+ */
+MyGraphNode.prototype.resetAnimationtranslation = function()
+{
+  this.aniMatrix = mat4.create();
 };
 
 /**
@@ -246,6 +256,12 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
     var animations = this.getAnimations();
 
     let animationIndex = this.correctAnimationIndex(scene.elapsedTime);
+
+    if(animationIndex != this.animationIndex)
+    {
+      this.resetAnimationtranslation();
+      this.animationIndex = animationIndex;
+    }
 
     let t = scene.elapsedTime;
 

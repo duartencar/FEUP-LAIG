@@ -74,7 +74,7 @@ class CircularAnimation extends Animation
   //returns the distance of an animation
   get totalDistance ()
   {
-    return (this.rotAng * this.radius); //VAI DAR MERDA, CORRIGIR
+    return Math.abs(this.rotAng * this.radius); //VAI DAR MERDA, CORRIGIR
   }
 
   //returns the span of an animation
@@ -100,7 +100,7 @@ class CircularAnimation extends Animation
   {
     this.currAngle += this.angularSpeed * diff;
 
-    if((this.currAngle % (2 * Math.Pi)) > (this.initAng + this.rotAng))
+    if((this.currAngle % (2 * Math.Pi)) > Math.abs(this.initAng + this.rotAng))
       this.currAngle = this.initAng + this.rotAng;
   }
 
