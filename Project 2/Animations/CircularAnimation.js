@@ -271,7 +271,7 @@ class CircularAnimation extends Animation
         let Matrix = mat4.create();
 
         //rotates for initial rotation
-        mat4.rotateY(Matrix, Matrix, this.initialAngle);
+        //mat4.rotateY(Matrix, Matrix, this.initialAngle);
 
         //translates it in direction
         mat4.translate(Matrix, Matrix, dir);
