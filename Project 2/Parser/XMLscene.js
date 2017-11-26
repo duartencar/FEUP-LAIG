@@ -18,7 +18,7 @@ function XMLscene(interface)
 
   this.elapsedTime = 0;
 
-  this.selectables = [];
+  this.selectables = [new MyGraphNode(this.graph, "none")];
 
   this.selectedShader = 0;
 

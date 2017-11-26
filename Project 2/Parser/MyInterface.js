@@ -61,10 +61,8 @@ MyInterface.prototype.addSelectablesGroup = function(selectables)
 {
   let selectablesDict = {};
 
-    selectablesDict["none"] = 0;
-
-  for(let i = 1; i <= selectables.length; i++)
-    selectablesDict[selectables[i - 1].nodeID] = i;
+  for(let i = 0; i < selectables.length; i++)
+    selectablesDict[selectables[i].nodeID] = i;
 
   this.gui.add(this.scene, 'selectedNode', selectablesDict).name('Node').onChange(function(x)
   {
