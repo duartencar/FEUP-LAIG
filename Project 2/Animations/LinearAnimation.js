@@ -13,6 +13,8 @@ class LinearAnimation extends Animation
     //contains animations control points
     this.cPoints = controlPoints;
 
+    this.currentPoint = 0;
+
     //elapsed time
     this.elapsedTime = 0;
   }
@@ -133,10 +135,28 @@ class LinearAnimation extends Animation
       distanceCovered -= this.distanceBetweenPoints(points[i], points[i+1]);
 
       if(distanceCovered <= 0)
+      {
+        this.currentPoint = i;
+
         return dir[i];
+      }
     }
 
+    this.currentPoint = dir.length - 1;
+
     return dir[dir.length - 1];
+  }
+
+  //calculates speed in x, y and z
+  calculateAxisSpeeds()
+  {
+    let d = this.distanceBetweenPoints(this.cPoints[this.currentPoint], this.cPoints[this.currentPoint + 1]);
+
+    let dir = this.directions;
+
+    let t = d / this.animationSpeed;
+
+    return [dir[this.currentPoint][0] / t, dir[this.currentPoint][1] / t, dir[this.currentPoint][2] / t];
   }
 
   //returns a matrix with the movement in a certain interval of time
@@ -146,12 +166,14 @@ class LinearAnimation extends Animation
 
     var dir = this.currentDirection(); //gets current direction
 
+    let v = this.calculateAxisSpeeds();
+
     /*calculates a vector (trans), that corresponds to the translation,
      based on speed and time interval*/
     var trans = [
-                dir[0] * this.speed * diff, //x
-                dir[1] * this.speed * diff, //y
-                dir[2] * this.speed * diff, //z
+                v[0] * diff, //x
+                v[1] * diff, //y
+                v[2] * diff, //z
               ];
 
     //creates a matrix with the translation
@@ -182,10 +204,10 @@ class LinearAnimation extends Animation
         var mov = this.movement(diffTime);
 
         //gets the current movement direction
-        var dir = this.currentDirection();
+        //var dir = this.currentDirection();
 
         //calculates angle of rotation
-        var ang = Math.atan(dir[2] / dir[0]);
+        //var ang = Math.atan(dir[2] / dir[0]);
 
         //mat4.rotateY(Matrix, Matrix, ang);
 
@@ -205,10 +227,10 @@ class LinearAnimation extends Animation
         var dir = this.initialPoint;
 
         //gets the angle of rotation
-        var ang = Math.atan(dir[2] / dir[1]);
+        //var ang = Math.atan(dir[2] / dir[1]);
 
         //aplies it to the matrix
-        mat4.rotateY(Matrix, mat4.create(), ang);
+        //mat4.rotateY(Matrix, mat4.create(), ang);
 
         //aplies the translation
         mat4.translate(Matrix, mat4.create(), dir);

@@ -257,12 +257,6 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
 
     let animationIndex = this.correctAnimationIndex(scene.elapsedTime);
 
-    if(animationIndex != this.animationIndex)
-    {
-      this.resetAnimationtranslation();
-      this.animationIndex = animationIndex;
-    }
-
     let t = scene.elapsedTime;
 
     for(let i = 0; i < animationIndex; i++)
@@ -282,7 +276,7 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
   mat4.multiply(newMatrix, Tmatrix, this.aniMatrix);
 
   //resets the value of rotations
-  this.resetAnimationRotation();
+  //this.resetAnimationRotation();
 
   //Set the newMatrix to be the multiplication of the parent node matrix and this node matrix
   mat4.multiply(newMatrix, newMatrix, this.transformMatrix);

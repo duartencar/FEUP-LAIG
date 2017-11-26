@@ -1493,7 +1493,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
             return "ID does not correspond to a valid animation (node ID = " + nodeID + ")";
           else
           {
-            var ani = this.animations[animationID];
+            let ani = this.animations[animationID];
 
             this.nodes[nodeID].addAnimation(ani);
           }
