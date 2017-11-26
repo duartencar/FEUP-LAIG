@@ -59,6 +59,10 @@ MyInterface.prototype.addLightsGroup = function(lights)
  */
 MyInterface.prototype.addSelectablesGroup = function(selectables)
 {
+  var group = this.gui.addFolder("Apply shaders to node");
+
+  group.open();
+
   let selectablesDict = {};
 
   for(let i = 0; i < selectables.length; i++)
@@ -89,6 +93,11 @@ MyInterface.prototype.addShadersGroup = function(scene)
   {
     scene.selectedShader = x;
   });
+
+  this.gui.add(this.scene, 'selectedSpeed', 200, 2000).name('Speed').onChange(function(x)
+	{
+		scene.selectedSpeed = x;
+	});
 
   console.log("Added Shaders Group");
 }

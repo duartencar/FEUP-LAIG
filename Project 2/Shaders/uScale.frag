@@ -6,5 +6,5 @@ uniform float t;
 
 void main()
 {
-	gl_FragColor =  vec4(0, 0, t, 1);
+	gl_FragColor =  vec4(0.1, 0.1, t, 1);
 }

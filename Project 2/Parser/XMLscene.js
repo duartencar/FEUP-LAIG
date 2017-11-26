@@ -24,6 +24,8 @@ function XMLscene(interface)
 
   this.selectedNode = 0;
 
+  this.selectedSpeed = 1000;
+
   this.shaders = [];
 }
 
@@ -155,13 +157,11 @@ XMLscene.prototype.loadShaders = function()
 
 XMLscene.prototype.updateScaleFactor = function(v)
 {
-	this.shaders[1].setUniformsValues({t: Math.cos(v/1000)});
+	this.shaders[1].setUniformsValues({t: Math.cos(v / this.selectedSpeed)});
 
-  this.shaders[2].setUniformsValues({t: Math.cos(v/1000)});
+  this.shaders[2].setUniformsValues({t: Math.cos(v / this.selectedSpeed)});
 
-  //this.shaders[3].setUniformsValues({t: Math.cos(v/1000)});
-
-  this.shaders[5].setUniformsValues({t: Math.cos(v/1000)});
+  this.shaders[5].setUniformsValues({t: Math.cos(v / this.selectedSpeed)});
 }
 
 /**
