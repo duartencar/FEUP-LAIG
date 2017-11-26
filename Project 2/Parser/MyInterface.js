@@ -61,8 +61,10 @@ MyInterface.prototype.addSelectablesGroup = function(selectables)
 {
   let selectablesDict = {};
 
-  for(let i = 0; i < selectables.length; i++)
-    selectablesDict[selectables[i].nodeID] = i;
+    selectablesDict["none"] = 0;
+
+  for(let i = 1; i <= selectables.length; i++)
+    selectablesDict[selectables[i - 1].nodeID] = i;
 
   this.gui.add(this.scene, 'selectedNode', selectablesDict).name('Node').onChange(function(x)
   {
@@ -72,22 +74,22 @@ MyInterface.prototype.addSelectablesGroup = function(selectables)
   console.log("Added selectables Group");
 }
 
-MyInterface.prototype.addShadersGroup = function()
+MyInterface.prototype.addShadersGroup = function(scene)
 {
   this.gui.add(this.scene, 'selectedShader',
   {
-    'Default Shadding': -1,
-    'Flat Shading': 0,
-    'Scale over time': 1,
-    'Passing a varying parameter from VS -> FS': 2,
-    'Simple texturing': 3,
-    'Multiple textures in the FS': 4,
-    'Multiple textures in VS and FS': 5,
-    'Sepia': 6,
-    'Convolution': 7
+    'None': 0,
+    'Flat Shading': 1,
+    'Scale over time (TP2)': 2,
+    '<- Saturated ->(TP2)': 3,
+    'Simple texturing': 4,
+    'Multiple textures in the FS': 5,
+    'Multiple textures in VS and FS': 6,
+    'Sepia': 7,
+    'Convolution': 8
   }).name('Shader').onChange(function(x)
   {
-    this.scene.selectedShader = x;
+    scene.selectedShader = x;
   });
 
   console.log("Added Shaders Group");

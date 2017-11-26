@@ -209,12 +209,13 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
   if ((DifferentShader == false) && (scene.selectables.length != 0))
   {
     if(this.nodeID == scene.selectables[scene.selectedNode].nodeID)
+    {
+      scene.setActiveShader(scene.shaders[scene.selectedShader]);
       Diff = true;
+    }
     else
       Diff = false;
   }
-  else
-    Diff = true;
 
   //If this node doesn t has a texture it inherits the fathers node texture
   if(this.getTextureID() == 'null')
@@ -283,4 +284,7 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
     //draws it
     nodeLeafs[i].draw(scene, toDraw, newMatrix, newText, newMat, Time, Diff);
   }
+
+  if(Diff == true)
+    scene.setActiveShader(scene.defaultShader);
 };

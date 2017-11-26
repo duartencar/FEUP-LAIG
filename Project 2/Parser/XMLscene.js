@@ -127,7 +127,7 @@ XMLscene.prototype.onGraphLoaded = function()
 
   this.interface.addSelectablesGroup(this.selectables);
 
-  this.interface.addShadersGroup();
+  this.interface.addShadersGroup(this);
 }
 
 //Loads done shaders
@@ -137,6 +137,7 @@ XMLscene.prototype.loadShaders = function()
 
   let Shaders =
   [
+    this.defaultShader,
 		new CGFshader(this.gl, "../shaders/flat.vert", "../shaders/flat.frag"),
 		new CGFshader(this.gl, "../shaders/uScale.vert", "../shaders/uScale.frag"),
 		new CGFshader(this.gl, "../shaders/varying.vert", "../shaders/varying.frag"),
@@ -154,11 +155,13 @@ XMLscene.prototype.loadShaders = function()
 
 XMLscene.prototype.updateScaleFactor = function(v)
 {
-	this.shaders[1].setUniformsValues({t: Math.cos(v)});
+	this.shaders[1].setUniformsValues({t: Math.cos(v/1000)});
 
-  this.shaders[2].setUniformsValues({t: Math.cos(v)});
+  this.shaders[2].setUniformsValues({t: Math.cos(v/1000)});
 
-  this.shaders[5].setUniformsValues({t: Math.cos(v)});
+  //this.shaders[3].setUniformsValues({t: Math.cos(v/1000)});
+
+  this.shaders[5].setUniformsValues({t: Math.cos(v/1000)});
 }
 
 /**
@@ -222,7 +225,7 @@ XMLscene.prototype.display = function()
 
     diff = (t - this.time) / 1000;
 
-    this.updateScaleFactor((t % 2 * Math.PI));
+    this.updateScaleFactor(t);
 
     // Displays the scene.
     this.graph.displayScene(diff);
