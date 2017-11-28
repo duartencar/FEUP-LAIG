@@ -257,6 +257,13 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
 
     let animationIndex = this.correctAnimationIndex(scene.elapsedTime);
 
+    if(this.animationIndex != animationIndex)
+    {
+      this.aniMatrix = mat4.create();
+
+      this.animationIndex = animationIndex;
+    }
+
     let t = scene.elapsedTime;
 
     for(let i = 0; i < animationIndex; i++)
