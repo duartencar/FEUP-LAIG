@@ -1,7 +1,15 @@
 /**
- * CircularAnimation class that is an extension of Animation class.
- * This class makes an object rotate around a given center,
- * at a radius distance.
+  * CircularAnimation class that is an extension of Animation class.
+  * This class makes an object rotate around a given center,
+  * at a radius distance.
+  * Circular animation construction
+  * @param scene - Scene to apply the animation to
+  * @param id - Animation identification string
+  * @param animationSpeed - Animation linear speed.
+  * @param centerCoords - Center of rotation coordinates array ([x, y, z]).
+  * @param radius - Animation radius.
+  * @param initAng - Animation initial angle.
+  * @param rotAng - The angle that the object will rotate.
 **/
 class CircularAnimation extends Animation
 {

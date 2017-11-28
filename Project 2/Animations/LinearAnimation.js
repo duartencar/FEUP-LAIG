@@ -2,6 +2,10 @@
  * LinearAnimation class that is an extension of Animation class.
  * This class makes an object travel linearly through a scene,
  * between assign control point with a certain speed.
+ * @param scene - Scene to apply the animation to
+ * @param id - Animation identification string
+ * @param animationSpeed - Animation linear speed.
+ * @param controlPoints - Animation control points that object will go by([[x1,y1,z1],[x2,y2,z2]])
 **/
 class LinearAnimation extends Animation
 {

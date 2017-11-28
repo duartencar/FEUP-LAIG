@@ -1,4 +1,12 @@
-
+/**
+ * BezierAnimation class that is an extension of Animation class.
+ * This class makes an object travel through a scene,
+ * between 4 control points.
+ * @param scene - Scene to apply the animation to
+ * @param id - Animation identification string
+ * @param animationSpeed - Animation linear speed.
+ * @param controlPoints - Animation control points that object will go by([[x1,y1,z1],[x2,y2,z2]])
+**/
 class BezierAnimation extends Animation
 {
   constructor(scene, id, animationSpeed, controlPoints)
@@ -21,45 +29,65 @@ class BezierAnimation extends Animation
     //Points that result from Casteljau Algorithm
     this.transformedPoints = [];
 
-    this.calculateNewPoints()
+    //Creates Casteljau points
+    this.calculateNewPoints();
   }
 
-  //returns animation ID
+  /**
+   * Returns animation ID
+  **/
   get id()
   {
     return this.ID;
   }
-  //returns animation speed
+
+  /**
+   * Returns animation speed
+  **/
   get animationSpeed()
   {
     return this.speed;
   }
 
-  //sets elapsed time
+  /**
+   * Updates animation elapsed time, by increasing it by the Time parameter
+   * @param Time - time interval
+  **/
   updateElpasedTime(Time)
   {
     this.elapsedTime += Time;
   }
 
-  //returns initial points
+  /**
+   * Returns the initial point of the animation, witch is the first point
+   * in the control point array
+  **/
   get initialPoint()
   {
     return this.cPoints[0];
   }
 
-  //returns transformedPoints
+  /**
+   * Returns transformed points array
+  **/
   get P()
   {
     return this.transformedPoints;
   }
 
-  //returns control Points vector
+  /**
+   * Returns control Points vector
+  **/
   get Points()
   {
     return this.cPoints;
   }
 
-  //returns the point in the middle of p1 and p2
+  /**
+   * returns the point in the middle of p1 and p2
+   * @param p1 - first point cordinates [x, y, z]
+   * @param p2 - second point cordinates [x, y, z]
+  **/
   middlePoint(p1, p2)
   {
     let middleP = [0, 0, 0];
@@ -73,7 +101,9 @@ class BezierAnimation extends Animation
     return middleP;
   }
 
-  //calculate convex hull cPoints
+  /**
+   * calculate convex hull cPoints
+  **/
   calculateNewPoints()
   {
     this.transformedPoints.push(this.cPoints[0]); //P1 = L1
@@ -103,19 +133,25 @@ class BezierAnimation extends Animation
     this.transformedPoints.push(this.cPoints[3]);
   }
 
-  //returns the first point
+  /**
+   * returns the first point
+  **/
   initialPoint()
   {
     return this.transformedPoints[0];
   }
 
-  //returns the number of times that an object must change direction
+  /**
+   * returns the number of times that an object must change direction
+  **/
   get numberOfDirections()
   {
     return this.transformedPoints.length - 1;
   }
 
-  //returns distance between p1 and p2
+  /**
+   * returns distance between p1 and p2
+  **/
   distanceBetweenPoints(p1, p2)
   {
     let dx, dy, dz;
@@ -129,7 +165,9 @@ class BezierAnimation extends Animation
     return Math.hypot(dx, dy, dz);
   }
 
-  //returns the total distance than an object will travel with an animation
+  /**
+   * returns the total distance than an object will travel with an animation
+  **/
   get totalDistance()
   {
     let total = 0;
@@ -142,18 +180,28 @@ class BezierAnimation extends Animation
     return total;
   }
 
-  //returns the time that will take from the begin to the end of the animation
+  /**
+   * returns the time that will take from the begin to the end of the animation
+  **/
   animationSpan()
   {
     return this.totalDistance / this.animationSpeed;
   }
 
-  //Beziers curve require that time is between 0 and 1
+  /**
+   * Beziers curve require that time is between 0 and 1
+   * @param Time - elapsed time since beginning
+  **/
   mapTime(Time)
   {
     return Time / this.animationSpan();
   }
 
+  /**
+   * see Bezier formula
+   * @param iteration - the iteration of the calculation
+   * @param Time - elapsed time since beginning
+  **/
   calcMultiplier(iteration, Time)
   {
     let diffTime = Math.pow((1 - Time), (3 - iteration));
@@ -166,6 +214,10 @@ class BezierAnimation extends Animation
     return t * diffTime;
   }
 
+  /**
+   * calculates bezier point cordinates
+   * @param Time - elapsed time since beginning
+  **/
   BezierPoint(Time)
   {
     let finalPoint = [0, 0, 0]; // x, y, z
@@ -184,6 +236,10 @@ class BezierAnimation extends Animation
     return finalPoint;
   }
 
+  /**
+   * Returns a translation matrix with the movement in a certain interval of time.
+   * @param diffTime - time interval
+  **/
   movement(diffTime)
   {
     let previous = this.BezierPoint(this.mapTime(this.elapsedTime));
@@ -203,6 +259,11 @@ class BezierAnimation extends Animation
     return movMatrix;
   }
 
+  /**
+   * Returns the correct matrix for a given scene moment
+   * @param diffTime - time interval
+   * @param totalSceneTime - scene elapsed time
+  **/
   correctMatrix(diffTime, totalSceneTime)
   {
 
