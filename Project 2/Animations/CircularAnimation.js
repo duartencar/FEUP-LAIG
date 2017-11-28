@@ -29,73 +29,99 @@ class CircularAnimation extends Animation
     this.elapsedTime = 0;
   }
 
-  //sets elapsed time
+  /**
+   * Updates animation elapsed time, by increasing it by the Time parameter
+   * @param Time - time interval
+  **/
   updateElpasedTime(Time)
   {
     this.elapsedTime += Time;
   }
 
-  //returns animation ID
+  /**
+   * Returns animation ID
+  **/
   get id()
   {
     return this.ID;
   }
 
-  //returns animation speed
+  /**
+   * Returns animation speed
+  **/
   get animationSpeed()
   {
     return this.speed;
   }
 
-  //returns animation radius to the center
+  /**
+   * Returns animation radius of rotation
+  **/
   get radius()
   {
     return this.rad;
   }
 
-  //returns the starting angle of the animation
+  /**
+   * Returns the starting angle of the animation
+  **/
   get initialAngle()
   {
     return this.initAng;
   }
 
-  //returns how much the object is going to rotate
+  /**
+   * Returns how much the object is going to rotate
+  **/
   get rotationAngle()
   {
     return this.rotAng;
   }
 
-  //returns the final rotation of the object
+  /**
+   * Returns the final rotation of the object
+  **/
   get totalRotation ()
   {
     return initialAngle() + rotationAngle();
   }
 
-  //returns the distance of an animation
+  /**
+   * Returns the distance of the animation
+  **/
   get totalDistance ()
   {
-    return Math.abs(this.rotAng * this.radius); //VAI DAR MERDA, CORRIGIR
+    return Math.abs(this.rotAng * this.radius);
   }
 
-  //returns the span of an animation
+  /**
+   * Returns the span of an animation
+  **/
   animationSpan()
   {
     return (this.totalDistance / this.speed);
   }
 
-  //returns angular speed
+  /**
+   * Returns angular speed
+  **/
   get angularSpeed()
   {
     return (this.rotAng / this.animationSpan());
   }
 
-  //returns current angle value
+  /**
+   * Returns current angle value
+  **/
   get currentAngle()
   {
     return this.currAngle;
   }
 
-  //updates current angle value acording to rotation speed and time interval
+  /**
+   * Updates current angle value acording to rotation speed and time interval
+   * @param diff - time interval
+  **/
   updateCurrentAngle(diff)
   {
     this.currAngle += this.angularSpeed * diff;
@@ -104,7 +130,9 @@ class CircularAnimation extends Animation
       this.currAngle = this.initAng + this.rotAng;
   }
 
-  //returns the current direction of the animation
+  /**
+   * Returns the current direction of the animation
+  **/
   currentDirection()
   {
     var x = -1.0 * this.radius * Math.sin(this.currentAngle);
@@ -114,7 +142,9 @@ class CircularAnimation extends Animation
     return [x, z];
   }
 
-  //returns the rotation of the object
+  /**
+   * Returns a matrix  with the rotation to apply
+  **/
   rotation()
   {
     var rotMatrix = mat4.create();
@@ -124,31 +154,46 @@ class CircularAnimation extends Animation
     return rotMatrix;
   }
 
-  //returns the cos of an angle
+  /**
+   * Returns the cos of an angle
+   * @param rad - angle in radians
+  **/
   cos(rad)
   {
     return Math.cos(rad);
   }
 
-  //returns the sin of an angle
+  /**
+   * Returns the sin of an angle
+   * @param rad - angle in radians
+  **/
   sin(rad)
   {
     return Math.sin(rad);
   }
 
-  //returns the cos of angle multiplied by a circunference radius
+  /**
+   * Returns the cos of angle multiplied by a circunference radius
+   * @param rad - angle in radians
+  **/
   rcos(rad)
   {
     return this.radius * this.cos(rad);
   }
 
-  //returns the sin of angle multiplied by a circunference radius
+  /**
+   * Returns the sin of angle multiplied by a circunference radius
+   * @param rad - angle in radians
+  **/
   rsin(rad)
   {
     return this.radius * this.sin(rad);
   }
 
-  //returns the movement matrix
+  /**
+   * Returns a translation matrix with the movement in a certain interval of time.
+   * @param diff - time interval
+  **/
   movement(diff)
   {
     //sets a vec3 object, to store previous position
@@ -179,7 +224,10 @@ class CircularAnimation extends Animation
     return movMatrix;
   }
 
-  //resets the angle of the matrix and apllies new one
+  /**
+   * Resets the angle of the matrix and apllies new one
+   * @param rotationMatrix - matrix to rotate
+  **/
   rotateMatrix(rotationMatrix)
   {
     //changes appropriate values, see rotation matrixes on the internet
@@ -195,18 +243,9 @@ class CircularAnimation extends Animation
     this.transformMatrix(rotationMatrix);
   }
 
-  //resets the x and y values and applies the new one
-  translateMatrix(translationMatrix)
-  {
-    this.animationMatrix[12] = 0;
-
-    this.animationMatrix[14] = 0;
-
-    //aplies the transformation
-    this.transformMatrix(translationMatrix);
-  }
-
-  //returns first position (t = 0)
+  /**
+   * Returns first position (t = 0)
+  **/
   initialPoint()
   {
     //creates a vec3 object to store initial movement vector
@@ -219,7 +258,10 @@ class CircularAnimation extends Animation
     return dir;
   }
 
-  //returns the final matrix
+  /**
+   * Returns the final matrix
+   * @param diff - time interval
+  **/
   position(diff)
   {
     //gets the movementent Matrix
@@ -238,7 +280,11 @@ class CircularAnimation extends Animation
     return this.Matrix;
   }
 
-  //returns the apropriate matrix according to the time of the scene
+  /**
+   * returns the apropriate matrix according to the time of the scene
+   * @param diffTime - time interval
+   * @param totalSceneTime - scene elapsed time
+  **/
   correctMatrix(diffTime, totalSceneTime)
   {
     //if the the total scene time is bigger than the animation span means
