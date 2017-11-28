@@ -19,43 +19,59 @@ class LinearAnimation extends Animation
     this.elapsedTime = 0;
   }
 
-  //sets elapsed time
+  /**
+   * Updates animation elapsed time, by increasing it by the Time parameter
+   * @param Time - time interval
+  **/
   updateElpasedTime(Time)
   {
     this.elapsedTime += Time;
   }
 
-  //returns animation ID
+  /**
+   * Returns animation ID
+  **/
   get id()
   {
     return this.ID;
   }
 
-  //returns animation speed
+  /**
+   * Returns animation speed
+  **/
   get animationSpeed()
   {
     return this.speed;
   }
 
-  //returns initial points
+  /**
+   * Returns the initial point of the animation, witch is the first point
+   * in the control point array
+  **/
   get initialPoint()
   {
     return this.cPoints[0];
   }
 
-  //returns the number of times that an object must change direction
+  /**
+   * Returns the number of times that an object must change direction
+  **/
   get numberOfDirections()
   {
     return this.cPoints.length - 1;
   }
 
-  //returns control points array
+  /**
+   * Returns control points array
+  **/
   get controlP()
   {
     return this.cPoints;
   }
 
-  //returns an array with all directions
+  /**
+   * Returns an array with all directions that the animation will have to take
+  **/
   get directions()
   {
     var dir = [];
@@ -66,7 +82,7 @@ class LinearAnimation extends Animation
 
     let points = this.controlP;
 
-    for(var i = 0; i < num; i++)
+    for(let i = 0; i < num; i++)
     {
       x = points[i + 1][0] - points[i][0];
       y = points[i + 1][1] - points[i][1];
@@ -78,13 +94,19 @@ class LinearAnimation extends Animation
     return dir;
   }
 
-  //returns the traveled distance
+  /**
+   * Returns the distance that the object has covered in a given moment
+  **/
   get traveled()
   {
     return this.animationSpeed * this.elapsedTime;
   }
 
-  //calculates the distance between two points
+  /**
+   * Returns the distance that the object has covered in a given moment
+   * @param p1 - point coordinates [x, y, z]
+   * @param p2 - point coordinates [x, y, z]
+  **/
   distanceBetweenPoints(p1, p2)
   {
     let dx, dy, dz;
@@ -98,7 +120,9 @@ class LinearAnimation extends Animation
     return Math.hypot(dx, dy, dz);
   }
 
-  //returns the total distance than an object will travel with an animation
+  /**
+   * Returns the distance that the object will have to make until animation finishes
+  **/
   get totalDistance()
   {
     let total = 0;
@@ -112,20 +136,28 @@ class LinearAnimation extends Animation
     return total;
   }
 
-  //returns the time that will take from the begin to the end of the animation
+  /**
+   * Returns the time that will take from the begin to the end of the animation
+  **/
   animationSpan()
   {
     return this.totalDistance / this.animationSpeed;
   }
 
-  //returns the movement direction
+  /**
+   * Returns direction that the object is travelling at the moment
+   * It also updates the current point value
+  **/
   currentDirection()
   {
-    var distanceCovered = this.traveled; // gets the traveled distance
+    // gets the traveled distance
+    var distanceCovered = this.traveled;
 
-    var points = this.controlP; //gets animation control points
+    //gets animation control points
+    var points = this.controlP;
 
-    var dir = this.directions; //gets the animation directions
+    //gets the animation directions
+    var dir = this.directions;
 
 /*goes through all points, calculates distance between them, and subtracts them.
  when 'distanceCovered' is equal or less than 0,
@@ -136,39 +168,54 @@ class LinearAnimation extends Animation
 
       if(distanceCovered <= 0)
       {
+        //updates current point
         this.currentPoint = i;
 
         return dir[i];
       }
     }
 
+    //updates current point
     this.currentPoint = dir.length - 1;
 
     return dir[dir.length - 1];
   }
 
-  //calculates speed in x, y and z
+  /**
+   * Calculates speed in x, y and z
+  **/
   calculateAxisSpeeds()
   {
+    //calculates distace between the current point and the next one
     let d = this.distanceBetweenPoints(this.cPoints[this.currentPoint], this.cPoints[this.currentPoint + 1]);
 
+    //gets all the directions
     let dir = this.directions;
 
+    //calculates the time that the object must take until it gets to the next point
     let t = d / this.animationSpeed;
 
+    /*returns the speed acording to the diference between each point according
+    to tthe tame that the object must take, in each coordinate*/
     return [dir[this.currentPoint][0] / t, dir[this.currentPoint][1] / t, dir[this.currentPoint][2] / t];
   }
 
-  //returns a matrix with the movement in a certain interval of time
+  /**
+   * Returns a translation matrix with the movement in a certain interval of time.
+   * @param diff - time interval
+  **/
   movement(diff)
   {
+    //creates a mat4 object
     var Matrix = mat4.create();
 
-    var dir = this.currentDirection(); //gets current direction
+    //gets current direction
+    var dir = this.currentDirection();
 
+    //gets the speeds in different coordinates
     let v = this.calculateAxisSpeeds();
 
-    /*calculates a vector (trans), that corresponds to the translation,
+    /*calculates a array trans(lation), that corresponds to the translation,
      based on speed and time interval*/
     var trans = [
                 v[0] * diff, //x
@@ -176,14 +223,18 @@ class LinearAnimation extends Animation
                 v[2] * diff, //z
               ];
 
-    //creates a matrix with the translation
+    //sets the previously created object with the translation to apply
     mat4.translate(Matrix, mat4.create(), trans);
 
     //returns it
     return Matrix;
   }
 
-  //returns the correct matrix for a given scene moment
+  /**
+   * Returns the correct matrix for a given scene moment
+   * @param diffTime - time interval
+   * @param totalSceneTime - scene elapsed time
+  **/
   correctMatrix(diffTime, totalSceneTime)
   {
     //if time in scene is bigger than animationSpan means that there isn t movement

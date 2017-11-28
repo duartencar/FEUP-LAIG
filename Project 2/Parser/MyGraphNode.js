@@ -216,8 +216,10 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
 
   let Diff;
 
+  //if the DifferentShader paraneter is false it is going to check if it is the selected node
   if ((DifferentShader == false) && (scene.selectables.length != 0))
   {
+    //if the selected node name is equal to this node name, activates selected shader
     if(this.nodeID == scene.selectables[scene.selectedNode].nodeID)
     {
       scene.setActiveShader(scene.shaders[scene.selectedShader]);
@@ -302,6 +304,7 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
     nodeLeafs[i].draw(scene, toDraw, newMatrix, newText, newMat, Time, Diff);
   }
 
+  //Only the node that activated the shader can disactivate the shader
   if(Diff == true)
     scene.setActiveShader(scene.defaultShader);
 };
