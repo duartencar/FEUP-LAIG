@@ -59,7 +59,13 @@ class ComboAnimation
   correctMatrix(diffTime, totalSceneTime)
   {
     if(totalSceneTime > this.animationSpan())
-      return mat4.create();
+    {
+      let aniIndex = this.correctAnimationIndex(totalSceneTime);
+
+      let Matrix = this.animations[aniIndex].correctMatrix(diffTime, t);
+
+      return Matrix;
+    }
     else
     {
       let aniIndex = this.correctAnimationIndex(totalSceneTime);
