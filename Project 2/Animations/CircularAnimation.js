@@ -24,13 +24,13 @@ class CircularAnimation extends Animation
     //rotation radius
     this.rad = radius;
 
-    //initial angle of rotation in radians
+    //initial angle of rotation in degrees
     this.initAng = initAng * DEGREE_TO_RAD;
 
-    //animation rotation angle in radians
+    //animation rotation angle in degrees
     this.rotAng = rotAng * DEGREE_TO_RAD;
 
-    //contains the angle of rotation of an animation at a given moment in radians
+    //contains the angle of rotation of an animation at a given moment in degrees
     this.currAngle = initAng * DEGREE_TO_RAD;
 
     //animation rotation angle
@@ -71,7 +71,7 @@ class CircularAnimation extends Animation
   }
 
   /**
-   * Returns the starting angle of the animation
+   * Returns the starting angle of the animation in rotationAngle
   **/
   get initialAngle()
   {
@@ -91,7 +91,7 @@ class CircularAnimation extends Animation
   **/
   get totalRotation ()
   {
-    return initialAngle() + rotationAngle();
+    return this.initialAngle + this.rotationAngle;
   }
 
   /**
@@ -99,15 +99,15 @@ class CircularAnimation extends Animation
   **/
   get totalDistance ()
   {
-    return Math.abs(this.rotAng * this.radius);
+    return Math.abs(this.rotationAngle * this.radius);
   }
 
   /**
    * Returns the span of an animation
   **/
-  animationSpan()
+  get animationSpan()
   {
-    return (this.totalDistance / this.speed);
+    return (this.totalDistance / this.animationSpeed);
   }
 
   /**
@@ -115,7 +115,7 @@ class CircularAnimation extends Animation
   **/
   get angularSpeed()
   {
-    return (this.rotAng / this.animationSpan());
+    return (this.rotationAngle / this.animationSpan);
   }
 
   /**

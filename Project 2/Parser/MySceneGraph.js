@@ -183,37 +183,50 @@ MySceneGraph.prototype.parseInitials = function(initialsNode) {
   var nodeNames = [];
 
   for (var i = 0; i < children.length; i++)
-  nodeNames.push(children[i].nodeName);
+    nodeNames.push(children[i].nodeName);
 
   // Frustum planes.
   this.near = 0.1;
   this.far = 500;
   var indexFrustum = nodeNames.indexOf("frustum");
-  if (indexFrustum == -1) {
+
+  if (indexFrustum == -1)
     this.onXMLMinorError("frustum planes missing; assuming 'near = 0.1' and 'far = 500'");
-  }
-  else {
+
+  else
+  {
     this.near = this.reader.getFloat(children[indexFrustum], 'near');
+
     this.far = this.reader.getFloat(children[indexFrustum], 'far');
 
-    if (this.near == null ) {
+    if (this.near == null )
+    {
       this.near = 0.1;
+
       this.onXMLMinorError("unable to parse value for near plane; assuming 'near = 0.1'");
     }
-    else if (this.far == null ) {
+    else if (this.far == null )
+    {
       this.far = 500;
+
       this.onXMLMinorError("unable to parse value for far plane; assuming 'far = 500'");
     }
-    else if (isNaN(this.near)) {
+    else if (isNaN(this.near))
+    {
       this.near = 0.1;
+
       this.onXMLMinorError("non-numeric value found for near plane; assuming 'near = 0.1'");
     }
-    else if (isNaN(this.far)) {
+    else if (isNaN(this.far))
+    {
       this.far = 500;
+
       this.onXMLMinorError("non-numeric value found for far plane; assuming 'far = 500'");
     }
-    else if (this.near <= 0) {
+    else if (this.near <= 0)
+    {
       this.near = 0.1;
+
       this.onXMLMinorError("'near' must be positive; assuming 'near = 0.1'");
     }
 
@@ -233,25 +246,36 @@ MySceneGraph.prototype.parseInitials = function(initialsNode) {
 
   // Initial transforms.
   this.initialTranslate = [];
+
   this.initialScaling = [];
+
   this.initialRotations = [];
 
   // Gets indices of each element.
   var translationIndex = nodeNames.indexOf("translation");
+
   var thirdRotationIndex = nodeNames.indexOf("rotation");
+
   var secondRotationIndex = nodeNames.indexOf("rotation", thirdRotationIndex + 1);
+
   var firstRotationIndex = nodeNames.lastIndexOf("rotation");
+
   var scalingIndex = nodeNames.indexOf("scale");
 
   // Checks if the indices are valid and in the expected order.
   // Translation.
   this.initialTransforms = mat4.create();
+
   mat4.identity(this.initialTransforms);
+
   if (translationIndex == -1)
-  this.onXMLMinorError("initial translation undefined; assuming T = (0, 0, 0)");
-  else {
+    this.onXMLMinorError("initial translation undefined; assuming T = (0, 0, 0)");
+  else
+  {
     var tx = this.reader.getFloat(children[translationIndex], 'x');
+
     var ty = this.reader.getFloat(children[translationIndex], 'y');
+
     var tz = this.reader.getFloat(children[translationIndex], 'z');
 
     if (tx == null ) {
