@@ -291,7 +291,7 @@ class CircularAnimation extends Animation
 
   	let trans = [this.centerCoords[0], this.centerCoords[1], this.centerCoords[2]];
 
-  	let angle = this.initialAngle + w * this.animationSpan();
+  	let angle = this.initialAngle + w * this.animationSpan;
 
   	trans[0] += this.rcos(angle);
 
@@ -308,7 +308,7 @@ class CircularAnimation extends Animation
   correctMatrix(diffTime, totalSceneTime)
   {
     //if the the total scene time is bigger than the animation span means
-    if(totalSceneTime >= this.animationSpan())
+    if(totalSceneTime >= this.animationSpan)
     {
       let Matrix = mat4.create();
 

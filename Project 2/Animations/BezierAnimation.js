@@ -183,9 +183,9 @@ class BezierAnimation extends Animation
   /**
    * returns the time that will take from the begin to the end of the animation
   **/
-  animationSpan()
+  get animationSpan()
   {
-    return this.totalDistance / this.animationSpeed;
+    return (this.totalDistance / this.animationSpeed);
   }
 
   /**
@@ -194,7 +194,7 @@ class BezierAnimation extends Animation
   **/
   mapTime(Time)
   {
-    return Time / this.animationSpan();
+    return Time / this.animationSpan;
   }
 
   /**
@@ -245,11 +245,11 @@ class BezierAnimation extends Animation
   **/
   correctMatrix(diffTime, totalSceneTime)
   {
-    if(totalSceneTime >= this.animationSpan())
+    if(totalSceneTime >= this.animationSpan)
     {
       let Matrix = mat4.create();
 
-      let translation = this.BezierPoint(this.animationSpan());
+      let translation = this.BezierPoint(this.animationSpan);
 
       let angle = Math.atan2(translation[2], translation[0]);
 

@@ -143,9 +143,9 @@ class LinearAnimation extends Animation
   /**
    * Returns the time that will take from the begin to the end of the animation
   **/
-  animationSpan()
+  get animationSpan()
   {
-    return this.totalDistance / this.animationSpeed;
+    return (this.totalDistance / this.animationSpeed);
   }
 
   /**
@@ -243,7 +243,7 @@ class LinearAnimation extends Animation
   correctMatrix(diffTime, totalSceneTime)
   {
     //if time in scene is bigger than animationSpan means that there isn t movement
-    if(totalSceneTime >= this.animationSpan())
+    if(totalSceneTime >= this.animationSpan)
 	  {
     	let Matrix = mat4.create();
 
@@ -266,6 +266,8 @@ class LinearAnimation extends Animation
   		let Translation = this.movement(diff);
 
   		let directionAngle = Math.atan2(Translation[2], Translation[0]);
+
+      console.log("angle(linear): " + directionAngle);
 
   		mat4.translate(Matrix, Matrix, Translation);
 
