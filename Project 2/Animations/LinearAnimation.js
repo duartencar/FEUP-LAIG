@@ -253,7 +253,7 @@ class LinearAnimation extends Animation
 
     	mat4.translate(Matrix, Matrix, Translation);
 
-    	mat4.rotateY(Matrix, Matrix, directionAngle);
+    	//mat4.rotateY(Matrix, Matrix, directionAngle);
 
     	return Matrix;
     }
@@ -271,7 +271,7 @@ class LinearAnimation extends Animation
 
   		mat4.translate(Matrix, Matrix, Translation);
 
-  		mat4.rotateY(Matrix, Matrix, directionAngle);
+  		//mat4.rotateY(Matrix, Matrix, directionAngle);
 
   		return Matrix;
   	}

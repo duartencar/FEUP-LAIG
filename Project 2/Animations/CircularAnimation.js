@@ -316,9 +316,9 @@ class CircularAnimation extends Animation
 
 		  let directionAngle = Math.atan2(Translation[2], Translation[0]);
 
-		  mat4.translate(Matrix, Matrix, Translation);
+      //mat4.rotateY(Matrix, Matrix, directionAngle);
 
-		  mat4.rotateY(Matrix, Matrix, directionAngle);
+		  mat4.translate(Matrix, Matrix, Translation);
 
 		  return Matrix;
     }
@@ -330,13 +330,11 @@ class CircularAnimation extends Animation
 
       let Translation = this.position(diff);
 
-      let Angle = this.rotation(diff);
-
       let directionAngle = Math.atan2(Translation[2], Translation[0]);
 
-      mat4.translate(Matrix, Matrix, Translation);
+      //mat4.rotateY(Matrix, Matrix, directionAngle);
 
-      mat4.rotateY(Matrix, Matrix, directionAngle);
+      mat4.translate(Matrix, Matrix, Translation);
 
       return Matrix;
     }
