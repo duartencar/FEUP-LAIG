@@ -183,9 +183,9 @@ class BezierAnimation extends Animation
   /**
    * returns the time that will take from the begin to the end of the animation
   **/
-  animationSpan()
+  get animationSpan()
   {
-    return this.totalDistance / this.animationSpeed;
+    return (this.totalDistance / this.animationSpeed);
   }
 
   /**
@@ -194,7 +194,7 @@ class BezierAnimation extends Animation
   **/
   mapTime(Time)
   {
-    return Time / this.animationSpan();
+    return Time / this.animationSpan;
   }
 
   /**
@@ -224,39 +224,18 @@ class BezierAnimation extends Animation
 
     let P = this.Points;
 
+    let t = this.mapTime(Time);
+
     for (let i = 0; i < 4; i++)
     {
-      finalPoint[0] += this.calcMultiplier(i, Time) * P[i][0];
+      finalPoint[0] += this.calcMultiplier(i, t) * P[i][0];
 
-      finalPoint[1] += this.calcMultiplier(i, Time) * P[i][1];
+      finalPoint[1] += this.calcMultiplier(i, t) * P[i][1];
 
-      finalPoint[2] += this.calcMultiplier(i, Time) * P[i][2];
+      finalPoint[2] += this.calcMultiplier(i, t) * P[i][2];
     }
 
     return finalPoint;
-  }
-
-  /**
-   * Returns a translation matrix with the movement in a certain interval of time.
-   * @param diffTime - time interval
-  **/
-  movement(diffTime)
-  {
-    let previous = this.BezierPoint(this.mapTime(this.elapsedTime));
-
-    this.updateElpasedTime(diffTime);
-
-    let now = this.BezierPoint(this.mapTime(this.elapsedTime));
-
-    let mov = vec3.create();
-
-    vec3.set(mov, now[0] - previous[0], now[1] - previous[1], now[2] - previous[2]);
-
-    let movMatrix = mat4.create();
-
-    mat4.translate(movMatrix, movMatrix, mov);
-
-    return movMatrix;
   }
 
   /**
@@ -266,33 +245,35 @@ class BezierAnimation extends Animation
   **/
   correctMatrix(diffTime, totalSceneTime)
   {
+    if(totalSceneTime >= this.animationSpan)
+    {
+      let Matrix = mat4.create();
 
-    if(totalSceneTime >= this.animationSpan())
-      return mat4.create();
+      let translation = this.BezierPoint(this.animationSpan);
+
+      let angle = Math.atan2(translation[2], translation[0]);
+
+      mat4.translate(Matrix, Matrix, translation);
+
+  		//mat4.rotateY(Matrix, Matrix, angle);
+
+  		return Matrix;
+    }
     else
     {
-      if((totalSceneTime != this.elapsedTime) && (this.elapsedTime != 0))
-      {
-        let trans = this.movement(diffTime);
+      this.updateElpasedTime(diffTime);
 
-        return trans;
-      }
-      else if(this.elapsedTime == 0)
-      {
-        let dir = this.initialPoint();
+      let Matrix = mat4.create();
 
-        let Matrix = mat4.create();
+      let translation = this.BezierPoint(this.elapsedTime);
 
-        mat4.translate(Matrix, Matrix, dir);
+      let angle = Math.atan2(translation[2], translation[0]);
 
-        let trans = this.movement(diffTime);
+      mat4.translate(Matrix, Matrix, translation);
 
-        mat4.multiply(Matrix, Matrix, trans);
+  		//mat4.rotateY(Matrix, Matrix, angle);
 
-        return Matrix;
-      }
-      else
-        return mat4.create();
+  		return Matrix;
     }
   }
 }

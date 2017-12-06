@@ -143,9 +143,9 @@ class LinearAnimation extends Animation
   /**
    * Returns the time that will take from the begin to the end of the animation
   **/
-  animationSpan()
+  get animationSpan()
   {
-    return this.totalDistance / this.animationSpeed;
+    return (this.totalDistance / this.animationSpeed);
   }
 
   /**
@@ -200,7 +200,7 @@ class LinearAnimation extends Animation
     let t = d / this.animationSpeed;
 
     /*returns the speed acording to the diference between each point according
-    to tthe tame that the object must take, in each coordinate*/
+    to the tame that the object must take, in each coordinate*/
     return [dir[this.currentPoint][0] / t, dir[this.currentPoint][1] / t, dir[this.currentPoint][2] / t];
   }
 
@@ -210,28 +210,29 @@ class LinearAnimation extends Animation
   **/
   movement(diff)
   {
-    //creates a mat4 object
-    var Matrix = mat4.create();
+  //gets current direction
+  var dir = this.currentDirection();
 
-    //gets current direction
-    var dir = this.currentDirection();
+  //gets the speeds in different coordinates
+  let v = this.calculateAxisSpeeds();
 
-    //gets the speeds in different coordinates
-    let v = this.calculateAxisSpeeds();
+	let P = this.cPoints;
 
-    /*calculates a array trans(lation), that corresponds to the translation,
+	let t = this.elapsedTime;
+
+	for(let i = 0; i < this.currentPoint; i++)
+		t -= this.distanceBetweenPoints(P[i], P[i+1]) / this.speed;
+
+  /*calculates a array trans(lation), that corresponds to the translation,
      based on speed and time interval*/
-    var trans = [
-                v[0] * diff, //x
-                v[1] * diff, //y
-                v[2] * diff, //z
-              ];
-
-    //sets the previously created object with the translation to apply
-    mat4.translate(Matrix, mat4.create(), trans);
+  var trans = [
+              P[this.currentPoint][0] + v[0] * t, //x
+				      P[this.currentPoint][1] + v[1] * t, //y
+              P[this.currentPoint][2] + v[2] * t, //z
+            ];
 
     //returns it
-    return Matrix;
+    return trans;
   }
 
   /**
@@ -242,68 +243,37 @@ class LinearAnimation extends Animation
   correctMatrix(diffTime, totalSceneTime)
   {
     //if time in scene is bigger than animationSpan means that there isn t movement
-    if(totalSceneTime >= this.animationSpan())
-      return mat4.create(); //returns identity because there sno movement
+    if(totalSceneTime >= this.animationSpan)
+	  {
+    	let Matrix = mat4.create();
+
+    	let Translation = this.cPoints[this.cPoints.length - 1];
+
+    	let directionAngle = Math.atan2(Translation[2], Translation[0]);
+
+    	mat4.translate(Matrix, Matrix, Translation);
+
+    	//mat4.rotateY(Matrix, Matrix, directionAngle);
+
+    	return Matrix;
+    }
     else
     {
-      //if time in scene is diferent of the time in animation
-      if ((totalSceneTime != this.elapsedTime) && (this.elapsedTime != 0))
-      {
-        //updates the animation time
-        this.updateElpasedTime(diffTime);
+  		this.updateElpasedTime(diffTime);
 
-        //creates a matrix
-        var Matrix = mat4.create();
+  		let Matrix = mat4.create();
 
-        //gets a matrix with the translation
-        var mov = this.movement(diffTime);
+  		let Translation = this.movement(diff);
 
-        //gets the current movement direction
-        //var dir = this.currentDirection();
+  		let directionAngle = Math.atan2(Translation[2], Translation[0]);
 
-        //calculates angle of rotation
-        //var ang = Math.atan(dir[2] / dir[0]);
+      console.log("angle(linear): " + directionAngle);
 
-        //mat4.rotateY(Matrix, Matrix, ang);
+  		mat4.translate(Matrix, Matrix, Translation);
 
-        //multiplies the matrix for the translation one
-        mat4.multiply(Matrix, Matrix, mov);
+  		//mat4.rotateY(Matrix, Matrix, directionAngle);
 
-        //returns it
-        return Matrix;
-      }
-      //if its the instant t=0 we just want to put the object on the initial point
-      else if (this.elapsedTime == 0)
-      {
-        //create a Matrix
-        var Matrix = mat4.create();
-
-        //gets direction, witch is the first point
-        var dir = this.initialPoint;
-
-        //gets the angle of rotation
-        //var ang = Math.atan(dir[2] / dir[1]);
-
-        //aplies it to the matrix
-        //mat4.rotateY(Matrix, mat4.create(), ang);
-
-        //aplies the translation
-        mat4.translate(Matrix, mat4.create(), dir);
-
-        //updates the animation time
-        this.updateElpasedTime(diffTime);
-
-        //gets a matrix with the translation
-        var mov = this.movement(diffTime);
-
-        //multiplies the matrix for the translation one
-        mat4.multiply(Matrix, Matrix, mov);
-
-        //returns the matrix
-        return Matrix;
-      }
-      else
-        return mat4.create(); //returns identity because there sno movement
-    }
+  		return Matrix;
+  	}
   }
 }

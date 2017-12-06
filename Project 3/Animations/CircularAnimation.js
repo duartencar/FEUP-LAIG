@@ -24,13 +24,13 @@ class CircularAnimation extends Animation
     //rotation radius
     this.rad = radius;
 
-    //initial angle of rotation in radians
+    //initial angle of rotation in degrees
     this.initAng = initAng * DEGREE_TO_RAD;
 
-    //animation rotation angle in radians
+    //animation rotation angle in degrees
     this.rotAng = rotAng * DEGREE_TO_RAD;
 
-    //contains the angle of rotation of an animation at a given moment in radians
+    //contains the angle of rotation of an animation at a given moment in degrees
     this.currAngle = initAng * DEGREE_TO_RAD;
 
     //animation rotation angle
@@ -71,7 +71,7 @@ class CircularAnimation extends Animation
   }
 
   /**
-   * Returns the starting angle of the animation
+   * Returns the starting angle of the animation in rotationAngle
   **/
   get initialAngle()
   {
@@ -91,7 +91,7 @@ class CircularAnimation extends Animation
   **/
   get totalRotation ()
   {
-    return initialAngle() + rotationAngle();
+    return this.initialAngle + this.rotationAngle;
   }
 
   /**
@@ -99,15 +99,15 @@ class CircularAnimation extends Animation
   **/
   get totalDistance ()
   {
-    return Math.abs(this.rotAng * this.radius);
+    return Math.abs(this.rotationAngle * this.radius);
   }
 
   /**
    * Returns the span of an animation
   **/
-  animationSpan()
+  get animationSpan()
   {
-    return (this.totalDistance / this.speed);
+    return (this.totalDistance / this.animationSpeed);
   }
 
   /**
@@ -115,7 +115,7 @@ class CircularAnimation extends Animation
   **/
   get angularSpeed()
   {
-    return (this.rotAng / this.animationSpan());
+    return (this.rotationAngle / this.animationSpan);
   }
 
   /**
@@ -272,20 +272,32 @@ class CircularAnimation extends Animation
   **/
   position(diff)
   {
-    //gets the movementent Matrix
-    var translation = this.movement(diff);
+    let w = this.angularSpeed;
 
-    // gets the rotation matrix
-    var rot = this.rotation();
+	  let trans = [this.centerCoords[0], this.centerCoords[1], this.centerCoords[2]];
 
-    //applies rotation matrix
-    this.rotateMatrix(rot);
+	  let angle = this.initialAngle + w * this.elapsedTime;
 
-    //applies the translation matrix
-    this.translateMatrix(translation);
+	  trans[0] += this.rcos(angle);
 
-    //returns the animationMatrix
-    return this.Matrix;
+	  trans[2] += this.rsin(angle);
+
+	  return trans;
+  }
+
+  lastPoint()
+  {
+  	let w = this.angularSpeed;
+
+  	let trans = [this.centerCoords[0], this.centerCoords[1], this.centerCoords[2]];
+
+  	let angle = this.initialAngle + w * this.animationSpan;
+
+  	trans[0] += this.rcos(angle);
+
+  	trans[2] += this.rsin(angle);
+
+  	return trans;
   }
 
   /**
@@ -296,54 +308,35 @@ class CircularAnimation extends Animation
   correctMatrix(diffTime, totalSceneTime)
   {
     //if the the total scene time is bigger than the animation span means
-    if(totalSceneTime >= this.animationSpan())
-      return mat4.create();
+    if(totalSceneTime >= this.animationSpan)
+    {
+      let Matrix = mat4.create();
+
+		  let Translation = this.lastPoint();
+
+		  let directionAngle = Math.atan2(Translation[2], Translation[0]);
+
+      //mat4.rotateY(Matrix, Matrix, directionAngle);
+
+		  mat4.translate(Matrix, Matrix, Translation);
+
+		  return Matrix;
+    }
     else
     {
-      //if the time of the scene is diferent than in the animation
-      if((totalSceneTime != this.elapsedTime) && (this.elapsedTime != 0))
-      {
-        //updates the time
-        this.updateElpasedTime(diffTime);
+      this.updateElpasedTime(diffTime);
 
-        //creates a matrix with the translation
-        let Matrix = this.movement(diffTime);
+      let Matrix = mat4.create();
 
-        //rotates the matrix according to current angle
-        //mat4.rotateY(Matrix, mat4.create(), this.currAngle);
+      let Translation = this.position(diff);
 
-        //returns the matrix
-        return Matrix;
-      }
-      //if it is the initial moment (t=0)
-      else if (this.elapsedTime == 0)
-      {
-        //gets the direction for the initial point
-        let dir = this.initialPoint();
+      let directionAngle = Math.atan2(Translation[2], Translation[0]);
 
-        //creates a matrix to store the transformation
-        let Matrix = mat4.create();
+      //mat4.rotateY(Matrix, Matrix, directionAngle);
 
-        //rotates for initial rotation
-        //mat4.rotateY(Matrix, Matrix, this.initialAngle);
+      mat4.translate(Matrix, Matrix, Translation);
 
-        //translates it in direction
-        mat4.translate(Matrix, Matrix, dir);
-
-        //updates the time
-        this.updateElpasedTime(diffTime);
-
-        //creates a matrix with the translation
-        let mov = this.movement(diffTime);
-
-        //multiplies the matrix for the translation one
-        mat4.multiply(Matrix, Matrix, mov);
-
-        //returns the matrix
-        return Matrix;
-      }
-      else //return identity
-        return mat4.create();
+      return Matrix;
     }
   }
 }
