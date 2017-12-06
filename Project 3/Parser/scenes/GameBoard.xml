@@ -1,0 +1,425 @@
+<SCENE>
+
+  <INITIALS>
+    <frustum near="0.1" far="500"/>
+    <translation x="-5" y="1" z="0" />
+    <rotation axis="x" angle="0" />
+    <rotation axis="y" angle="0" />
+    <rotation axis="z" angle="0" />
+    <scale sx="0.25" sy="0.25" sz="0.25" />
+    <reference length="5" />
+  </INITIALS>
+
+  <ILLUMINATION>
+    <ambient r="0.1" g="0.1" b="0.1" a="1" />
+    <background r="0" g="0" b="0" a="1" />
+  </ILLUMINATION>
+
+  <LIGHTS>
+    <LIGHT id="Top-Left light">
+      <enable value ="1" />
+      <position x="0" y="10" z="0" w="1" />
+      <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+      <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+      <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+    <LIGHT id="Bottom-Left light">
+      <enable value ="1" />
+      <position x="0" y="10" z="18" w="1" />
+      <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+      <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+      <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+    <LIGHT id="Bottom-Right light">
+      <enable value ="1" />
+      <position x="48" y="10" z="18" w="1" />
+      <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+      <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+      <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+    <LIGHT id="Top-Right light">
+      <enable value ="1" />
+      <position x="48" y="10" z="0" w="1" />
+      <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+      <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+      <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+    <LIGHT id="Middle light">
+      <enable value ="1" />
+      <position x="24" y="10" z="9" w="1" />
+      <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+      <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+      <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+  </LIGHTS>
+
+  <TEXTURES>
+
+    <TEXTURE id="normal-board-cube-texture">
+      <file path="images/normalboardcube.png" />
+      <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="super-board-cube-texture">
+      <file path="images/supercube.png" />
+      <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="throw-board-cube-texture">
+      <file path="images/throwboardcube.png" />
+      <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+  </TEXTURES>
+
+  <MATERIALS>
+
+    <MATERIAL id="normal-board-cube-material">
+      <shininess value="1" />
+      <specular r="0.8" g="0.8" b="1" a="0.1" />
+      <diffuse r="1.0" g="1" b="1" a="0.1" />
+      <ambient r="0.2" g="0.2" b="0.2" a="1" />
+      <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+
+    <MATERIAL id="super-board-cube-material">
+      <shininess value="1" />
+      <specular r="0" g="0" b="1" a="1" />
+      <diffuse r="0" g="0" b="1" a="1" />
+      <ambient r="0.2" g="0.2" b="0.2" a="1" />
+      <emission r="0.0" g="0.0" b="1.0" a="1" />
+    </MATERIAL>
+
+    <MATERIAL id="throw-board-cube-material">
+      <shininess value="1" />
+      <specular r="1" g="1" b="1" a="1" />
+      <diffuse r="1" g="1" b="1" a="1" />
+      <ambient r="0.2" g="0.2" b="0.2" a="1" />
+      <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+
+  </MATERIALS>
+
+  <LEAVES>
+
+  </LEAVES>
+
+  <ANIMATIONS>
+
+  </ANIMATIONS>
+
+  <NODES>
+
+    <ROOT id="root" />
+
+    <NODE id="root">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <DESCENDANTS>
+        <NODEREF id="Board" />
+      </DESCENDANTS>
+    </NODE>
+
+    <!--Contains all board elements-->
+    <NODE id="Board">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="3" y="3" z="3" /> <!--Puts initial cube in correct position-->
+      <DESCENDANTS>
+        <NODEREF id="Normal-Cubes" />
+        <NODEREF id="Throw-Again-Cubes" />
+        <NODEREF id="Super-Cube-12" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Normal-Cubes">
+      <MATERIAL id="normal-board-cube-material" />
+      <TEXTURE id="normal-board-cube-texture"/>
+      <DESCENDANTS>
+        <NODEREF id="Normal-Cube-2" />
+        <NODEREF id="Normal-Cube-3" />
+        <NODEREF id="Normal-Cube-4" />
+        <NODEREF id="Normal-Cube-5" />
+        <NODEREF id="Normal-Cube-6" />
+        <NODEREF id="Normal-Cube-7" />
+        <NODEREF id="Normal-Cube-9" />
+        <NODEREF id="Normal-Cube-10" />
+        <NODEREF id="Normal-Cube-11" />
+        <NODEREF id="Normal-Cube-13" />
+        <NODEREF id="Normal-Cube-14" />
+        <NODEREF id="Normal-Cube-15" />
+        <NODEREF id="Normal-Cube-17" />
+        <NODEREF id="Normal-Cube-18" />
+        <NODEREF id="Normal-Cube-19" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Normal-Cube-2">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="6" y="0" z="0" />
+      <DESCENDANTS>
+        <NODEREF id="BoardCube" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Normal-Cube-3">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="12" y="0" z="0" />
+      <DESCENDANTS>
+        <NODEREF id="BoardCube" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Normal-Cube-4">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="18" y="0" z="0" />
+      <DESCENDANTS>
+        <NODEREF id="BoardCube" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Normal-Cube-5">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="0" y="0" z="6" />
+      <DESCENDANTS>
+        <NODEREF id="BoardCube" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Normal-Cube-6">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="6" y="0" z="6" />
+      <DESCENDANTS>
+        <NODEREF id="BoardCube" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Normal-Cube-7">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="12" y="0" z="6" />
+      <DESCENDANTS>
+        <NODEREF id="BoardCube" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Normal-Cube-9">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="6" y="0" z="12" />
+      <DESCENDANTS>
+        <NODEREF id="BoardCube" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Normal-Cube-10">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="12" y="0" z="12" />
+      <DESCENDANTS>
+        <NODEREF id="BoardCube" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Normal-Cube-11">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="18" y="0" z="12" />
+      <DESCENDANTS>
+        <NODEREF id="BoardCube" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Normal-Cube-13">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="24" y="0" z="6" />
+      <DESCENDANTS>
+        <NODEREF id="BoardCube" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Normal-Cube-14">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="30" y="0" z="6" />
+      <DESCENDANTS>
+        <NODEREF id="BoardCube" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Normal-Cube-15">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="36" y="0" z="6" />
+      <DESCENDANTS>
+        <NODEREF id="BoardCube" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Normal-Cube-17">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="42" y="0" z="0" />
+      <DESCENDANTS>
+        <NODEREF id="BoardCube" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Normal-Cube-18">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="42" y="0" z="6" />
+      <DESCENDANTS>
+        <NODEREF id="BoardCube" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Normal-Cube-19">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="42" y="0" z="12" />
+      <DESCENDANTS>
+        <NODEREF id="BoardCube" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Super-Cube-12">
+      <MATERIAL id="super-board-cube-material" />
+      <TEXTURE id="super-board-cube-texture" />
+      <TRANSLATION x="18" y="0" z="6" />
+      <DESCENDANTS>
+        <NODEREF id="BoardCube" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Throw-Again-Cubes">
+      <MATERIAL id="throw-board-cube-material" />
+      <TEXTURE id="throw-board-cube-texture" />
+      <DESCENDANTS>
+        <NODEREF id="Throw-Again-Cubes-1" />
+        <NODEREF id="Throw-Again-Cubes-8" />
+        <NODEREF id="Throw-Again-Cubes-16" />
+        <NODEREF id="Throw-Again-Cubes-20" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Throw-Again-Cubes-1">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <DESCENDANTS>
+        <NODEREF id="BoardCube" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Throw-Again-Cubes-8">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="0" y="0" z="12" />
+      <DESCENDANTS>
+        <NODEREF id="Throw-Again-Cubes-1" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Throw-Again-Cubes-16">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="36" y="0" z="0" />
+      <DESCENDANTS>
+        <NODEREF id="Throw-Again-Cubes-1" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Throw-Again-Cubes-20">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="36" y="0" z="12" />
+      <DESCENDANTS>
+        <NODEREF id="Throw-Again-Cubes-1" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="BoardCube">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="0" y="0" z="-3" />
+      <DESCENDANTS>
+       	<NODEREF id="faceCubo1" />
+        <NODEREF id="faceCubo2" />
+        <NODEREF id="faceCubo3" />
+        <NODEREF id="faceCubo4" />
+        <NODEREF id="faceCubo5" />
+        <NODEREF id="faceCubo6" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="faceCubo1">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <ROTATION axis="y" angle="180" />
+      <DESCENDANTS>
+				<LEAF  type="rectangle" args="-3 3 3 -3" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="faceCubo2">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="3" y="0" z="3" />
+      <ROTATION axis="y" angle="90" />
+      <DESCENDANTS>
+				<LEAF  type="rectangle" args="-3 3 3 -3" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="faceCubo3">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="0" y="0" z="6" />
+      <DESCENDANTS>
+				<LEAF  type="rectangle" args="-3 3 3 -3" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="faceCubo4">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="-3" y="0" z="3" />
+      <ROTATION axis="y" angle="-90" />
+      <DESCENDANTS>
+				<LEAF  type="rectangle" args="-3 3 3 -3" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="faceCubo5">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="0" y="3" z="3" />
+      <ROTATION axis="x" angle="-90" />
+      <DESCENDANTS>
+				<LEAF  type="rectangle" args="-3 3 3 -3" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="faceCubo6">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="0" y="-3" z="3" />
+      <ROTATION axis="x" angle="90" />
+      <DESCENDANTS>
+				<LEAF  type="rectangle" args="-3 3 3 -3" />
+      </DESCENDANTS>
+    </NODE>
+
+  </NODES>
+
+</SCENE>
