@@ -17,7 +17,8 @@ var t = d.getTime();
 * MySceneGraph class, representing the scene graph.
 * @constructor
 */
-function MySceneGraph(filename, scene) {
+function MySceneGraph(filename, scene)
+{
   this.loadedOk = null ;
 
   // Establish bidirectional references between scene and graph.
@@ -30,6 +31,7 @@ function MySceneGraph(filename, scene) {
   this.idRoot = null;                    // The id of the root element.
 
   this.axisCoords = [];
+
   this.axisCoords['x'] = [1, 0, 0];
   this.axisCoords['y'] = [0, 1, 0];
   this.axisCoords['z'] = [0, 0, 1];
@@ -52,13 +54,16 @@ function MySceneGraph(filename, scene) {
 MySceneGraph.prototype.onXMLReady = function()
 {
   console.log("XML Loading finished.");
+
   var rootElement = this.reader.xmlDoc.documentElement;
 
   // Here should go the calls for different functions to parse the various blocks
   var error = this.parseLSXFile(rootElement);
 
-  if (error != null ) {
+  if (error != null )
+  {
     this.onXMLError(error);
+
     return;
   }
 

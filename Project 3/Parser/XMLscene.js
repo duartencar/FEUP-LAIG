@@ -106,7 +106,7 @@ XMLscene.prototype.initLights = function()
  */
 XMLscene.prototype.initCameras = function()
 {
-  this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
+  this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
 }
 
 /* Handler called when the graph is finally loaded.
@@ -148,12 +148,7 @@ XMLscene.prototype.loadShaders = function()
     this.defaultShader,
 		new CGFshader(this.gl, "../shaders/flat.vert", "../shaders/flat.frag"),
 		new CGFshader(this.gl, "../shaders/uScale.vert", "../shaders/uScale.frag"),
-		new CGFshader(this.gl, "../shaders/varying.vert", "../shaders/varying.frag"),
-		new CGFshader(this.gl, "../shaders/texture1.vert", "../shaders/texture1.frag"),
-		new CGFshader(this.gl, "../shaders/texture2.vert", "../shaders/texture2.frag"),
-		new CGFshader(this.gl, "../shaders/texture3.vert", "../shaders/texture3.frag"),
-		new CGFshader(this.gl, "../shaders/texture3.vert", "../shaders/sepia.frag"),
-		new CGFshader(this.gl, "../shaders/texture3.vert", "../shaders/convolution.frag")
+		new CGFshader(this.gl, "../shaders/varying.vert", "../shaders/varying.frag")
 	];
 
   this.shaders = Shaders;
@@ -172,8 +167,6 @@ XMLscene.prototype.updateScaleFactor = function(v)
   this.shaders[2].setUniformsValues({g: this.green / 256});
 
   this.shaders[2].setUniformsValues({b: this.blue / 256});
-
-  this.shaders[5].setUniformsValues({t: Math.cos(v / this.selectedSpeed)});
 }
 
 /**
