@@ -2,25 +2,29 @@
 
 On this first project we were suposed to:
 
-1. Read an XML file with a scene
+1.Parse an animation node with the animations data to apply to objects :white_check_mark:
 
-2. Create nodes and leafs from the read file
+2. Apply animations to objects.
+    - Linear Animation:
+        - [x] Movement
+        - [ ] Rotation
+    - Circular Animation:
+        - [x] Movement
+        - [ ] Rotation
+    - Bezier Animation:
+        - [x] Movement
+        - [ ] Rotation
+    - Bezier Animation:
+        - [x] Movement
 
-3. Create basic scene elements for scene rendering:
-    - rectangle
-    - triangle
-    - circle
-    - tube
-    - cylinder
-    - sphere
-    - nurb surface
+3. Parse nodes with 'selectable' attribute :white_check_mark:
 
-4. Apply transformations, material appearances and textures, contained in node elements
+4. Apply a shader to the selectable node:
+    - [x] Change object size according to time
+    - [x] Change object color
 
-5. Scene rendering
+5. Create a interface that:
+    - [x] Selects one of the selectable nodes
+    - [x] Applies one of the implemented nodes
 
 # Result
-
-<img src="./Parser/scenes/LAIG_TP1_LSX_T4_G05_V03/images/scene_V03_longe.png" width="500">
-
-<img src="./Parser/scenes/LAIG_TP1_LSX_T4_G05_V03/images/scene_V03_menosLonge.png" width="500">
