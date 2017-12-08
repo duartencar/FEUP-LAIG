@@ -28,3 +28,5 @@ On this first project we were suposed to:
     - [x] Applies one of the implemented nodes
 
 # Result
+
+![Demo](https://i.imgur.com/lWDtuVk.gif)
