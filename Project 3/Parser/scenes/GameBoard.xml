@@ -74,6 +74,11 @@
       <amplif_factor s="1" t="1" />
     </TEXTURE>
 
+    <TEXTURE id="player-piece-texture">
+      <file path="images/piece.png" />
+      <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
   </TEXTURES>
 
   <MATERIALS>
@@ -119,8 +124,268 @@
     <NODE id="root">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
+
       <DESCENDANTS>
         <NODEREF id="Board" />
+        <NODEREF id="Platforms" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Platforms">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <DESCENDANTS>
+        <NODEREF id="player1-platform" />
+        <NODEREF id="player2-platform" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="player1-platform">
+      <MATERIAL id="null"/>
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="0" y="6" z="25" />
+
+      <DESCENDANTS>
+        <NODEREF id="player-platform" />
+        <NODEREF id="player1-pieces" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="player2-platform">
+      <MATERIAL id="null"/>
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="0" y="6" z="-17" />
+
+      <DESCENDANTS>
+        <NODEREF id="player-platform" />
+        <NODEREF id="player2-pieces" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="player1-pieces">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <DESCENDANTS>
+        <NODEREF id="player1-piece1"/>
+        <NODEREF id="player1-piece2"/>
+        <NODEREF id="player1-piece3"/>
+        <NODEREF id="player1-piece4"/>
+        <NODEREF id="player1-piece5"/>
+        <NODEREF id="player1-piece6"/>
+        <NODEREF id="player1-piece7"/>
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="player1-piece1">
+      <MATERIAL id="null"/>
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="3" y="0" z="29"/>
+
+      <DESCENDANTS>
+        <NODEREF id="piece-player1" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="player1-piece2">
+      <MATERIAL id="null"/>
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="9" y="0" z="29" />
+
+      <DESCENDANTS>
+        <NODEREF id="piece-player1" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="player1-piece3">
+      <MATERIAL id="null"/>
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="15" y="0" z="29" />
+
+      <DESCENDANTS>
+        <NODEREF id="piece-player1" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="player1-piece4">
+      <MATERIAL id="null"/>
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="21" y="0" z="29" />
+
+      <DESCENDANTS>
+        <NODEREF id="piece-player1" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="player1-piece5">
+      <MATERIAL id="null"/>
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="27" y="0" z="29" />
+
+      <DESCENDANTS>
+        <NODEREF id="piece-player1" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="player1-piece6">
+      <MATERIAL id="null"/>
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="33" y="0" z="29" />
+
+      <DESCENDANTS>
+        <NODEREF id="piece-player1" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="player1-piece7">
+      <MATERIAL id="null"/>
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="39" y="0" z="29" />
+
+      <DESCENDANTS>
+        <NODEREF id="piece-player1" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="player2-pieces">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <DESCENDANTS>
+        <NODEREF id="player2-piece1"/>
+        <NODEREF id="player2-piece2"/>
+        <NODEREF id="player2-piece3"/>
+        <NODEREF id="player2-piece4"/>
+        <NODEREF id="player2-piece5"/>
+        <NODEREF id="player2-piece6"/>
+        <NODEREF id="player2-piece7"/>
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="player2-piece1">
+      <MATERIAL id="null"/>
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="3" y="0" z="29" />
+
+      <DESCENDANTS>
+        <NODEREF id="piece-player1" />
+      </DESCENDANTS>
+    </NODE>
+  
+   <NODE id="player2-piece2">
+      <MATERIAL id="null"/>
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="9" y="0" z="29" />
+
+      <DESCENDANTS>
+        <NODEREF id="piece-player1" />
+      </DESCENDANTS>
+    </NODE>
+
+   <NODE id="player2-piece3">
+      <MATERIAL id="null"/>
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="15" y="0" z="29" />
+
+      <DESCENDANTS>
+        <NODEREF id="piece-player1" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="player2-piece4">
+      <MATERIAL id="null"/>
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="21" y="0" z="29" />
+
+      <DESCENDANTS>
+        <NODEREF id="piece-player1" />
+      </DESCENDANTS>
+    </NODE>-->
+    
+    <NODE id="player2-piece5">
+      <MATERIAL id="null"/>
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="27" y="0" z="29" />
+
+      <DESCENDANTS>
+        <NODEREF id="piece-player1" />
+      </DESCENDANTS>
+    </NODE>
+  
+    <NODE id="player2-piece6">
+      <MATERIAL id="null"/>
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="33" y="0" z="29" />
+
+      <DESCENDANTS>
+        <NODEREF id="piece-player1" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="player2-piece7">
+      <MATERIAL id="null"/>
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="39" y="0" z="29" />
+
+      <DESCENDANTS>
+        <NODEREF id="piece-player1" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="piece-player1">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <DESCENDANTS>
+        <NODEREF id="piece" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="piece-player2">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <DESCENDANTS>
+        <NODEREF id="piece" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="piece">
+      <MATERIAL id="normal-board-cube-material" />
+      <TEXTURE id="player-piece-texture" /> 
+
+      <TRANSLATION x="0" y="1" z="-25" />
+      <ROTATION axis="x" angle="90" />
+
+      <DESCENDANTS>
+        <LEAF type="cylinder" args="1 2 2 20 1 1 1"/>
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="player-platform">
+      <MATERIAL id="normal-board-cube-material"/>
+      <TEXTURE id="null" />
+
+      <ROTATION axis="x" angle="90" />
+      <DESCENDANTS>
+        <LEAF type="rectangle" args="0 0 45 8" />
       </DESCENDANTS>
     </NODE>
 
