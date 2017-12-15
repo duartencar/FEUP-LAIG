@@ -27,6 +27,6 @@ class GameLogic
    set newState (index)
    {
       if(!isNaN(index) && index >= 0 && index <= 4)
-         this.currentState = index
+         this.currentState = index;
    }
 }
