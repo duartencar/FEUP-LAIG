@@ -18,7 +18,7 @@ function XMLscene(interface)
 
   this.elapsedTime = 0;
 
-  this.selectables = [new MyGraphNode(this.graph, "none")];
+  this.selectables = [];
 
   this.selectedShader = 0;
 
@@ -33,6 +33,8 @@ function XMLscene(interface)
   this.blue = 128;
 
   this.shaders = [];
+
+  this.pickID = 0;
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -59,6 +61,8 @@ XMLscene.prototype.init = function(application)
   this.gl.depthFunc(this.gl.LEQUAL);
 
   this.axis = new CGFaxis(this);
+
+  this.setPickEnabled(true);
 }
 
 /**
@@ -106,7 +110,7 @@ XMLscene.prototype.initLights = function()
  */
 XMLscene.prototype.initCameras = function()
 {
-  this.camera = new CGFcamera(0.7, 0.1, 500, vec3.fromValues(0, 2, 22), vec3.fromValues(0, 0, 0));
+  this.camera = new CGFcamera(0.7, 0.1, 500, vec3.fromValues(0, 11, 18), vec3.fromValues(0, -1, -1));
 }
 
 /* Handler called when the graph is finally loaded.
@@ -169,11 +173,36 @@ XMLscene.prototype.updateScaleFactor = function(v)
   this.shaders[2].setUniformsValues({b: this.blue / 256});
 }
 
+XMLscene.prototype.logPicking = function ()
+{
+	if (this.pickMode == false)
+  {
+		if (this.pickResults != null && this.pickResults.length > 0)
+    {
+			for (var i=0; i< this.pickResults.length; i++)
+      {
+				var obj = this.pickResults[i][0];
+
+				if (obj)
+				{
+					var customId = this.pickResults[i][1];
+
+					console.log("Picked object: " + obj.nodeID + ", with pick id " + customId);
+				}
+			}
+
+      this.pickResults.splice(0,this.pickResults.length);
+		}
+	}
+}
+
 /**
  * Displays the scene.
  */
 XMLscene.prototype.display = function()
 {
+  this.logPicking();
+	this.clearPickRegistration();
   // ---- BEGIN Background, camera and axis setup
 
   // Clear image and depth buffer everytime we update the scene
@@ -238,6 +267,8 @@ XMLscene.prototype.display = function()
     this.time = t;
 
     this.elapsedTime += diff;
+
+    this.pickID = 0;
   }
   else
   {
@@ -247,4 +278,5 @@ XMLscene.prototype.display = function()
 
   this.popMatrix();
   // ---- END Background, camera and axis setup
+
 }
