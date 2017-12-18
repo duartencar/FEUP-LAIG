@@ -924,6 +924,8 @@ MySceneGraph.prototype.parseCameras = function(camerasNode)
 
       var coor = ['x', 'y', 'z'];
 
+      var coor2 = ['xx', 'yy', 'zz'];
+
       for(let k = 0; k < cameraDetails.length; k++)
       {
         let name = cameraDetails[k].nodeName;
@@ -951,24 +953,24 @@ MySceneGraph.prototype.parseCameras = function(camerasNode)
         }
         else if(name == 'position')
         {
-          for(let s = 0; s < coor.length; s++)
+          for(let s = 0; s < coor2.length; s++)
           {
-            let c = this.reader.getFloat(cameraDetails[k], coor[s]);
+            let c = this.reader.getFloat(cameraDetails[k], coor2[s]);
 
             if(c == null)
-              return ('unable to parse position ' + coor[s] + ' coordinate');
+              return ('unable to parse position ' + coor2[s] + ' coordinate');
 
             position.push(c);
           }
         }
         else if(name == 'target')
         {
-          for(let s = 0; s < coor.length; s++)
+          for(let s = 0; s < coor2.length; s++)
           {
-            let c = this.reader.getFloat(cameraDetails[k], coor[s]);
+            let c = this.reader.getFloat(cameraDetails[k], coor2[s]);
 
             if(c == null)
-              return ('unable to parse target ' + coor[s] + ' coordinate');
+              return ('unable to parse target ' + coor2[s] + ' coordinate');
 
             target.push(c);
           }
@@ -977,9 +979,9 @@ MySceneGraph.prototype.parseCameras = function(camerasNode)
           return 'unkown tag in cameras node';
         }
 
-        let pos = vec3.create(position);
+        let pos = vec3.fromValues(position[0], position[1], position[2]);
 
-        let tar = vec3.create(target);
+        let tar = vec3.fromValues(target[0], target[1], target[2]);
 
         this.scene.cameras[cameraID] = new CGFcamera(fov, near, far, pos, tar);
 

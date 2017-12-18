@@ -63,8 +63,8 @@
       <fov value="0.7"/>
       <near value="0.1"/>
       <far value="500"/>
-      <position x="0" y="11" z="20"/>
-      <target x="0" y="0" z="0"/>
+      <position xx="0.0" yy="11.0" zz="20.0" />
+      <target xx="0.0" yy="0.0" zz="0.0" />
     </CAMERA>
 
   </CAMERAS>
