@@ -4,11 +4,12 @@ var DEGREE_TO_RAD = Math.PI / 180;
 var INITIALS_INDEX = 0;
 var ILLUMINATION_INDEX = 1;
 var LIGHTS_INDEX = 2;
-var TEXTURES_INDEX = 3;
-var MATERIALS_INDEX = 4;
-var LEAVES_INDEX = 5;
-var ANIMATIONS_INDEX = 6;
-var NODES_INDEX = 7;
+var CAMERAS_INDEX = 3
+var TEXTURES_INDEX = 4;
+var MATERIALS_INDEX = 5;
+var LEAVES_INDEX = 6;
+var ANIMATIONS_INDEX = 7;
+var NODES_INDEX = 8;
 
 var d = new Date();
 var t = d.getTime();
@@ -97,6 +98,7 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement)
 
   // <INITIALS>
   var index;
+
   if ((index = nodeNames.indexOf("INITIALS")) == -1)
     return "tag <INITIALS> missing";
   else
@@ -127,6 +129,18 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement)
     this.onXMLMinorError("tag <LIGHTS> out of order");
 
     if ((error = this.parseLights(nodes[index])) != null )
+      return error;
+  }
+
+  // <CAMERAS>
+  if ((index = nodeNames.indexOf("CAMERAS")) == -1)
+    return "tag <CAMERAS> missing";
+  else
+  {
+    if (index != CAMERAS_INDEX)
+      this.onXMLMinorError("tag <CAMERAS> out of order");
+
+    if ((error = this.parseCameras(nodes[index])) != null )
       return error;
   }
 
@@ -361,7 +375,7 @@ MySceneGraph.prototype.parseInitials = function(initialsNode) {
 
   // Updates transform matrix.
   for (var i = 0; i < rotationOrder.length; i++)
-  mat4.rotate(this.initialTransforms, this.initialTransforms, DEGREE_TO_RAD * initialRotations[rotationOrder[i]], this.axisCoords[rotationOrder[i]]);
+    mat4.rotate(this.initialTransforms, this.initialTransforms, DEGREE_TO_RAD * initialRotations[rotationOrder[i]], this.axisCoords[rotationOrder[i]]);
 
   // Scaling.
   if (scalingIndex == -1)
@@ -876,6 +890,107 @@ MySceneGraph.prototype.parseLights = function(lightsNode) {
   return null ;
 }
 
+MySceneGraph.prototype.parseCameras = function(camerasNode)
+{
+  var cameras = camerasNode.children;
+
+  let oneCameraDefined = false;
+
+  for(let i = 0; i < cameras.length; i++)
+  {
+    let nodeName = cameras[i].nodeName;
+
+    if(nodeName == "CAMERA")
+    {
+      let cameraID = this.reader.getString(cameras[i], 'id');
+
+      if (cameraID == null )
+        return 'failed to parse camera ID';
+
+      if(this.scene.cameras[cameraID] != null)
+        return 'camera ID must be unique ( confict with ID = ' + cameraID + ')';
+
+      let cameraDetails = cameras[i].children;
+
+      let fov = 0;
+
+      let near = 0;
+
+      let far = 0;
+
+      let position = [];
+
+      let target = [];
+
+      var coor = ['x', 'y', 'z'];
+
+      for(let k = 0; k < cameraDetails.length; k++)
+      {
+        let name = cameraDetails[k].nodeName;
+
+        if(name == 'fov')
+        {
+          if(this.reader.getFloat(cameraDetails[k], 'value') == null)
+            return 'fov value attribute not found';
+          else
+            fov = this.reader.getFloat(cameraDetails[k], 'value');
+        }
+        else if(name == 'near')
+        {
+          if(this.reader.getFloat(cameraDetails[k], 'value') == null)
+            return 'near value attribute not found';
+          else
+            near = this.reader.getFloat(cameraDetails[k], 'value');
+        }
+        else if(name == 'far')
+        {
+          if(this.reader.getFloat(cameraDetails[k], 'value') == null)
+            return 'far value attribute not found';
+          else
+            far = this.reader.getFloat(cameraDetails[k], 'value');
+        }
+        else if(name == 'position')
+        {
+          for(let s = 0; s < coor.length; s++)
+          {
+            let c = this.reader.getFloat(cameraDetails[k], coor[s]);
+
+            if(c == null)
+              return ('unable to parse position ' + coor[s] + ' coordinate');
+
+            position.push(c);
+          }
+        }
+        else if(name == 'target')
+        {
+          for(let s = 0; s < coor.length; s++)
+          {
+            let c = this.reader.getFloat(cameraDetails[k], coor[s]);
+
+            if(c == null)
+              return ('unable to parse target ' + coor[s] + ' coordinate');
+
+            target.push(c);
+          }
+        }
+        else
+          return 'unkown tag in cameras node';
+        }
+
+        let pos = vec3.create(position);
+
+        let tar = vec3.create(target);
+
+        this.scene.cameras[cameraID] = new CGFcamera(fov, near, far, pos, tar);
+
+        oneCameraDefined = true;
+      }
+    }
+
+  if(oneCameraDefined == false)
+    return 'unable to get one single camera';
+}
+
 /**
 * Parses the <TEXTURES> block.
 */
@@ -888,7 +1003,8 @@ MySceneGraph.prototype.parseTextures = function(texturesNode)
 
   var oneTextureDefined = false;
 
-  for (var i = 0; i < eachTexture.length; i++) {
+  for (var i = 0; i < eachTexture.length; i++)
+  {
     var nodeName = eachTexture[i].nodeName;
 
     if (nodeName == "TEXTURE")
@@ -901,7 +1017,7 @@ MySceneGraph.prototype.parseTextures = function(texturesNode)
 
       // Checks if ID is valid.
       if (this.textures[textureID] != null )
-        return "texture ID must unique (conflict with ID = " + textureID + ")";
+        return "texture ID must be unique (conflict with ID = " + textureID + ")";
 
       var texSpecs = eachTexture[i].children;
 

@@ -57,6 +57,18 @@
     </LIGHT>
   </LIGHTS>
 
+  <CAMERAS>
+
+    <CAMERA id="player1-view">
+      <fov value="0.7"/>
+      <near value="0.1"/>
+      <far value="500"/>
+      <position x="0" y="11" z="20"/>
+      <target x="0" y="0" z="0"/>
+    </CAMERA>
+
+  </CAMERAS>
+
   <TEXTURES>
 
     <TEXTURE id="normal-board-cube-texture">
@@ -74,8 +86,13 @@
       <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <TEXTURE id="player-piece-texture">
+    <TEXTURE id="player1-piece-texture">
       <file path="images/piece.png" />
+      <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="player2-piece-texture">
+      <file path="images/player2texture.png" />
       <amplif_factor s="1" t="1" />
     </TEXTURE>
 
@@ -167,7 +184,7 @@
 
     <NODE id="player1-pieces">
       <MATERIAL id="null" />
-      <TEXTURE id="null" />
+      <TEXTURE id="player1-piece-texture" />
 
       <DESCENDANTS>
         <NODEREF id="player1-piece1"/>
@@ -259,7 +276,7 @@
 
     <NODE id="player2-pieces">
       <MATERIAL id="null" />
-      <TEXTURE id="null" />
+      <TEXTURE id="player2-piece-texture" />
 
       <DESCENDANTS>
         <NODEREF id="player2-piece1"/>
@@ -360,7 +377,7 @@
 
     <NODE id="piece-player2">
       <MATERIAL id="null" />
-      <TEXTURE id="null" />
+      <TEXTURE id="player2-piece-texture" />
 
       <DESCENDANTS>
         <NODEREF id="piece" />
@@ -369,7 +386,7 @@
 
     <NODE id="piece">
       <MATERIAL id="normal-board-cube-material" />
-      <TEXTURE id="player-piece-texture" />
+      <TEXTURE id="null" />
 
       <TRANSLATION x="0" y="1" z="-25" />
       <ROTATION axis="x" angle="90" />

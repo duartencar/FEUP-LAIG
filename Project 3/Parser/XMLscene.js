@@ -18,6 +18,8 @@ function XMLscene(interface)
 
   this.elapsedTime = 0;
 
+  this.cameras = [];
+
   this.selectables = [];
 
   this.selectedShader = 0;
@@ -110,7 +112,7 @@ XMLscene.prototype.initLights = function()
  */
 XMLscene.prototype.initCameras = function()
 {
-  this.camera = new CGFcamera(0.7, 0.1, 500, vec3.fromValues(0, 11, 18), vec3.fromValues(0, -1, -1));
+  this.camera = new CGFcamera(0.7, 0.1, 500, vec3.fromValues(0, 11, 20), vec3.fromValues(0, 0, 0));
 }
 
 /* Handler called when the graph is finally loaded.
@@ -137,9 +139,9 @@ XMLscene.prototype.onGraphLoaded = function()
   // Adds lights group.
   this.interface.addLightsGroup(this.graph.lights);
 
-  this.interface.addSelectablesGroup(this.selectables);
+  //this.interface.addSelectablesGroup(this.selectables);
 
-  this.interface.addShadersGroup(this);
+  //this.interface.addShadersGroup(this);
 }
 
 //Loads done shaders
@@ -220,61 +222,61 @@ XMLscene.prototype.display = function()
 
   this.pushMatrix();
 
-  if (this.graph.loadedOk)
-  {
-    // Applies initial transformations.
-    this.multMatrix(this.graph.initialTransforms);
-
-  	// Draw axis
-  	this.axis.display();
-
-    var i = 0;
-
-    for (var key in this.lightValues)
+    if (this.graph.loadedOk)
     {
-      if (this.lightValues.hasOwnProperty(key))
+      // Applies initial transformations.
+      this.multMatrix(this.graph.initialTransforms);
+
+    	// Draw axis
+    	this.axis.display();
+
+      var i = 0;
+
+      for (var key in this.lightValues)
       {
-        if (this.lightValues[key])
+        if (this.lightValues.hasOwnProperty(key))
         {
-          this.lights[i].setVisible(true);
+          if (this.lightValues[key])
+          {
+            this.lights[i].setVisible(true);
 
-          this.lights[i].enable();
+            this.lights[i].enable();
+          }
+          else
+          {
+              this.lights[i].setVisible(false);
+
+              this.lights[i].disable();
+          }
+
+          this.lights[i].update();
+
+          i++;
         }
-        else
-        {
-            this.lights[i].setVisible(false);
-
-            this.lights[i].disable();
-        }
-
-        this.lights[i].update();
-
-        i++;
       }
+
+      let d = new Date();
+
+      let t = d.getTime();
+
+      diff = (t - this.time) / 1000;
+
+      //this.updateScaleFactor(t);
+
+      // Displays the scene.
+      this.graph.displayScene(diff);
+
+      this.time = t;
+
+      this.elapsedTime += diff;
+
+      this.pickID = 0;
     }
-
-    let d = new Date();
-
-    let t = d.getTime();
-
-    diff = (t - this.time) / 1000;
-
-    this.updateScaleFactor(t);
-
-    // Displays the scene.
-    this.graph.displayScene(diff);
-
-    this.time = t;
-
-    this.elapsedTime += diff;
-
-    this.pickID = 0;
-  }
-  else
-  {
-  	// Draw axis
-  	this.axis.display();
-  }
+    else
+    {
+    	// Draw axis
+    	this.axis.display();
+    }
 
   this.popMatrix();
   // ---- END Background, camera and axis setup
