@@ -985,6 +985,8 @@ MySceneGraph.prototype.parseCameras = function(camerasNode)
 
         this.scene.cameras[cameraID] = new CGFcamera(fov, near, far, pos, tar);
 
+        this.scene.camerasID.push(cameraID);
+
         oneCameraDefined = true;
       }
     }

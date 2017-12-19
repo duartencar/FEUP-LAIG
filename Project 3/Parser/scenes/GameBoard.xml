@@ -67,6 +67,14 @@
       <target xx="0.0" yy="0.0" zz="0.0" />
     </CAMERA>
 
+    <CAMERA id="player2-view">
+      <fov value="0.7"/>
+      <near value="0.1"/>
+      <far value="500"/>
+      <position xx="0.0" yy="13.0" zz="-15.0" />
+      <target xx="0.0" yy="2.0" zz="0.0" />
+    </CAMERA>
+
   </CAMERAS>
 
   <TEXTURES>

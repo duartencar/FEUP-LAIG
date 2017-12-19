@@ -20,19 +20,11 @@ function XMLscene(interface)
 
   this.cameras = [];
 
+  this.camerasID = [];
+
+  this.activeCameraIndex = 0;
+
   this.selectables = [];
-
-  this.selectedShader = 0;
-
-  this.selectedNode = 0;
-
-  this.selectedSpeed = 1000;
-
-  this.red = 128;
-
-  this.green = 128;
-
-  this.blue = 128;
 
   this.shaders = [];
 
@@ -142,6 +134,8 @@ XMLscene.prototype.onGraphLoaded = function()
   //this.interface.addSelectablesGroup(this.selectables);
 
   //this.interface.addShadersGroup(this);
+
+  this.interface.addCamerasGroup(this);
 }
 
 //Loads done shaders

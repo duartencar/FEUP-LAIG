@@ -31,6 +31,22 @@ MyInterface.prototype.init = function(application)
   return true;
 };
 
+MyInterface.prototype.addCamerasGroup = function(scene)
+{
+  var group = this.gui.addFolder("Cameras");
+
+  scene.activeCameraIndex = scene.camerasID[0];
+
+  group.open();
+
+  this.gui.add(scene, 'activeCameraIndex', scene.camerasID).onChange(function()
+  {
+  scene.interface.setActiveCamera(scene.cameras[scene.activeCameraIndex]);
+
+  scene.camera = scene.cameras[scene.activeCameraIndex];
+  });
+}
+
 /**
  * Adds a folder containing the IDs of the lights passed as parameter.
  */
