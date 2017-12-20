@@ -75,6 +75,14 @@
       <target xx="0.0" yy="2.0" zz="0.0" />
     </CAMERA>
 
+    <CAMERA id="dice-view">
+      <fov value="0.7"/>
+      <near value="0.1"/>
+      <far value="500"/>
+      <position xx="30.0" yy="30.0" zz="20.0" />
+      <target xx="31.0" yy="18.0" zz="0.0" />
+    </CAMERA>
+
   </CAMERAS>
 
   <TEXTURES>
@@ -172,6 +180,7 @@
         <NODEREF id="Board" />
         <NODEREF id="Platforms" />
         <NODEREF id="BackGround" />
+        <NODEREF id="Dices" />
       </DESCENDANTS>
     </NODE>
 
@@ -184,6 +193,68 @@
         <NODEREF id="bottom-background" />
         <NODEREF id="right-background" />
         <NODEREF id="left-background" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Dices">
+      <MATERIAL id="lava-background-material" />
+      <TEXTURE id="null" />
+      <TRANSLATION x="120" y="90" z="0" />
+      <DESCENDANTS>
+        <NODEREF id="Dice-1" />
+
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Dice-1">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <DESCENDANTS>
+        <NODEREF id="Dice" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="Dice">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <DESCENDANTS>
+        <NODEREF id="face1" />
+        <NODEREF id="face2" />
+        <NODEREF id="face3" />
+        <NODEREF id="face4" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="face1">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <DESCENDANTS>
+        <LEAF type="triangle" args="3 0 0 0 0 5.20 -3 0 0" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="face2">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <DESCENDANTS>
+        <LEAF type="triangle" args="0 0 5.20 3 0 0 0 5.2 3" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="face3">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <DESCENDANTS>
+        <LEAF type="triangle" args="-3 0 0 0 0 5.20 0 5.2 3" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="face4">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <DESCENDANTS>
+        <LEAF type="triangle" args="3 0 0 -3 0 0 0 5.2 3" />
       </DESCENDANTS>
     </NODE>
 
