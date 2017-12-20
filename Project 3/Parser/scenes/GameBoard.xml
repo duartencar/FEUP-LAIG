@@ -104,6 +104,11 @@
       <amplif_factor s="1" t="1" />
     </TEXTURE>
 
+    <TEXTURE id="lava-background-texture">
+      <file path="images/lava.jpg" />
+      <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
   </TEXTURES>
 
   <MATERIALS>
@@ -132,6 +137,14 @@
       <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
+    <MATERIAL id="lava-background-material">
+      <shininess value="1" />
+      <specular r="1" g="0.9" b="0.9" a="1" />
+      <diffuse r="1" g="0.9" b="0.9" a="1" />
+      <ambient r="0.2" g="0.1" b="0.1" a="1" />
+      <emission r="0.6" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+
   </MATERIALS>
 
   <LEAVES>
@@ -153,6 +166,70 @@
       <DESCENDANTS>
         <NODEREF id="Board" />
         <NODEREF id="Platforms" />
+        <NODEREF id="BackGround" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="BackGround">
+      <MATERIAL id="lava-background-material" />
+      <TEXTURE id="lava-background-texture" />
+      <DESCENDANTS>
+        <NODEREF id="player1-camera-background" />
+        <NODEREF id="player2-camera-background" />
+        <NODEREF id="bottom-background" />
+        <NODEREF id="right-background" />
+        <NODEREF id="left-background" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="player1-camera-background">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <ROTATION axis="z" angle="90" />
+      <TRANSLATION x="0" y="0" z="-250" />
+      <DESCENDANTS>
+        <LEAF type="rectangle" args="-250 250 250 -250" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="player2-camera-background">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <ROTATION axis="z" angle="-90" />
+      <ROTATION axis="y" angle="180" />
+      <TRANSLATION x="0" y="0" z="-250" />
+      <DESCENDANTS>
+        <LEAF type="rectangle" args="-250 250 250 -250" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="bottom-background">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <ROTATION axis="x" angle="-90" />
+      <TRANSLATION x="0" y="0" z="-250" />
+      <DESCENDANTS>
+        <LEAF type="rectangle" args="-250 250 250 -250" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="right-background">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <ROTATION axis="y" angle="-90" />
+      <TRANSLATION x="0" y="0" z="-250" />
+      <DESCENDANTS>
+        <LEAF type="rectangle" args="-250 250 250 -250" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="left-background">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+      <ROTATION axis="y" angle="90" />
+      <TRANSLATION x="0" y="0" z="-250" />
+      <DESCENDANTS>
+        <LEAF type="rectangle" args="-250 250 250 -250" />
       </DESCENDANTS>
     </NODE>
 
