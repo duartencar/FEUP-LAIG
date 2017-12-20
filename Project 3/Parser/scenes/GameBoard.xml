@@ -109,6 +109,11 @@
       <amplif_factor s="1" t="1" />
     </TEXTURE>
 
+    <TEXTURE id="rock-platform-texture">
+      <file path="images/platform.jpg" />
+      <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
   </TEXTURES>
 
   <MATERIALS>
@@ -483,7 +488,7 @@
 
     <NODE id="player-platform">
       <MATERIAL id="normal-board-cube-material"/>
-      <TEXTURE id="null" />
+      <TEXTURE id="rock-platform-texture" />
 
       <ROTATION axis="x" angle="90" />
       <DESCENDANTS>
