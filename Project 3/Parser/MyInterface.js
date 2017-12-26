@@ -69,3 +69,12 @@ MyInterface.prototype.addLightsGroup = function(lights)
     }
   }
 }
+
+MyInterface.prototype.addRollDiceGroup = function(scene)
+{
+  var group = this.gui.addFolder("Roll Dice");
+
+  group.open();
+
+  this.gui.add(scene, 'rollDice').name('Roll Dice');
+}

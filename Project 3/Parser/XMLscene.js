@@ -33,8 +33,6 @@ function XMLscene(interface)
   this.game = new GameLogic();
 
   console.log(this.game);
-
-  this.rollDice();
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -142,6 +140,8 @@ XMLscene.prototype.onGraphLoaded = function()
   //this.interface.addShadersGroup(this);
 
   this.interface.addCamerasGroup(this);
+
+  this.interface.addRollDiceGroup(this);
 }
 
 //Loads done shaders
@@ -211,7 +211,13 @@ XMLscene.prototype.rollDice = function()
 
   let result = this.game.returnDiceResult(random);
 
-  console.log(result);
+  let steps = 0;
+
+  for(let i = 0; i < result.length; i++)
+    if(result[i] == true)
+      steps++;
+
+  console.log(steps);
 }
 
 /**
