@@ -14,6 +14,8 @@ class GameLogic
       };
 
       //if it s true then is the player one tur to play, if it s false its player2 turn
+      this.player1 = true;
+
       this.P1numberOfPlays = 0;
 
       this.P2numberOfPlays = 0;
@@ -129,8 +131,6 @@ class GameLogic
 
       for(let i = 0; i < random.length; i++)
         result.push(dados[i][random[i]]);
-
-      console.log(result);
 
       return result;
    }

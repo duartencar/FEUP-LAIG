@@ -76,7 +76,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
         '../Leafs/Patch.js', '../Animations/Animation.js',
         '../Animations/LinearAnimation.js', '../Animations/CircularAnimation.js',
         '../Animations/BezierAnimation.js', '../Animations/ComboAnimation.js',
-        '../GameLogic/gamelogic.js',
+        '../GameLogic/gamelogic.js', '../GameLogic/CameraTransition.js',
 
 main=function()
 {

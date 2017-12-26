@@ -30,6 +30,10 @@ function XMLscene(interface)
 
   this.pickID = 0;
 
+  this.numberOfSteps = 0;
+
+  this.cameraTransition = null;
+
   this.game = new GameLogic();
 
   console.log(this.game);
@@ -207,8 +211,6 @@ XMLscene.prototype.rollDice = function()
                 Math.floor(Math.random() * 4)
                 ];
 
-  console.log(random);
-
   let result = this.game.returnDiceResult(random);
 
   let steps = 0;
@@ -217,9 +219,46 @@ XMLscene.prototype.rollDice = function()
     if(result[i] == true)
       steps++;
 
-  console.log(steps);
+  //Moving Camera state enable
+  this.game.newState = 4;
+
+  this.numberOfSteps = steps;
+
+  console.log(this.numberOfSteps);
+
+  if(this.game.player1 == true)
+    this.cameraTransition = new CameraTransition(this.cameras['player1-view'], this.cameras['dice-view'], 3, 'LINEAR');
+  else
+    this.cameraTransition = new CameraTransition(this.cameras['player2-view'], this.cameras['dice-view'], 3, 'LINEAR');
 }
 
+XMLscene.prototype.updateCamera = function(diff)
+{
+  this.cameraTransition.updateTime(diff);
+
+  this.camera = this.cameraTransition.previousCamera;
+
+  console.log("mover camera");
+
+  if(this.cameraTransition.transitionSpan < this.cameraTransition.time)
+  {
+    this.camera = this.cameraTransition.nextCamera;
+
+    this.cameraTransition = null;
+
+    this.game.newStatestate = 3;
+  }
+  else
+  {
+    let x = this.cameraTransition.transition(diff);
+    this.camera.position[0] += x[0][0];
+    this.camera.position[1] += x[0][1];
+    this.camera.position[2] += x[0][2];
+    this.camera.target[0] += x[1][0];
+    this.camera.target[1] += x[1][1];
+    this.camera.target[2] += x[1][2];
+  }
+}
 /**
  * Displays the scene.
  */
@@ -229,6 +268,15 @@ XMLscene.prototype.display = function()
 
   this.clearPickRegistration();
   // ---- BEGIN Background, camera and axis setup
+
+  let d = new Date();
+
+  let t = d.getTime();
+
+  let diff = (t - this.time) / 1000;
+
+  if(this.game.currentState == 4)
+    this.updateCamera(diff);
 
   // Clear image and depth buffer everytime we update the scene
   this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
@@ -277,12 +325,6 @@ XMLscene.prototype.display = function()
           i++;
         }
       }
-
-      let d = new Date();
-
-      let t = d.getTime();
-
-      diff = (t - this.time) / 1000;
 
       //this.updateScaleFactor(t);
 
