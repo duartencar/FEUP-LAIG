@@ -41,7 +41,7 @@ MyInterface.prototype.addCamerasGroup = function(scene)
 
   this.gui.add(scene, 'activeCameraIndex', scene.camerasID).onChange(function()
   {
-  scene.interface.setActiveCamera(scene.cameras[scene.activeCameraIndex]);
+  //scene.interface.setActiveCamera(scene.cameras[scene.activeCameraIndex]);
 
   scene.camera = scene.cameras[scene.activeCameraIndex];
   });

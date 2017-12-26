@@ -30,6 +30,18 @@ function XMLscene(interface)
 
   this.pickID = 0;
 
+  this.rotatedOnce = [false, false, false, false];
+
+  this.dicesResult = [true, true, true, true];
+
+  this.diceToIndex =
+  {
+     'Dice-1': 0,
+     'Dice-2': 1,
+     'Dice-3': 2,
+     'Dice-4': 3
+  };
+
   this.numberOfSteps = 0;
 
   this.cameraTransition = null;
@@ -222,6 +234,8 @@ XMLscene.prototype.rollDice = function()
   //Moving Camera state enable
   this.game.newState = 4;
 
+  this.dicesResult = result;
+
   this.numberOfSteps = steps;
 
   console.log(this.numberOfSteps);
@@ -238,15 +252,13 @@ XMLscene.prototype.updateCamera = function(diff)
 
   this.camera = this.cameraTransition.previousCamera;
 
-  console.log("mover camera");
-
   if(this.cameraTransition.transitionSpan < this.cameraTransition.time)
   {
     this.camera = this.cameraTransition.nextCamera;
 
     this.cameraTransition = null;
 
-    this.game.newStatestate = 3;
+    this.game.newState = 5;
   }
   else
   {
@@ -259,6 +271,14 @@ XMLscene.prototype.updateCamera = function(diff)
     this.camera.target[2] += x[1][2];
   }
 }
+
+XMLscene.prototype.returnDicePosition = function(diceName)
+{
+  let x = this.dicesResult[this.diceToIndex[diceName]];
+
+  return !x;
+}
+
 /**
  * Displays the scene.
  */
@@ -275,7 +295,9 @@ XMLscene.prototype.display = function()
 
   let diff = (t - this.time) / 1000;
 
-  if(this.game.currentState == 4)
+  //console.log("Estado de jogo " + this.game.currentState);
+
+  if(this.game.stateIndex == 4)
     this.updateCamera(diff);
 
   // Clear image and depth buffer everytime we update the scene

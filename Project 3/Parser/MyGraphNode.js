@@ -260,6 +260,20 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
   else
     var newMat = this.getMaterialID();
 
+  if(this.nodeID == 'Dice-1' || this.nodeID == 'Dice-2'|| this.nodeID == 'Dice-3' || this.nodeID == 'Dice-4')
+  {
+    let mustRotate = scene.returnDicePosition(this.nodeID);
+
+    let alreadyRotated = scene.rotatedOnce[scene.diceToIndex[this.nodeID]];
+
+    if(mustRotate == true && alreadyRotated== false)
+    {
+      mat4.rotateX(this.transformMatrix, this.transformMatrix, -Math.PI/2);
+
+      scene.rotatedOnce[scene.diceToIndex[this.nodeID]] = true;
+    }
+  }
+
   //If this node doesn t has a animation it inherits the fathers node animation
   if(this.getAnimations() != null)
   {

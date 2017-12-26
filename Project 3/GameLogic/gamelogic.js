@@ -10,7 +10,8 @@ class GameLogic
          'RollingDice': 1,
          'WaitingPick': 2,
          'MovingPickedPieace': 3,
-         'MovingCamera':4
+         'MovingCamera':4,
+         'LookingAtDices':5
       };
 
       //if it s true then is the player one tur to play, if it s false its player2 turn
@@ -119,7 +120,7 @@ class GameLogic
 
    set newState (index)
    {
-      if(!isNaN(index) && index >= 0 && index <= 4)
+      if(!isNaN(index) && index >= 0 && index <= 5)
          this.currentState = index;
    }
 
