@@ -29,6 +29,10 @@ function XMLscene(interface)
   this.shaders = [];
 
   this.pickID = 0;
+
+  this.game = new GameLogic();
+
+  console.log(this.game);
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);

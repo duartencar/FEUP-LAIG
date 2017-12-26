@@ -875,7 +875,7 @@
       <TEXTURE id="null" />
       <TRANSLATION x="0" y="0" z="12" />
       <DESCENDANTS>
-        <NODEREF id="Throw-Again-Cubes-1" />
+        <NODEREF id="BoardCube" />
       </DESCENDANTS>
     </NODE>
 
@@ -884,7 +884,7 @@
       <TEXTURE id="null" />
       <TRANSLATION x="36" y="0" z="0" />
       <DESCENDANTS>
-        <NODEREF id="Throw-Again-Cubes-1" />
+        <NODEREF id="BoardCube" />
       </DESCENDANTS>
     </NODE>
 
@@ -893,7 +893,7 @@
       <TEXTURE id="null" />
       <TRANSLATION x="36" y="0" z="12" />
       <DESCENDANTS>
-        <NODEREF id="Throw-Again-Cubes-1" />
+        <NODEREF id="BoardCube" />
       </DESCENDANTS>
     </NODE>
 
