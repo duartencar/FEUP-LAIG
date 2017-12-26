@@ -33,6 +33,8 @@ function XMLscene(interface)
   this.game = new GameLogic();
 
   console.log(this.game);
+
+  this.rollDice();
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -194,6 +196,22 @@ XMLscene.prototype.logPicking = function ()
       this.pickResults.splice(0,this.pickResults.length);
 		}
 	}
+}
+
+XMLscene.prototype.rollDice = function()
+{
+  let random = [
+                Math.floor(Math.random() * 4),
+                Math.floor(Math.random() * 4),
+                Math.floor(Math.random() * 4),
+                Math.floor(Math.random() * 4)
+                ];
+
+  console.log(random);
+
+  let result = this.game.returnDiceResult(random);
+
+  console.log(result);
 }
 
 /**

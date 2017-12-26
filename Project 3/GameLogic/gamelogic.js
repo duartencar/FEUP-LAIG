@@ -76,6 +76,14 @@ class GameLogic
 
      this.gameMatrix = [];
 
+     this.dices =
+     [
+       [true, false, true, false],
+       [true, false, true, false],
+       [true, false, true, false],
+       [true, false, true, false]
+     ];
+
      this.gameMatrixInit();
    }
 
@@ -87,6 +95,11 @@ class GameLogic
    get stateIndex ()
    {
       return this.currentState;
+   }
+
+   get dicesMatrix()
+   {
+     return this.dices;
    }
 
    gameMatrixInit()
@@ -106,5 +119,19 @@ class GameLogic
    {
       if(!isNaN(index) && index >= 0 && index <= 4)
          this.currentState = index;
+   }
+
+   returnDiceResult(random)
+   {
+      let dados = this.dicesMatrix;
+
+      let result = [];
+
+      for(let i = 0; i < random.length; i++)
+        result.push(dados[i][random[i]]);
+
+      console.log(result);
+
+      return result;
    }
 }
