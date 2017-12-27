@@ -226,17 +226,17 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
   }
 
   //if the DifferentShader paraneter is false it is going to check if it is the selected node
-  /*if ((DifferentShader == false) && (scene.selectables.length != 0))
+  if ((DifferentShader == false) && (scene.game.possiblePicks.length != 0))
   {
     //if the selected node name is equal to this node name, activates selected shader
-    if(this.nodeID == scene.selectables[scene.selectedNode].nodeID)
+    if(scene.toShade.indexOf(this.nodeID) >= 0)
     {
-      scene.setActiveShader(scene.shaders[scene.selectedShader]);
+      scene.setActiveShader(scene.shaders[1]);
       Diff = true;
     }
     else
       Diff = false;
-  }*/
+  }
 
   //If this node doesn t has a texture it inherits the fathers node texture
   if(this.getTextureID() == 'null')
@@ -325,6 +325,6 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
   }
 
   //Only the node that activated the shader can disactivate the shader
-  /*if(Diff == true)
-    scene.setActiveShader(scene.defaultShader);*/
+  if(Diff == true)
+    scene.setActiveShader(scene.defaultShader);
 };

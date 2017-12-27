@@ -454,17 +454,17 @@
       <TEXTURE id="player1-piece-texture" />
 
       <DESCENDANTS>
-        <NODEREF id="player1-piece1"/>
-        <NODEREF id="player1-piece2"/>
-        <NODEREF id="player1-piece3"/>
-        <NODEREF id="player1-piece4"/>
-        <NODEREF id="player1-piece5"/>
-        <NODEREF id="player1-piece6"/>
-        <NODEREF id="player1-piece7"/>
+        <NODEREF id="P1A"/>
+        <NODEREF id="P1B"/>
+        <NODEREF id="P1C"/>
+        <NODEREF id="P1D"/>
+        <NODEREF id="P1E"/>
+        <NODEREF id="P1F"/>
+        <NODEREF id="P1G"/>
       </DESCENDANTS>
     </NODE>
 
-    <NODE id="player1-piece1" selectable="true">
+    <NODE id="P1A" selectable="true">
       <MATERIAL id="null"/>
       <TEXTURE id="null" />
 
@@ -475,7 +475,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <NODE id="player1-piece2" selectable="true">
+    <NODE id="P1B" selectable="true">
       <MATERIAL id="null"/>
       <TEXTURE id="null" />
 
@@ -486,7 +486,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <NODE id="player1-piece3" selectable="true">
+    <NODE id="P1C" selectable="true">
       <MATERIAL id="null"/>
       <TEXTURE id="null" />
 
@@ -497,7 +497,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <NODE id="player1-piece4" selectable="true">
+    <NODE id="P1D" selectable="true">
       <MATERIAL id="null"/>
       <TEXTURE id="null" />
 
@@ -508,7 +508,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <NODE id="player1-piece5" selectable="true">
+    <NODE id="P1E" selectable="true">
       <MATERIAL id="null"/>
       <TEXTURE id="null" />
 
@@ -519,7 +519,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <NODE id="player1-piece6" selectable="true">
+    <NODE id="P1F" selectable="true">
       <MATERIAL id="null"/>
       <TEXTURE id="null" />
 
@@ -530,7 +530,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <NODE id="player1-piece7" selectable="true">
+    <NODE id="P1G" selectable="true">
       <MATERIAL id="null"/>
       <TEXTURE id="null" />
 
@@ -546,17 +546,17 @@
       <TEXTURE id="player2-piece-texture" />
 
       <DESCENDANTS>
-        <NODEREF id="player2-piece1"/>
-        <NODEREF id="player2-piece2"/>
-        <NODEREF id="player2-piece3"/>
-        <NODEREF id="player2-piece4"/>
-        <NODEREF id="player2-piece5"/>
-        <NODEREF id="player2-piece6"/>
-        <NODEREF id="player2-piece7"/>
+        <NODEREF id="P2A"/>
+        <NODEREF id="P2B"/>
+        <NODEREF id="P2C"/>
+        <NODEREF id="P2D"/>
+        <NODEREF id="P2E"/>
+        <NODEREF id="P2F"/>
+        <NODEREF id="P2G"/>
       </DESCENDANTS>
     </NODE>
 
-    <NODE id="player2-piece1" selectable="true">
+    <NODE id="P2A" selectable="true">
       <MATERIAL id="null"/>
       <TEXTURE id="null" />
 
@@ -567,7 +567,7 @@
       </DESCENDANTS>
     </NODE>
 
-   <NODE id="player2-piece2" selectable="true">
+   <NODE id="P2B" selectable="true">
       <MATERIAL id="null"/>
       <TEXTURE id="null" />
 
@@ -578,7 +578,7 @@
       </DESCENDANTS>
     </NODE>
 
-   <NODE id="player2-piece3" selectable="true">
+   <NODE id="P2C" selectable="true">
       <MATERIAL id="null"/>
       <TEXTURE id="null" />
 
@@ -589,7 +589,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <NODE id="player2-piece4" selectable="true">
+    <NODE id="P2D" selectable="true">
       <MATERIAL id="null"/>
       <TEXTURE id="null" />
 
@@ -600,7 +600,7 @@
       </DESCENDANTS>
     </NODE>-->
 
-    <NODE id="player2-piece5" selectable="true">
+    <NODE id="P2E" selectable="true">
       <MATERIAL id="null"/>
       <TEXTURE id="null" />
 
@@ -611,7 +611,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <NODE id="player2-piece6" selectable="true">
+    <NODE id="P2F" selectable="true">
       <MATERIAL id="null"/>
       <TEXTURE id="null" />
 
@@ -622,7 +622,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <NODE id="player2-piece7" selectable="true">
+    <NODE id="P2G" selectable="true">
       <MATERIAL id="null"/>
       <TEXTURE id="null" />
 

@@ -26,6 +26,8 @@ function XMLscene(interface)
 
   this.selectables = [];
 
+  this.toShade = [];
+
   this.shaders = [];
 
   this.pickID = 0;
@@ -206,6 +208,18 @@ XMLscene.prototype.logPicking = function ()
 					var customId = this.pickResults[i][1];
 
 					console.log("Picked object: " + obj.nodeID + ", with pick id " + customId);
+
+          console.log(this.game.possiblePicks);
+
+          if(this.game.possiblePicks.indexOf(obj.nodeID) >= 0)
+          {
+            console.log(this.game.possiblePicks);
+
+            this.toShade.push(obj.nodeID);
+
+            console.log(this.toShade);
+          }
+
 				}
 			}
 
@@ -292,7 +306,7 @@ XMLscene.prototype.display = function()
 {
   this.logPicking();
 
-  this.clearPickRegistration();
+
   // ---- BEGIN Background, camera and axis setup
 
   let d = new Date();
@@ -320,7 +334,14 @@ XMLscene.prototype.display = function()
         this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player2-view']), 3, 'LINEAR', 2);
 
       this.game.resetwatchingDicesTime();
+
+      this.game.setPossiblePiecesPick();
     }
+  }
+  else if(this.game.stateIndex == 2)
+  {
+
+
   }
 
   // Clear image and depth buffer everytime we update the scene
@@ -390,5 +411,7 @@ XMLscene.prototype.display = function()
 
   this.popMatrix();
   // ---- END Background, camera and axis setup
+
+  this.clearPickRegistration();
 
 }
