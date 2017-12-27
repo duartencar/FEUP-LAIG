@@ -1,12 +1,24 @@
 /* Font import */
 @import url('https://fonts.googleapis.com/css?family=Bungee');
 
+html{
+	height: 100%;
+}
+
 body{
 	font-size: 25px;
 	text-align: center;
+	background-image: url("fire.jpg");
 	font-family: 'Bungee', cursive;
+	height: 100%;
+	background-position: center;
+	background-size: cover;
 }
 
+header{
+	color: white;
+	text-shadow: 4px 4px black;
+}
 nav ul{
 	padding: 0;
 }
@@ -47,4 +59,6 @@ nav ul li a{
 footer{
 	padding: 15px;
 	font-size: 12px;
+	color: white;
+	text-shadow: -1px 0 black, 0 -1px black, 1px 0 black, 0 -1px black;
 }
