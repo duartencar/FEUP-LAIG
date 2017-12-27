@@ -1,0 +1,50 @@
+/* Font import */
+@import url('https://fonts.googleapis.com/css?family=Bungee');
+
+body{
+	font-size: 25px;
+	text-align: center;
+	font-family: 'Bungee', cursive;
+}
+
+nav ul{
+	padding: 0;
+}
+
+nav ul li{
+	list-style-type: none;
+	padding: 15px;
+}
+
+nav ul li a{
+	color: black;
+	text-decoration: none;
+}
+
+#newGameChoice{
+	display: none;
+}
+
+/* Buttons */
+
+.showButton{
+	padding: 15px;
+	font-family: 'Bungee', cursive;
+	display: block;
+	cursor: pointer;
+	width: 50%;
+	margin: 20px auto;
+	font-size: 18px;
+	box-shadow: 3px 3px 10px black;
+	transition: all 0.5s ease 0s;
+}
+
+.showButton:hover, .showButton:focus{
+	background: #8b8f96;
+}
+
+
+footer{
+	padding: 15px;
+	font-size: 12px;
+}
