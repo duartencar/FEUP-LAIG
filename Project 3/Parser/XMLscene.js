@@ -232,8 +232,6 @@ XMLscene.prototype.rollDice = function()
       steps++;
 
   //Moving Camera state enable
-  this.game.newState = 4;
-
   this.dicesResult = result;
 
   this.numberOfSteps = steps;
@@ -241,9 +239,9 @@ XMLscene.prototype.rollDice = function()
   console.log(this.numberOfSteps);
 
   if(this.game.player1 == true)
-    this.cameraTransition = new CameraTransition(this.cameras['player1-view'], this.cameras['dice-view'], 3, 'LINEAR');
+    this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['dice-view']), 3, 'LINEAR', 5);
   else
-    this.cameraTransition = new CameraTransition(this.cameras['player2-view'], this.cameras['dice-view'], 3, 'LINEAR');
+    this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['dice-view']), 3, 'LINEAR', 5);
 }
 
 XMLscene.prototype.updateCamera = function(diff)
@@ -256,9 +254,9 @@ XMLscene.prototype.updateCamera = function(diff)
   {
     this.camera = this.cameraTransition.nextCamera;
 
-    this.cameraTransition = null;
+    this.game.newState = this.cameraTransition.nextState;
 
-    this.game.newState = 5;
+    this.cameraTransition = null;
   }
   else
   {
@@ -269,6 +267,7 @@ XMLscene.prototype.updateCamera = function(diff)
     this.camera.target[0] += x[1][0];
     this.camera.target[1] += x[1][1];
     this.camera.target[2] += x[1][2];
+    this.game.newState = 4;
   }
 }
 
@@ -277,6 +276,13 @@ XMLscene.prototype.returnDicePosition = function(diceName)
   let x = this.dicesResult[this.diceToIndex[diceName]];
 
   return !x;
+}
+
+XMLscene.prototype.cloneCamera = function(cameraToClone)
+{
+  var x = new CGFcamera(cameraToClone.fov, cameraToClone.near, cameraToClone.far, cameraToClone.position, cameraToClone.target);
+
+  return x;
 }
 
 /**
@@ -295,10 +301,27 @@ XMLscene.prototype.display = function()
 
   let diff = (t - this.time) / 1000;
 
-  //console.log("Estado de jogo " + this.game.currentState);
+  console.log("Estado de jogo " + this.game.currentState);
 
-  if(this.game.stateIndex == 4)
+  if(this.cameraTransition != null)
     this.updateCamera(diff);
+
+  if(this.game.stateIndex == 5)
+  {
+    console.log("A olhar para os dados");
+
+    this.game.updateDicesTime(diff);
+
+    if(this.game.watchDicesTime >= 1.0)
+    {
+      if(this.game.player1)
+        this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player1-view']), 3, 'LINEAR', 2);
+      else
+        this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player2-view']), 3, 'LINEAR', 2);
+
+      this.game.resetwatchingDicesTime();
+    }
+  }
 
   // Clear image and depth buffer everytime we update the scene
   this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);

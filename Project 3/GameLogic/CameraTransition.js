@@ -1,15 +1,21 @@
 
 class CameraTransition
 {
-  constructor(previousCamera, nextCamera, speed, typeOFtransition)
+  constructor(previousCamera, nextCamera, speed, typeOFtransition, nextState)
   {
-    this.previousCamera = previousCamera;
+    var prev  = previousCamera;
 
-    this.nextCamera = nextCamera;
+    var next = nextCamera;
+
+    this.previousCamera = prev;
+
+    this.nextCamera = next;
 
     this.speed = speed;
 
     this.time = 0;
+
+    this.nextState = nextState;
 
     if(typeOFtransition == 'CIRCULAR' || typeOFtransition == 'LINEAR')
       this.type = typeOFtransition;

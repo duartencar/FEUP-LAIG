@@ -87,6 +87,8 @@ class GameLogic
        [true, false, true, false]
      ];
 
+     this.watchingDicesTime = 0;
+
      this.gameMatrixInit();
    }
 
@@ -134,5 +136,20 @@ class GameLogic
         result.push(dados[i][random[i]]);
 
       return result;
+   }
+
+   updateDicesTime(diff)
+   {
+     this.watchingDicesTime += diff;
+   }
+
+   resetwatchingDicesTime()
+   {
+     this.watchingDicesTime = 0;
+   }
+
+   get watchDicesTime()
+   {
+     return this.watchingDicesTime;
    }
 }
