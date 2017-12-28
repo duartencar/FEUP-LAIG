@@ -209,15 +209,31 @@ XMLscene.prototype.logPicking = function ()
 
 					console.log("Picked object: " + obj.nodeID + ", with pick id " + customId);
 
-          console.log(this.game.possiblePicks);
-
           if(this.game.possiblePicks.indexOf(obj.nodeID) >= 0)
           {
-            console.log(this.game.possiblePicks);
+            if(this.game.stateIndex == 2)
+            {
+              this.toShade.push(obj.nodeID);
 
-            this.toShade.push(obj.nodeID);
+              console.log('Saiu ' + this.numberOfSteps + ' e foi selecionado ' + obj.nodeID);
 
-            console.log(this.toShade);
+              console.log('Aplicar shader a ' + this.game.pickedPieceNextPlace(obj.nodeID, this.numberOfSteps));
+
+              var s = this.game.pickedPieceNextPlace(obj.nodeID, this.numberOfSteps);
+
+              this.toShade.push(s);
+
+              this.game.newState = 1;
+            }
+            else if(this.game.stateIndex == 1)
+            {
+              if(obj.nodeID == this.toShade[0])
+              {
+                this.toShade = []; //unPick
+
+                this.game.newState = 2;
+              }
+            }
           }
 
 				}
@@ -337,11 +353,6 @@ XMLscene.prototype.display = function()
 
       this.game.setPossiblePiecesPick();
     }
-  }
-  else if(this.game.stateIndex == 2)
-  {
-
-
   }
 
   // Clear image and depth buffer everytime we update the scene

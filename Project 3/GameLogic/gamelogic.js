@@ -7,7 +7,7 @@ class GameLogic
     this.states =
     {
        'WaitingDiceRolling': 0,
-       'RollingDice': 1,
+       'WaitingBoardPick': 1,
        'WaitingPick': 2,
        'MovingPickedPieace': 3,
        'MovingCamera':4,
@@ -55,6 +55,8 @@ class GameLogic
       'P2-Finish':23
     };
 
+    this.vectorToXML = [];
+
     this.XMLtoCoordinates =
     {
      'Throw-Again-Cubes-1': [3, 3],
@@ -96,6 +98,8 @@ class GameLogic
     this.watchingDicesTime = 0;
 
     this.gameMatrixInit();
+
+    this.vectorToXMLinit();
   }
 
   get state ()
@@ -117,10 +121,16 @@ class GameLogic
   {
     for(var key in this.XMLtoVector)
       this.gameMatrix[this.XMLtoVector[key]] = [];
-      
+
     this.gameMatrix[this.XMLtoVector["P1-Base"]] = this.P1Pieces;
 
     this.gameMatrix[this.XMLtoVector["P2-Base"]] = this.P2Pieces;
+  }
+
+  vectorToXMLinit()
+  {
+    for(var key in this.XMLtoVector)
+      this.vectorToXML[this.XMLtoVector[key]] = key;
   }
 
   set newState (index)
@@ -191,5 +201,57 @@ class GameLogic
   get possiblePiecesPick()
   {
     return this.possiblePicks;
+  }
+
+  getCurrentPiecePlace(pieceName)
+  {
+    for(var key in this.XMLtoVector)
+    {
+      let x = this.gameMatrix[this.XMLtoVector[key]];
+
+      if(x.indexOf(pieceName) >= 0)
+        return this.XMLtoVector[key];
+    }
+
+    return null;
+  }
+
+  pickedPieceNextPlace(pieceName, diceResult)
+  {
+    let currentMatrixPositionInVector = this.getCurrentPiecePlace(pieceName);
+
+    if(currentMatrixPositionInVector == null)
+      return null;
+
+    if(this.player1)
+    {
+      if(currentMatrixPositionInVector / 2 + diceResult < 5)
+      {
+        let nextIndex = currentMatrixPositionInVector + diceResult * 2;
+
+        //means that the player has already a piece on the place
+        if(this.gameMatrix[nextIndex].length != 0)
+          return null;
+        else
+        {
+          var x = this.vectorToXML[nextIndex];
+
+          return x;
+        }
+
+      }
+      else if(currentMatrixPositionInVector >= 10 && currentMatrixPositionInVector <= 17)
+      {
+
+      }
+      else
+      {
+
+      }
+    }
+    else
+    {
+
+    }
   }
 }
