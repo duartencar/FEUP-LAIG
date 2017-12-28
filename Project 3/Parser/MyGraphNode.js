@@ -132,7 +132,7 @@ MyGraphNode.prototype.correctAnimationIndex = function (sceneTime)
 {
   for(let i = 0; i < this.animations.length; i++)
   {
-    sceneTime -= this.animations[i].animationSpan();
+    sceneTime -= this.animations[i].animationSpan;
 
     if(sceneTime < 0)
       return i;

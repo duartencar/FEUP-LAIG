@@ -209,21 +209,20 @@ XMLscene.prototype.logPicking = function ()
 
 					console.log("Picked object: " + obj.nodeID + ", with pick id " + customId);
 
-          if(this.game.possiblePicks.indexOf(obj.nodeID) >= 0)
+          if(this.game.possiblePicks.indexOf(obj.nodeID) >= 0 || this.toShade.indexOf(obj.nodeID) >= 0)
           {
             if(this.game.stateIndex == 2)
             {
               this.toShade.push(obj.nodeID);
 
-              console.log('Saiu ' + this.numberOfSteps + ' e foi selecionado ' + obj.nodeID);
-
-              console.log('Aplicar shader a ' + this.game.pickedPieceNextPlace(obj.nodeID, this.numberOfSteps));
-
               var s = this.game.pickedPieceNextPlace(obj.nodeID, this.numberOfSteps);
 
-              this.toShade.push(s);
+              if(s != null)
+              {
+                this.toShade.push(s);
 
-              this.game.newState = 1;
+                this.game.newState = 1;
+              }
             }
             else if(this.game.stateIndex == 1)
             {
@@ -232,6 +231,22 @@ XMLscene.prototype.logPicking = function ()
                 this.toShade = []; //unPick
 
                 this.game.newState = 2;
+              }
+              else if(obj.nodeID == this.toShade[1])
+              {
+                this.game.newState = 3;
+
+                let pieceAnimation = this.game.getPieceAnimation(this, this.toShade[0], obj.nodeID);
+
+                this.graph.nodes[this.toShade[0]].animations.push(pieceAnimation);
+
+                let trans = pieceAnimation.BezierPoint(pieceAnimation.animationSpan);
+
+                let newPlay = new userPlay(this.game.isPlayer1Playing, this.toShade[0], this.toShade[1], this.game.matrix, this.elapsedTime, trans);
+
+                this.game.plays.push(newPlay);
+
+                this.toShade = [];
               }
             }
           }
@@ -325,11 +340,11 @@ XMLscene.prototype.display = function()
 
   // ---- BEGIN Background, camera and axis setup
 
-  let d = new Date();
+  /*let d = new Date();
 
-  let t = d.getTime();
+  let t = d.getTime();*/
 
-  let diff = (t - this.time) / 1000;
+  let diff = 0.042;
 
   console.log("Estado de jogo " + this.game.currentState);
 
@@ -352,6 +367,29 @@ XMLscene.prototype.display = function()
       this.game.resetwatchingDicesTime();
 
       this.game.setPossiblePiecesPick();
+    }
+  }
+  else if(this.game.stateIndex == 3)
+  {
+    let lastPlay = this.game.lastPlay;
+
+    let movingPiece = lastPlay.pieceMoved;
+
+    let atWhatTime = lastPlay.whatTime;
+
+    let currentAnimationSpan = this.graph.nodes[movingPiece].animations[0].animationSpan;
+
+    if(this.elapsedTime - atWhatTime >= currentAnimationSpan)
+    {
+      let translation = lastPlay.movement;
+
+      mat4.translate(this.graph.nodes[movingPiece].transformMatrix, this.graph.nodes[movingPiece].transformMatrix, translation);
+
+      this.graph.nodes[movingPiece].animations = [];
+
+      this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['player2-view']), 3, 'LINEAR', 0);
+
+      this.game.changePlayer();
     }
   }
 

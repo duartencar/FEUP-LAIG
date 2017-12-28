@@ -77,6 +77,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
         '../Animations/LinearAnimation.js', '../Animations/CircularAnimation.js',
         '../Animations/BezierAnimation.js', '../Animations/ComboAnimation.js',
         '../GameLogic/gamelogic.js', '../GameLogic/CameraTransition.js',
+        '../GameLogic/userPlay.js',
 
 main=function()
 {
@@ -85,7 +86,7 @@ main=function()
   var myInterface = new MyInterface();
   var myScene = new XMLscene(myInterface);
 
-  myScene.setUpdatePeriod(30);
+  myScene.setUpdatePeriod(42);
 
   app.init();
 
