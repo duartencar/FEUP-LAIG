@@ -13,22 +13,31 @@
 			<h2>Royal Game of Ur</h2>
 			<h3>Online Game</h3>
 		</header>
+		
+		<div id="wrapper">
+			<section id="gameChoice">
+				<button type="button" id="newGameButton" class="showButton" onclick="showSection(1)">New Game</button>
+				<button type="button" id="savedGamesButton" class="showButton">Saved Games</button>
+				<button type="button" id="replaysButton" class="showButton">Game Replays</button>
+				<button type="button" id="instructionsButton" class="showButton" onclick="showSection(4)">Instructions</button>
+			</section>
 
-		<section id="gameChoice">
-			<button type="button" id="newGameButton" class="showButton" onclick="showNewGameOptions()">New Game</button>
-			<div id="newGameChoice">
-				<nav>
-					<ul>
-						<li><a href="#">COM Vs COM</a></li>
-						<li><a href="#">USER Vs COM</a></li>
-						<li><a href="Parser/">USER Vs USER</a></li>
-					</ul>
-				</nav>
-			</div>
-			<button type="button" id="savedGamesButton" class="showButton">Saved Games</button>
-			<button type="button" id="replaysButton" class="showButton">Game Replays</button>
-			<button type="button" id="instructionsButton" class="showButton">Instructions</button>
-		</section>
+			<section id="options">
+				<div id="newGameChoice">
+					<nav>
+						<ul>
+							<li><a href="#">COM Vs COM</a></li>
+							<li><a href="#">USER Vs COM</a></li>
+							<li><a href="Parser/">USER Vs USER</a></li>
+						</ul>
+					</nav>
+				</div>
+
+				<div id="instructions">
+					<p>The Royal Game of Ur is an ancient game </p>
+				</div>
+			</section>
+		</div>
 
 		<footer>
 			<p>Created by Duarte Carvalho &amp Francisco Maria</p>

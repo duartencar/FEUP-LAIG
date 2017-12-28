@@ -33,10 +33,6 @@ nav ul li a{
 	text-decoration: none;
 }
 
-#newGameChoice{
-	display: none;
-}
-
 /* Buttons */
 
 .showButton{
@@ -48,13 +44,33 @@ nav ul li a{
 	margin: 20px auto;
 	font-size: 18px;
 	box-shadow: 3px 3px 10px black;
-	transition: all 0.5s ease 0s;
+	transition: all 0.8s ease 0s;
 }
 
 .showButton:hover, .showButton:focus{
 	background: #8b8f96;
 }
 
+#wrapper{
+	display: flex;
+}
+
+#gameChoice{
+	flex: 1;
+}
+
+#options{
+	flex: 0;
+	display: none;
+}
+
+#newGameChoice{
+	display: none;
+}
+
+#instructions{
+	display: none;
+}
 
 footer{
 	padding: 15px;
