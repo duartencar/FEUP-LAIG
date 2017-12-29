@@ -142,6 +142,11 @@ class GameLogic
     this.dicesResult = x;
   }
 
+  pieceAtVectorIndex(index)
+  {
+    return this.gameMatrix[index];
+  }
+
   resetDices(scene)
   {
     this.dicesValue = 0;
@@ -178,6 +183,8 @@ class GameLogic
       this.P1numberOfPlays++;
 
     this.resetDices(scene);
+
+    this.newState = 0;
   }
 
   gameMatrixInit()
@@ -356,6 +363,45 @@ class GameLogic
     return newAnimation;
   }
 
+  updateGameMatrix(pieceMoved, toWhere)
+  {
+    if(this.gameMatrix[this.XMLtoVector[toWhere]].length != 0)
+    {
+      let thrownPiece = this.pieceAtVectorIndex(this.XMLtoVector[toWhere]);
+
+      let x;
+
+      let nextCoor;
+
+      if(this.Player1)
+      {
+        x = this.P2Pieces.indexOf(thrownPiece);
+
+        this.gameMatrix['P2-Base'][x] = thrownPiece;
+      }
+      else
+      {
+        x = this.P1Pieces.indexOf(thrownPiece);
+
+        this.gameMatrix['P1-Base'][x] = thrownPiece;
+
+        nextCoor = this.XMLtoCoordinates['P1-Base'][x];
+      }
+
+      let previousCoor = this.XMLtoCoordinates[toWhere];
+
+      let mov = this.getMov(previousCoor, nextCoor);
+
+      let bezPoints = this.getBezierPointsVector([0,0,0], mov);
+
+      let newAnimation = new BezierAnimation(scene, thrownPiece, 2, bezPoints);
+
+      scene.graph.nodes[thrownPiece].animations.push(newAnimation);
+    }
+
+    this.gameMatrix[this.XMLtoVector[toWhere]] = [pieceMoved];
+  }
+
   pickedPieceNextPlace(pieceName, diceResult)
   {
     let currentMatrixPositionInVector = this.getCurrentPiecePlace(pieceName);
@@ -368,6 +414,8 @@ class GameLogic
       if(currentMatrixPositionInVector / 2 + diceResult < 5)
       {
         let nextIndex = currentMatrixPositionInVector + diceResult * 2;
+
+        console.log(this.gameMatrix);
 
         //means that the player has already a piece on the place
         if(this.gameMatrix[nextIndex].length != 0)
@@ -391,7 +439,7 @@ class GameLogic
     }
     else
     {
-      if(Math.round(currentMatrixPositionInVector / 2) +  diceResult < 5)
+      if(Math.round(currentMatrixPositionInVector / 2) +  diceResult - 1 < 5)
       {
         let nextIndex = currentMatrixPositionInVector + diceResult * 2;
 

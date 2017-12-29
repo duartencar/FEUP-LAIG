@@ -269,6 +269,8 @@ XMLscene.prototype.logPicking = function ()
 
                 this.game.plays.push(newPlay);
 
+                this.game.updateGameMatrix(this.toShade[0], this.toShade[1]);
+
                 this.toShade = [];
               }
             }
@@ -276,7 +278,6 @@ XMLscene.prototype.logPicking = function ()
 
 				}
 			}
-
       this.pickResults.splice(0,this.pickResults.length);
 		}
 	}
@@ -310,6 +311,8 @@ XMLscene.prototype.rollDice = function()
     this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['dice-view']), 3, 'LINEAR', 5);
   else
     this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['dice-view']), 3, 'LINEAR', 5);
+
+  this.interface.gui.closed = true;
 }
 
 XMLscene.prototype.updateCamera = function(diff)
@@ -374,18 +377,38 @@ XMLscene.prototype.display = function()
   if(this.cameraTransition != null)
     this.updateCamera(diff);
 
-  if(this.game.stateIndex == 5)
+  if(this.game.stateIndex == 0)
+    this.interface.gui.closed = false;
+  else if(this.game.stateIndex == 5)
   {
     console.log("A olhar para os dados");
 
     this.game.updateDicesTime(diff);
 
-    if(this.game.watchDicesTime >= 1.0)
+    if(this.game.watchDicesTime >= 1.5)
     {
       if(this.game.player1)
-        this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player1-view']), 3, 'LINEAR', 2);
+      {
+        if(this.steps != 0)
+          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player1-view']), 3, 'LINEAR', 2);
+        else
+          {
+            this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player2-view']), 3, 'LINEAR', 0);
+
+            this.game.changePlayer(this);
+          }
+      }
       else
-        this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player2-view']), 3, 'LINEAR', 2);
+      {
+        if(this.steps != 0)
+          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player2-view']), 3, 'LINEAR', 2);
+        else
+        {
+          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player1-view']), 3, 'LINEAR', 0);
+
+          this.game.changePlayer(this);
+        }
+      }
 
       this.game.resetwatchingDicesTime();
 
@@ -400,9 +423,9 @@ XMLscene.prototype.display = function()
 
     let atWhatTime = lastPlay.whatTime;
 
-    let currentAnimationSpan = this.graph.nodes[movingPiece].animations[0].animationSpan;
+    let currentAnimation = this.graph.nodes[movingPiece].animations[0];
 
-    if(this.elapsedTime - atWhatTime >= currentAnimationSpan)
+    if(currentAnimation.isAnimationsComplete(this.elapsedTime - atWhatTime) >= 1.0)
     {
       let translation = lastPlay.movement;
 
@@ -410,7 +433,10 @@ XMLscene.prototype.display = function()
 
       this.graph.nodes[movingPiece].animations = [];
 
-      this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['player2-view']), 3, 'LINEAR', 0);
+      if(this.game.player1)
+        this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['player2-view']), 3, 'LINEAR', 0);
+      else
+        this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['player1-view']), 3, 'LINEAR', 0);
 
       this.game.changePlayer(this);
     }
