@@ -30,7 +30,7 @@ class BezierAnimation extends Animation
     this.transformedPoints = [];
 
     //Creates Casteljau points
-    this.calculateNewPoints();
+    this.calculatePointsForDistance();
   }
 
   /**
@@ -101,36 +101,59 @@ class BezierAnimation extends Animation
     return middleP;
   }
 
+  calculatePointsForDistance()
+  {
+    let first = this.calculateNewPoints(this.cPoints);
+
+    let v = [first[0], first[1], first[2], first[3]];
+
+    let k = [first[3], first[4], first[5], first[6]];
+
+    let final1 = this.calculateNewPoints(v);
+
+    let final2 = this.calculateNewPoints(k);
+
+    for(let i = 0; i < final1.length; i++)
+      this.transformedPoints.push(final1[i]);
+
+    for(let i = 0; i < final2.length; i++)
+      this.transformedPoints.push(final2[i]);
+  }
+
   /**
    * calculate convex hull cPoints
   **/
-  calculateNewPoints()
+  calculateNewPoints(vector)
   {
-    this.transformedPoints.push(this.cPoints[0]); //P1 = L1
+    let newPoints = [];
 
-    let L2 = this.middlePoint(this.cPoints[0], this.cPoints[1]);
+    newPoints.push(vector[0]); //P1 = L1
 
-    this.transformedPoints.push(L2);
+    let L2 = this.middlePoint(vector[0], vector[1]);
 
-    let H = this.middlePoint(this.cPoints[1], this.cPoints[2]);
+    newPoints.push(L2);
+
+    let H = this.middlePoint(vector[1], vector[2]);
 
     let L3 = this.middlePoint(L2, H);
 
-    this.transformedPoints.push(L3);
+    newPoints.push(L3);
 
-    let R3 = this.middlePoint(this.cPoints[2], this.cPoints[3]);
+    let R3 = this.middlePoint(vector[2], vector[3]);
 
     let R2 = this.middlePoint(H, R3);
 
     let L4 = this.middlePoint(L3, R2);
 
-    this.transformedPoints.push(L4);
+    newPoints.push(L4);
 
-    this.transformedPoints.push(R2);
+    newPoints.push(R2);
 
-    this.transformedPoints.push(R3);
+    newPoints.push(R3);
 
-    this.transformedPoints.push(this.cPoints[3]);
+    newPoints.push(vector[3]);
+
+    return newPoints;
   }
 
   /**
