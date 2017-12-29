@@ -22,6 +22,9 @@ function XMLscene(interface)
 
   this.camerasID = [];
 
+  //holds normal dice and rotated dice
+  this.dicesMatrix = [];
+
   this.activeCameraIndex = 0;
 
   this.selectables = [];
@@ -79,6 +82,24 @@ XMLscene.prototype.init = function(application)
   this.axis = new CGFaxis(this);
 
   this.setPickEnabled(true);
+}
+
+
+XMLscene.prototype.getDicesMatrix = function()
+{
+  var normal = mat4.create();
+
+  var rotated = mat4.create();
+
+  mat4.copy(normal, this.graph.nodes["Dice-1"].transformMatrix);
+
+  mat4.copy(rotated, normal);
+
+  mat4.rotateX(rotated, rotated, -Math.PI/2);
+
+  this.dicesMatrix.push(normal);
+
+  this.dicesMatrix.push(rotated);
 }
 
 /**
@@ -149,6 +170,8 @@ XMLscene.prototype.onGraphLoaded = function()
   this.initLights();
 
   this.loadShaders();
+
+  this.getDicesMatrix();
 
   // Adds lights group.
   this.interface.addLightsGroup(this.graph.lights);
@@ -389,7 +412,7 @@ XMLscene.prototype.display = function()
 
       this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['player2-view']), 3, 'LINEAR', 0);
 
-      this.game.changePlayer();
+      this.game.changePlayer(this);
     }
   }
 

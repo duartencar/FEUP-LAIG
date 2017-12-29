@@ -268,6 +268,8 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
 
     if(mustRotate == true && alreadyRotated== false)
     {
+      
+
       mat4.rotateX(this.transformMatrix, this.transformMatrix, -Math.PI/2);
 
       scene.rotatedOnce[scene.diceToIndex[this.nodeID]] = true;

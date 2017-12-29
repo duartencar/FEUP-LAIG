@@ -20,6 +20,8 @@ class GameLogic
 
     this.possiblePicks = [];
 
+    this.saveDiceMatrix = [mat4.create(), mat4.create(), mat4.create(), mat4.create()];
+
     //vector with the player plays
     this.plays = [];
 
@@ -82,8 +84,8 @@ class GameLogic
      'Normal-Cube-10': [15, 6, 15],
      'Normal-Cube-11': [21, 6, 15],
      'Normal-Cube-19': [45, 6, 15],
-     'P1-Base': [[3, 6, 30], [9, 6, 30], [15, 6, 30], [21, 6, 30], [27, 6, 30], [33, 6, 30], [39, 6, 30]],
-     'P2-Base': [[3, 6, -17], [9, 6, -17], [15, 6, -17], [21, 6, -17], [27, 6, -17], [33, 6, -17], [39, 6, -17]],
+     'P1-Base': [[3, 6, 29], [9, 6, 29], [15, 6, 29], [21, 6, 29], [27, 6, 29], [33, 6, 29], [39, 6, 29]],
+     'P2-Base': [[3, 6, -13], [9, 6, -13], [15, 6, -13], [21, 6, -13], [27, 6, -13], [33, 6, -13], [39, 6, -13]],
      'P1-Finish':[9, 6, 15],
      'P2-Finish':[9, 6, 3]
     };
@@ -140,23 +142,42 @@ class GameLogic
     this.dicesResult = x;
   }
 
-  resetDices()
+  resetDices(scene)
   {
     this.dicesValue = 0;
 
     this.watchingDicesTime = 0;
+
+    scene.rotatedOnce = [false, false, false, false];
+
+    scene.dicesResult = [true, true, true, true];
   }
 
-  changePlayer()
+  saveMatrix(x, index)
+  {
+    mat4.copy(this.saveDiceMatrix[index], x);
+  }
+
+  changePlayer(scene)
   {
     this.player1 = !this.player1;
+
+    if(scene.rotatedOnce[0])
+      mat4.rotateX(scene.graph.nodes['Dice-1'].transformMatrix, scene.graph.nodes['Dice-1'].transformMatrix, Math.PI/2);
+    if(scene.rotatedOnce[1])
+      mat4.rotateX(scene.graph.nodes['Dice-2'].transformMatrix, scene.graph.nodes['Dice-2'].transformMatrix, Math.PI/2);
+    if(scene.rotatedOnce[2])
+      mat4.rotateX(scene.graph.nodes['Dice-3'].transformMatrix, scene.graph.nodes['Dice-3'].transformMatrix, Math.PI/2);
+    if(scene.rotatedOnce[3])
+      mat4.rotateX(scene.graph.nodes['Dice-4'].transformMatrix, scene.graph.nodes['Dice-4'].transformMatrix, Math.PI/2);
+
 
     if(this.player1)
       this.P2numberOfPlays++;
     else
       this.P1numberOfPlays++;
 
-    this.resetDices();
+    this.resetDices(scene);
   }
 
   gameMatrixInit()
@@ -330,7 +351,7 @@ class GameLogic
 
     let bezPoints = this.getBezierPointsVector([0,0,0], mov);
 
-    let newAnimation = new BezierAnimation(scene, pieceName, 1.5, bezPoints);
+    let newAnimation = new BezierAnimation(scene, pieceName, 2, bezPoints);
 
     return newAnimation;
   }
@@ -370,7 +391,19 @@ class GameLogic
     }
     else
     {
+      if(Math.round(currentMatrixPositionInVector / 2) +  diceResult < 5)
+      {
+        let nextIndex = currentMatrixPositionInVector + diceResult * 2;
 
+        if(this.gameMatrix[nextIndex].length != 0)
+          return null;
+        else
+        {
+          var x = this.vectorToXML[nextIndex];
+
+          return x;
+        }
+      }
     }
   }
 }
