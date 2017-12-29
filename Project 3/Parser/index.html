@@ -5,6 +5,9 @@
     <title>CGFexample</title>
 
 <style>
+/* Font import */
+@import url('https://fonts.googleapis.com/css?family=Bungee');
+
 body, html {
     border: 0;
     padding: 0;
@@ -16,11 +19,71 @@ canvas {
     width: 100%;
     height: 100%;
 }
+
+#scoreboard{
+	position: absolute;
+	margin: -30px auto;
+	left: 0;
+	right: 0;
+	opacity: 0.8;
+	background-color: #1c1f23;
+	font-family: 'Bungee', cursive;
+	text-shadow: 2px 2px black;
+	color: white;
+	text-align: center;
+	width: 50%;
+	border-radius: 0 0 30px 30px;
+}
+
+#scoreboard ul li{
+	list-style: none;
+	display: inline;
+	padding: 0;
+}
+
+#scoreboard ul li div{
+	display: inline-block;
+}
+
+#scoreboard-info{
+	margin: 0 100px;
+}
+
+#player2{
+	padding-right: 40px;
+}
+
 </style>
 </head>
 <body>
 
-<script src="main.js"></script>
+	<div id="scoreboard">
+		<ul>
+			<li>
+				<div id="player1">
+					<p>PLAYER 1</p>
+					<p>0</p>
+				</div>
+			</li>
+			<li>
+				<div id="scoreboard-info">
+					<p>SCOREBOARD</p>
+					<p id="timer"></p>
+				</div>
+			</li>
+	
+			<li>
+				<div id="player-2">
+					<p>PLAYER 2</p>
+					<p>0</p>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<script src="main.js"></script>
 
 </body>
 </html>
+
+
