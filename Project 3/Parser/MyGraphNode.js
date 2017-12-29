@@ -268,7 +268,7 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
 
     if(mustRotate == true && alreadyRotated== false)
     {
-      
+
 
       mat4.rotateX(this.transformMatrix, this.transformMatrix, -Math.PI/2);
 
@@ -300,7 +300,7 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
     var trans = mat4.create();
 
     //gets the animation transformation matrix
-    trans = animations[animationIndex].correctMatrix(Time, t);
+    trans = animations[animationIndex].correctMatrix(Time, t - scene.game.lastPlay.whatTime);
 
     //apllies no animation matrix that belongs to node
     mat4.multiply(newMatrix, newMatrix, trans);

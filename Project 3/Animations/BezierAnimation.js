@@ -172,6 +172,11 @@ class BezierAnimation extends Animation
     return this.transformedPoints.length - 1;
   }
 
+  isAnimationsComplete(time)
+  {
+    return this.mapTime(time);
+  }
+
   /**
    * returns distance between p1 and p2
   **/
