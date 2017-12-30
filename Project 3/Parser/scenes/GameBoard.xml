@@ -434,7 +434,7 @@
       <DESCENDANTS>
         <NODEREF id="player-begin-platform" />
         <NODEREF id="player1-pieces" />
-        <NODEREF id="player1-end-platform" />
+        <NODEREF id="P1-Finish" />
       </DESCENDANTS>
     </NODE>
 
@@ -445,11 +445,11 @@
       <DESCENDANTS>
         <NODEREF id="player-begin-platform" />
         <NODEREF id="player2-pieces" />
-        <NODEREF id="player2-end-platform" />
+        <NODEREF id="P2-Finish" />
       </DESCENDANTS>
     </NODE>
 
-    <NODE id="player1-end-platform">
+    <NODE id="P1-Finish" selectable="true">
       <MATERIAL id="null"/>
       <TEXTURE id="null" />
       <ROTATION axis="y" angle="90" />
@@ -459,7 +459,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <NODE id="player2-end-platform">
+    <NODE id="P2-Finish" selectable="true"> 
       <MATERIAL id="null"/>
       <TEXTURE id="null" />
       <ROTATION axis="y" angle="90" />

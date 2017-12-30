@@ -81,15 +81,15 @@ class GameLogic
      'Normal-Cube-15': [39, 6, 9],
      'Normal-Cube-18': [45, 6, 9],
      'Throw-Again-Cubes-8': [3, 6, 15],
-     'Throw-Again-Cubes-20': [38, 6, 15],
+     'Throw-Again-Cubes-20': [39, 6, 15],
      'Normal-Cube-9': [9, 6, 15],
      'Normal-Cube-10': [15, 6, 15],
      'Normal-Cube-11': [21, 6, 15],
      'Normal-Cube-19': [45, 6, 15],
      'P1-Base': [[3, 6, 29], [9, 6, 29], [15, 6, 29], [21, 6, 29], [27, 6, 29], [33, 6, 29], [39, 6, 29]],
      'P2-Base': [[3, 6, -13], [9, 6, -13], [15, 6, -13], [21, 6, -13], [27, 6, -13], [33, 6, -13], [39, 6, -13]],
-     'P1-Finish':[9, 6, 15],
-     'P2-Finish':[9, 6, 3]
+     'P1-Finish':[[-6, 6, 26], [-6, 6, 20], [-6, 6, 14], [-6, 6, 8], [-6, 6, 2], [-6, 6, -4], [-6, 6, -10]],
+     'P2-Finish':[[60, 6, -2], [60, 6, -4], [60, 6, 2], [60, 6, 8], [60, 6, 14], [60, 6, 20], [60, 6, 26]]
     };
 
     this.gameMatrix = [];
@@ -277,7 +277,10 @@ class GameLogic
 
   pieceInPlace(placeName)
   {
-    return this.gameMatrix[this.XMLtoVector[placeName]];
+    if(placeName != 'P1-Finish' && placeName != 'P2-Finish')
+      return this.gameMatrix[this.XMLtoVector[placeName]];
+    else
+      return [];
   }
 
   isEnemyPiece(pieceName)
@@ -424,7 +427,14 @@ class GameLogic
     else
        previousCoor = this.XMLtoCoordinates[previousPlaceName];
 
-    let nextCoor =  this.XMLtoCoordinates[nextPlace];
+    let nextCoor;
+
+    if(nextPlace != 'P1-Finish' && nextPlace != 'P2-Finish')
+      nextCoor =  this.XMLtoCoordinates[nextPlace];
+    else if(nextPlace == 'P1-Finish')
+      nextCoor = this.XMLtoCoordinates[nextPlace][this.P1Pieces.indexOf(pieceName)];
+    else
+      nextCoor = this.XMLtoCoordinates[nextPlace][this.P2Pieces.indexOf(pieceName)];
 
     let mov = this.getMov(previousCoor, nextCoor);
 
@@ -573,10 +583,23 @@ class GameLogic
           return x;
         }
       }
-      else
+      else if(currentMatrixPositionInVector > 17 && currentMatrixPositionInVector <= 20)
       {
+        let nextIndex = currentMatrixPositionInVector;
 
+        nextIndex += 2 * diceResult;
+
+        if(nextIndex > 22 || this.gameMatrix[nextIndex].length != 0)
+          return null;
+        else
+        {
+          var x = this.vectorToXML[nextIndex];
+
+          return x;
+        }
       }
+      else
+        return null;
     }
     else //PLAYER2 PLAYING
     {
@@ -642,6 +665,21 @@ class GameLogic
         }
 
         if(nextIndex > 23)
+          return null;
+        else
+        {
+          var x = this.vectorToXML[nextIndex];
+
+          return x;
+        }
+      }
+      else if(currentMatrixPositionInVector > 17 && currentMatrixPositionInVector < 22)
+      {
+        let nextIndex = currentMatrixPositionInVector;
+
+        nextIndex += 2 * diceResult;
+
+        if(nextIndex > 23 || this.gameMatrix[nextIndex].length != 0)
           return null;
         else
         {

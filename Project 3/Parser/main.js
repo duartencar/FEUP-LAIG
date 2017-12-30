@@ -113,26 +113,29 @@ main=function()
 ]);
 
 
-function runClock(){
+function runClock()
+{
     var timer = document.getElementById('timer');
+
     timer.innerHTML = '0';
 
     let counter = 0;
     let seconds = 0;
     let minutes = 0;
 
-    function timeAlert(){
+    function timeAlert()
+    {
       counter++;
+
       seconds = Math.floor(counter % 60);
+
       minutes = Math.floor(counter / 60);
-      if(seconds < 10){
+
+      if(seconds < 10)
         timer.innerHTML = minutes + ' : 0' + seconds;
-      }
-      else{
+      else
          timer.innerHTML = minutes + ' : ' + seconds;
-      }
     }
 
     setInterval(timeAlert, 1000);
-
 }
