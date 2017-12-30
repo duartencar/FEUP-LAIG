@@ -505,8 +505,6 @@ class GameLogic
       {
         let nextIndex = currentMatrixPositionInVector + diceResult * 2;
 
-        console.log(this.gameMatrix);
-
         //means that the player has already a piece on the place
         if(this.gameMatrix[nextIndex].length != 0)
           return null;
@@ -530,15 +528,50 @@ class GameLogic
             nextIndex++;
         }
 
-        console.log("Next index = " + nextIndex);
+        if(nextIndex == 13 && this.gameMatrix[nextIndex].length != 0)
+          return null;
+        else if(this.gameMatrix[nextIndex].length != 0 && this.isEnemyPiece(this.gameMatrix[nextIndex][0]) == false)
+          return null;
+        else
+        {
+          var x = this.vectorToXML[nextIndex];
 
-        var x = this.vectorToXML[nextIndex];
-
-        return x;
+          return x;
+        }
       }
-      else if(currentMatrixPositionInVector >= 10 && currentMatrixPositionInVector <= 17)
+      else if(currentMatrixPositionInVector >= 10 && currentMatrixPositionInVector <= 13)
       {
+        let nextIndex = currentMatrixPositionInVector + diceResult;
 
+        if(nextIndex == 13 && this.gameMatrix[nextIndex].length != 0)
+          return null;
+        else
+        {
+          var x = this.vectorToXML[nextIndex];
+
+          return x;
+        }
+      }
+      else if(currentMatrixPositionInVector > 13 && currentMatrixPositionInVector <= 17)
+      {
+        let nextIndex = currentMatrixPositionInVector;
+
+        for(let i = 0; i < diceResult; i++)
+        {
+          if(nextIndex <= 17)
+            nextIndex++;
+          else
+            nextIndex += 2;
+        }
+
+        if(nextIndex > 22)
+          return null;
+        else
+        {
+          var x = this.vectorToXML[nextIndex];
+
+          return x;
+        }
       }
       else
       {
@@ -572,11 +605,50 @@ class GameLogic
             nextIndex++;
         }
 
-        console.log("Next index = " + nextIndex);
+        if(nextIndex == 13 && this.gameMatrix[nextIndex].length != 0)
+          return null;
+        else if(this.gameMatrix[nextIndex].length != 0 && this.isEnemyPiece(this.gameMatrix[nextIndex][0]) == false)
+          return null;
+        else
+        {
+          var x = this.vectorToXML[nextIndex];
 
-        var x = this.vectorToXML[nextIndex];
+          return x;
+        }
+      }
+      else if(currentMatrixPositionInVector >= 10 && currentMatrixPositionInVector <= 13)
+      {
+        let nextIndex = currentMatrixPositionInVector + diceResult;
 
-        return x;
+        if(nextIndex == 13 && this.gameMatrix[nextIndex].length != 0)
+          return null;
+        else
+        {
+          var x = this.vectorToXML[nextIndex];
+
+          return x;
+        }
+      }
+      else if(currentMatrixPositionInVector > 13 && currentMatrixPositionInVector <= 17)
+      {
+        let nextIndex = currentMatrixPositionInVector;
+
+        for(let i = 0; i < diceResult; i++)
+        {
+          if(nextIndex < 17)
+            nextIndex++;
+          else
+            nextIndex += 2;
+        }
+
+        if(nextIndex > 23)
+          return null;
+        else
+        {
+          var x = this.vectorToXML[nextIndex];
+
+          return x;
+        }
       }
     }
   }

@@ -52,8 +52,6 @@ function XMLscene(interface)
   this.cameraTransition = null;
 
   this.game = new GameLogic();
-
-  console.log(this.game);
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -266,7 +264,7 @@ XMLscene.prototype.logPicking = function ()
 
                 let pieceInToShade = this.game.pieceInPlace(this.toShade[1]);
 
-                if(pieceInToShade.length == 0 || this.game.isEnemyPiece(pieceInToShade))
+                if(pieceInToShade.length == 0 || this.game.isEnemyPiece(pieceInToShade[0]))
                 {
                   let pieceAnimation = this.game.getPieceAnimation(this, this.toShade[0], obj.nodeID);
 
@@ -313,8 +311,6 @@ XMLscene.prototype.rollDice = function()
   this.dicesResult = result;
 
   this.numberOfSteps = steps;
-
-  console.log(this.numberOfSteps);
 
   if(this.game.player1 == true)
     this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['dice-view']), 2.5, 'LINEAR', 5);
@@ -380,8 +376,6 @@ XMLscene.prototype.display = function()
   let t = d.getTime();*/
 
   let diff = 0.042;
-
-  console.log("Estado de jogo " + this.game.currentState);
 
   if(this.cameraTransition != null)
     this.updateCamera(diff);
