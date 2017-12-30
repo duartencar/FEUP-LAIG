@@ -348,6 +348,16 @@ class GameLogic
     return null;
   }
 
+  cloneGameMatrix()
+  {
+    var clone = [];
+
+    for(let i = 0; i < this.gameMatrix.length; i++)
+      clone.push(this.gameMatrix[i]);
+
+    return clone;
+  }
+
   getBezierPointsVector(initialPoint, finalPoint)
   {
     let x = [];

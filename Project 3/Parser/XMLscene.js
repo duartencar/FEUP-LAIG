@@ -274,7 +274,7 @@ XMLscene.prototype.logPicking = function ()
 
                   let trans = pieceAnimation.BezierPoint(pieceAnimation.animationSpan);
 
-                  let newPlay = new userPlay(this.game.isPlayer1Playing, this.toShade[0], this.toShade[1], this.game.matrix, this.elapsedTime, trans);
+                  let newPlay = new userPlay(this.game.isPlayer1Playing, this.toShade[0], this.toShade[1], this.game.cloneGameMatrix(), this.elapsedTime, trans);
 
                   this.game.plays.push(newPlay);
 
