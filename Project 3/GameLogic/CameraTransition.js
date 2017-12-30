@@ -23,7 +23,7 @@ class CameraTransition
       return null;
   }
 
-  get movementVector()
+  get linearMovementVector()
   {
     let v = vec3.fromValues(
       this.nextCamera.position[0] - this.previousCamera.position[0],
@@ -47,7 +47,7 @@ class CameraTransition
 
   get distance()
   {
-    let mov = this.movementVector;
+    let mov = this.linearMovementVector;
 
     return Math.sqrt(mov[0] * mov[0] + mov[1] * mov[1] + mov[2] * mov[2]);
   }
@@ -71,7 +71,7 @@ class CameraTransition
 
   transition(diff)
   {
-    let mov = this.movementVector;
+    let mov = this.linearMovementVector;
 
     let tar = this.targetMovementVector;
 

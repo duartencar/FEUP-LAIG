@@ -1,4 +1,4 @@
-var PIECE_ANIMATION_SPEED = 7;
+var PIECE_ANIMATION_SPEED = 9;
 
 class GameLogic
 {
@@ -225,9 +225,15 @@ class GameLogic
     for(var key in this.XMLtoVector)
       this.gameMatrix[this.XMLtoVector[key]] = [];
 
-    this.gameMatrix[this.XMLtoVector["P1-Base"]] = this.P1Pieces;
+    var p1 = this.P1Pieces;
 
-    this.gameMatrix[this.XMLtoVector["P2-Base"]] = this.P2Pieces;
+    var p2 = this.P2Pieces;
+
+    for(let i = 0; i < p1.length; i++)
+      this.gameMatrix[this.XMLtoVector["P1-Base"]].push(p1[i]);
+
+    for(let i = 0; i < p2.length; i++)
+      this.gameMatrix[this.XMLtoVector["P2-Base"]].push(p2[i]);
   }
 
   vectorToXMLinit()
@@ -419,9 +425,9 @@ class GameLogic
     return newAnimation;
   }
 
-  updateGameMatrix(pieceMoved, toWhere)
+  updateGameMatrix(scene, pieceMoved, toWhere)
   {
-    let previousLocationInVector = this.XMLtoVector[pieceMoved];
+    let previousLocationInVector = this.getCurrentPiecePlace(pieceMoved);
 
     if(this.gameMatrix[this.XMLtoVector[toWhere]].length != 0)
     {
@@ -431,17 +437,19 @@ class GameLogic
 
       let nextCoor;
 
-      if(this.Player1)
+      if(this.player1)
       {
-        x = this.P2Pieces.indexOf(thrownPiece);
+        x = this.P2Pieces.indexOf(thrownPiece[0]);
 
-        this.gameMatrix['P2-Base'][x] = thrownPiece;
+        this.gameMatrix[this.XMLtoVector['P2-Base']][x] = thrownPiece[0];
+
+        nextCoor = this.XMLtoCoordinates['P2-Base'][x];
       }
       else
       {
-        x = this.P1Pieces.indexOf(thrownPiece);
+        x = this.P1Pieces.indexOf(thrownPiece[0]);
 
-        this.gameMatrix['P1-Base'][x] = thrownPiece;
+        this.gameMatrix[this.XMLtoVector['P1-Base']][x] = thrownPiece[0];
 
         nextCoor = this.XMLtoCoordinates['P1-Base'][x];
       }
@@ -452,18 +460,26 @@ class GameLogic
 
       let bezPoints = this.getBezierPointsVector([0,0,0], mov);
 
-      let newAnimation = new BezierAnimation(scene, thrownPiece, PIECE_ANIMATION_SPEED, bezPoints);
+      let newAnimation = new BezierAnimation(scene, thrownPiece[0], PIECE_ANIMATION_SPEED, bezPoints);
 
-      scene.graph.nodes[thrownPiece].animations.push(newAnimation);
+      scene.graph.nodes[thrownPiece[0]].animations.push(newAnimation);
 
       let last = this.lastPlay;
 
-      last.thrown = thrownPiece;
+      last.thrown = thrownPiece[0];
     }
 
     this.gameMatrix[this.XMLtoVector[toWhere]] = [pieceMoved];
 
-    this.gameMatrix[previousLocationInVector] = [];
+    if(previousLocationInVector > 1)
+      this.gameMatrix[previousLocationInVector] = [];
+    else
+    {
+      if(this.player1)
+        this.gameMatrix[previousLocationInVector][this.P1Pieces.indexOf(pieceMoved)] = "";
+      else
+        this.gameMatrix[previousLocationInVector][this.P2Pieces.indexOf(pieceMoved)] = "";
+    }
   }
 
   pickedPieceNextPlace(pieceName, diceResult)

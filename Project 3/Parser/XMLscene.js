@@ -278,7 +278,7 @@ XMLscene.prototype.logPicking = function ()
 
                   this.game.plays.push(newPlay);
 
-                  this.game.updateGameMatrix(this.toShade[0], this.toShade[1]);
+                  this.game.updateGameMatrix(this, this.toShade[0], this.toShade[1]);
 
                   this.toShade = [];
                 }
