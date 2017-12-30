@@ -83,6 +83,11 @@ class BezierAnimation extends Animation
     return this.cPoints;
   }
 
+  get lastPoint()
+  {
+    return this.cPoints[3];
+  }
+
   /**
    * returns the point in the middle of p1 and p2
    * @param p1 - first point cordinates [x, y, z]

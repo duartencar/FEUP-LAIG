@@ -236,6 +236,29 @@ class GameLogic
     return this.watchingDicesTime;
   }
 
+  pieceInPlace(placeName)
+  {
+    return this.gameMatrix[this.XMLtoVector[placeName]];
+  }
+
+  isEnemyPiece(pieceName)
+  {
+    if(this.player1)
+    {
+      if(this.P1Pieces.indexOf(pieceName) >= 0)
+        return false;
+      else
+        return true;
+    }
+    else
+    {
+      if(this.P2Pieces.indexOf(pieceName) >= 0)
+        return false;
+      else
+        return true;
+    }
+  }
+
   setPossiblePiecesPick()
   {
     this.possiblePicks = [];
@@ -358,7 +381,7 @@ class GameLogic
 
     let bezPoints = this.getBezierPointsVector([0,0,0], mov);
 
-    let newAnimation = new BezierAnimation(scene, pieceName, 2, bezPoints);
+    let newAnimation = new BezierAnimation(scene, pieceName, 3, bezPoints);
 
     return newAnimation;
   }
@@ -394,9 +417,13 @@ class GameLogic
 
       let bezPoints = this.getBezierPointsVector([0,0,0], mov);
 
-      let newAnimation = new BezierAnimation(scene, thrownPiece, 2, bezPoints);
+      let newAnimation = new BezierAnimation(scene, thrownPiece, 3, bezPoints);
 
       scene.graph.nodes[thrownPiece].animations.push(newAnimation);
+
+      let last = this.lastPlay;
+
+      last.thrown = thrownPiece;
     }
 
     this.gameMatrix[this.XMLtoVector[toWhere]] = [pieceMoved];

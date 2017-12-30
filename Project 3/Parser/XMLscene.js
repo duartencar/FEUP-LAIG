@@ -234,7 +234,7 @@ XMLscene.prototype.logPicking = function ()
 
           if(this.game.possiblePicks.indexOf(obj.nodeID) >= 0 || this.toShade.indexOf(obj.nodeID) >= 0)
           {
-            if(this.game.stateIndex == 2)
+            if(this.game.stateIndex == 2) //WAITING PIECE PICK
             {
               this.toShade.push(obj.nodeID);
 
@@ -247,7 +247,7 @@ XMLscene.prototype.logPicking = function ()
                 this.game.newState = 1;
               }
             }
-            else if(this.game.stateIndex == 1)
+            else if(this.game.stateIndex == 1) //WAITING BOARD PICK
             {
               if(obj.nodeID == this.toShade[0])
               {
@@ -255,23 +255,28 @@ XMLscene.prototype.logPicking = function ()
 
                 this.game.newState = 2;
               }
-              else if(obj.nodeID == this.toShade[1])
+              else if(obj.nodeID == this.toShade[1]) //WHEN PLACE GETS SELECTED
               {
                 this.game.newState = 3;
 
-                let pieceAnimation = this.game.getPieceAnimation(this, this.toShade[0], obj.nodeID);
+                let pieceInToShade = this.game.pieceInPlace(this.toShade[1]);
 
-                this.graph.nodes[this.toShade[0]].animations.push(pieceAnimation);
+                if(pieceInToShade.length == 0 || this.game.isEnemyPiece(pieceInToShade))
+                {
+                  let pieceAnimation = this.game.getPieceAnimation(this, this.toShade[0], obj.nodeID);
 
-                let trans = pieceAnimation.BezierPoint(pieceAnimation.animationSpan);
+                  this.graph.nodes[this.toShade[0]].animations.push(pieceAnimation);
 
-                let newPlay = new userPlay(this.game.isPlayer1Playing, this.toShade[0], this.toShade[1], this.game.matrix, this.elapsedTime, trans);
+                  let trans = pieceAnimation.BezierPoint(pieceAnimation.animationSpan);
 
-                this.game.plays.push(newPlay);
+                  let newPlay = new userPlay(this.game.isPlayer1Playing, this.toShade[0], this.toShade[1], this.game.matrix, this.elapsedTime, trans);
 
-                this.game.updateGameMatrix(this.toShade[0], this.toShade[1]);
+                  this.game.plays.push(newPlay);
 
-                this.toShade = [];
+                  this.game.updateGameMatrix(this.toShade[0], this.toShade[1]);
+
+                  this.toShade = [];
+                }
               }
             }
           }
@@ -308,9 +313,9 @@ XMLscene.prototype.rollDice = function()
   console.log(this.numberOfSteps);
 
   if(this.game.player1 == true)
-    this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['dice-view']), 3, 'LINEAR', 5);
+    this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['dice-view']), 2.5, 'LINEAR', 5);
   else
-    this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['dice-view']), 3, 'LINEAR', 5);
+    this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['dice-view']), 2.5, 'LINEAR', 5);
 
   this.interface.gui.closed = true;
 }
@@ -377,12 +382,10 @@ XMLscene.prototype.display = function()
   if(this.cameraTransition != null)
     this.updateCamera(diff);
 
-  if(this.game.stateIndex == 0)
+  if(this.game.stateIndex == 0)         //WAITING DICE ROLLING
     this.interface.gui.closed = false;
-  else if(this.game.stateIndex == 5)
+  else if(this.game.stateIndex == 5)    //LOOKING AT DICES
   {
-    console.log("A olhar para os dados");
-
     this.game.updateDicesTime(diff);
 
     if(this.game.watchDicesTime >= 1.5)
@@ -390,10 +393,10 @@ XMLscene.prototype.display = function()
       if(this.game.player1)
       {
         if(this.steps != 0)
-          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player1-view']), 3, 'LINEAR', 2);
+          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player1-view']), 2.5, 'LINEAR', 2);
         else
           {
-            this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player2-view']), 3, 'LINEAR', 0);
+            this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player2-view']), 2.5, 'LINEAR', 0);
 
             this.game.changePlayer(this);
           }
@@ -401,10 +404,10 @@ XMLscene.prototype.display = function()
       else
       {
         if(this.steps != 0)
-          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player2-view']), 3, 'LINEAR', 2);
+          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player2-view']), 2.5, 'LINEAR', 2);
         else
         {
-          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player1-view']), 3, 'LINEAR', 0);
+          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player1-view']), 2.5, 'LINEAR', 0);
 
           this.game.changePlayer(this);
         }
@@ -415,7 +418,7 @@ XMLscene.prototype.display = function()
       this.game.setPossiblePiecesPick();
     }
   }
-  else if(this.game.stateIndex == 3)
+  else if(this.game.stateIndex == 3) //MOVING PIECE
   {
     let lastPlay = this.game.lastPlay;
 
@@ -423,9 +426,16 @@ XMLscene.prototype.display = function()
 
     let atWhatTime = lastPlay.whatTime;
 
-    let currentAnimation = this.graph.nodes[movingPiece].animations[0];
+    let movingPieceCurrentAnimation = this.graph.nodes[movingPiece].animations[0];
 
-    if(currentAnimation.isAnimationsComplete(this.elapsedTime - atWhatTime) >= 1.0)
+    let thrownPiece = lastPlay.pieceTobase;
+
+    let thrownPieceCurrentAnimation;
+
+    if(thrownPiece != null)
+      thrownPieceCurrentAnimation = this.graph.nodes[thrownPiece].animations[0];
+
+    if(movingPieceCurrentAnimation.isAnimationsComplete(this.elapsedTime - atWhatTime) >= 1.0 && thrownPiece == null)
     {
       let translation = lastPlay.movement;
 
@@ -434,9 +444,28 @@ XMLscene.prototype.display = function()
       this.graph.nodes[movingPiece].animations = [];
 
       if(this.game.player1)
-        this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['player2-view']), 3, 'LINEAR', 0);
+        this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['player2-view']), 2.5, 'LINEAR', 0);
       else
-        this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['player1-view']), 3, 'LINEAR', 0);
+        this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['player1-view']), 2.5, 'LINEAR', 0);
+
+      this.game.changePlayer(this);
+    }
+    else if(movingPieceCurrentAnimation.isAnimationsComplete(this.elapsedTime - atWhatTime) >= 1.0 && thrownPiece != null && thrownPieceCurrentAnimation.isAnimationsComplete(this.elapsedTime - atWhatTime) >= 1.0)
+    {
+      let translation = lastPlay.movement;
+
+      mat4.translate(this.graph.nodes[movingPiece].transformMatrix, this.graph.nodes[movingPiece].transformMatrix, translation);
+
+      this.graph.nodes[movingPiece].animations = [];
+
+      mat4.translate(this.graph.nodes[thrownPiece].transformMatrix, this.graph.nodes[thrownPiece].transformMatrix, thrownPieceCurrentAnimation.lastPoint);
+
+      this.graph.nodes[thrownPiece].animations = [];
+
+      if(this.game.player1)
+        this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['player2-view']), 2.5, 'LINEAR', 0);
+      else
+        this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['player1-view']), 2.5, 'LINEAR', 0);
 
       this.game.changePlayer(this);
     }

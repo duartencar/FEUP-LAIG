@@ -13,6 +13,8 @@ class userPlay
     this.time = time;
 
     this.translation = translation;
+
+    this.thrownPiece = null;
   }
 
   get matrix()
@@ -43,5 +45,15 @@ class userPlay
   get movement()
   {
     return this.translation;
+  }
+
+  set thrown(pieceName)
+  {
+    this.thrownPiece = pieceName;
+  }
+
+  get pieceTobase()
+  {
+    return this.thrownPiece;
   }
 }
