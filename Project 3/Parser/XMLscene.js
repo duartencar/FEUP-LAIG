@@ -236,16 +236,21 @@ XMLscene.prototype.logPicking = function ()
           {
             if(this.game.stateIndex == 2) //WAITING PIECE PICK
             {
-              this.toShade.push(obj.nodeID);
-
-              var s = this.game.pickedPieceNextPlace(obj.nodeID, this.numberOfSteps);
-
-              if(s != null)
+              if(this.toShade.length == 0 && this.toShade[0] != obj.nodeID)
               {
-                this.toShade.push(s);
+                this.toShade.push(obj.nodeID);
 
-                this.game.newState = 1;
+                var s = this.game.pickedPieceNextPlace(obj.nodeID, this.numberOfSteps);
+
+                if(s != null)
+                {
+                  this.toShade.push(s);
+
+                  this.game.newState = 1;
+                }
               }
+              else
+                this.toShade = [];
             }
             else if(this.game.stateIndex == 1) //WAITING BOARD PICK
             {
@@ -392,7 +397,7 @@ XMLscene.prototype.display = function()
     {
       if(this.game.player1)
       {
-        if(this.steps != 0)
+        if(this.numberOfSteps != 0)
           this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player1-view']), 2.5, 'LINEAR', 2);
         else
           {
@@ -403,7 +408,7 @@ XMLscene.prototype.display = function()
       }
       else
       {
-        if(this.steps != 0)
+        if(this.numberOfSteps != 0)
           this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player2-view']), 2.5, 'LINEAR', 2);
         else
         {

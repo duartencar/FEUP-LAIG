@@ -1,3 +1,5 @@
+var PIECE_ANIMATION_SPEED = 7;
+
 class GameLogic
 {
   constructor()
@@ -381,7 +383,7 @@ class GameLogic
 
     let bezPoints = this.getBezierPointsVector([0,0,0], mov);
 
-    let newAnimation = new BezierAnimation(scene, pieceName, 3, bezPoints);
+    let newAnimation = new BezierAnimation(scene, pieceName, PIECE_ANIMATION_SPEED, bezPoints);
 
     return newAnimation;
   }
@@ -417,7 +419,7 @@ class GameLogic
 
       let bezPoints = this.getBezierPointsVector([0,0,0], mov);
 
-      let newAnimation = new BezierAnimation(scene, thrownPiece, 3, bezPoints);
+      let newAnimation = new BezierAnimation(scene, thrownPiece, PIECE_ANIMATION_SPEED, bezPoints);
 
       scene.graph.nodes[thrownPiece].animations.push(newAnimation);
 
