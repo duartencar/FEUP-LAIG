@@ -432,20 +432,40 @@
       <TRANSLATION x="0" y="6" z="25" />
 
       <DESCENDANTS>
-        <NODEREF id="player-platform" />
+        <NODEREF id="player-begin-platform" />
         <NODEREF id="player1-pieces" />
+        <NODEREF id="player1-end-platform" />
       </DESCENDANTS>
     </NODE>
 
     <NODE id="player2-platform">
       <MATERIAL id="null"/>
       <TEXTURE id="null" />
-
       <TRANSLATION x="0" y="6" z="-17" />
-
       <DESCENDANTS>
-        <NODEREF id="player-platform" />
+        <NODEREF id="player-begin-platform" />
         <NODEREF id="player2-pieces" />
+        <NODEREF id="player2-end-platform" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="player1-end-platform">
+      <MATERIAL id="null"/>
+      <TEXTURE id="null" />
+      <ROTATION axis="y" angle="90" />
+      <TRANSLATION x="-5" y="0" z="-10" />
+      <DESCENDANTS>
+        <NODEREF id="player-begin-platform" />
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="player2-end-platform">
+      <MATERIAL id="null"/>
+      <TEXTURE id="null" />
+      <ROTATION axis="y" angle="90" />
+      <TRANSLATION x="-47.5" y="0" z="50" />
+      <DESCENDANTS>
+        <NODEREF id="player-begin-platform" />
       </DESCENDANTS>
     </NODE>
 
@@ -663,7 +683,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <NODE id="player-platform">
+    <NODE id="player-begin-platform">
       <MATERIAL id="normal-board-cube-material"/>
       <TEXTURE id="rock-platform-texture" />
 
