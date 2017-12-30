@@ -285,7 +285,6 @@ XMLscene.prototype.logPicking = function ()
               }
             }
           }
-
 				}
 			}
       this.pickResults.splice(0,this.pickResults.length);
@@ -448,12 +447,17 @@ XMLscene.prototype.display = function()
 
       this.graph.nodes[movingPiece].animations = [];
 
-      if(this.game.player1)
-        this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['player2-view']), 2.5, 'LINEAR', 0);
+      if(this.game.isSpecialCube(lastPlay.pieceMovedTo))
+        this.game.repeatPlayer(this);
       else
-        this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['player1-view']), 2.5, 'LINEAR', 0);
+      {
+        if(this.game.player1)
+          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['player2-view']), 2.5, 'LINEAR', 0);
+        else
+          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['player1-view']), 2.5, 'LINEAR', 0);
 
-      this.game.changePlayer(this);
+        this.game.changePlayer(this);
+      }
     }
     else if(movingPieceCurrentAnimation.isAnimationsComplete(this.elapsedTime - atWhatTime) >= 1.0 && thrownPiece != null && thrownPieceCurrentAnimation.isAnimationsComplete(this.elapsedTime - atWhatTime) >= 1.0)
     {

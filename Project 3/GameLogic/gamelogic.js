@@ -104,6 +104,8 @@ class GameLogic
 
     this.watchingDicesTime = 0;
 
+    this.specialPlaces = ['Throw-Again-Cubes-1', 'Throw-Again-Cubes-16', 'Throw-Again-Cubes-8', 'Throw-Again-Cubes-20', 'Super-Cube-12'];
+
     this.gameMatrixInit();
 
     this.vectorToXMLinit();
@@ -137,6 +139,14 @@ class GameLogic
   get lastPlay()
   {
     return this.plays[this.plays.length - 1];
+  }
+
+  isSpecialCube(place)
+  {
+    if(this.specialPlaces.indexOf(place) >= 0)
+      return true;
+    else
+      return false;
   }
 
   set dicesValue(x)
@@ -178,6 +188,27 @@ class GameLogic
     if(scene.rotatedOnce[3])
       mat4.rotateX(scene.graph.nodes['Dice-4'].transformMatrix, scene.graph.nodes['Dice-4'].transformMatrix, Math.PI/2);
 
+
+    if(this.player1)
+      this.P2numberOfPlays++;
+    else
+      this.P1numberOfPlays++;
+
+    this.resetDices(scene);
+
+    this.newState = 0;
+  }
+
+  repeatPlayer(scene)
+  {
+    if(scene.rotatedOnce[0])
+      mat4.rotateX(scene.graph.nodes['Dice-1'].transformMatrix, scene.graph.nodes['Dice-1'].transformMatrix, Math.PI/2);
+    if(scene.rotatedOnce[1])
+      mat4.rotateX(scene.graph.nodes['Dice-2'].transformMatrix, scene.graph.nodes['Dice-2'].transformMatrix, Math.PI/2);
+    if(scene.rotatedOnce[2])
+      mat4.rotateX(scene.graph.nodes['Dice-3'].transformMatrix, scene.graph.nodes['Dice-3'].transformMatrix, Math.PI/2);
+    if(scene.rotatedOnce[3])
+      mat4.rotateX(scene.graph.nodes['Dice-4'].transformMatrix, scene.graph.nodes['Dice-4'].transformMatrix, Math.PI/2);
 
     if(this.player1)
       this.P2numberOfPlays++;
@@ -390,6 +421,8 @@ class GameLogic
 
   updateGameMatrix(pieceMoved, toWhere)
   {
+    let previousLocationInVector = this.XMLtoVector[pieceMoved];
+
     if(this.gameMatrix[this.XMLtoVector[toWhere]].length != 0)
     {
       let thrownPiece = this.pieceAtVectorIndex(this.XMLtoVector[toWhere]);
@@ -429,6 +462,8 @@ class GameLogic
     }
 
     this.gameMatrix[this.XMLtoVector[toWhere]] = [pieceMoved];
+
+    this.gameMatrix[previousLocationInVector] = [];
   }
 
   pickedPieceNextPlace(pieceName, diceResult)
@@ -438,7 +473,7 @@ class GameLogic
     if(currentMatrixPositionInVector == null)
       return null;
 
-    if(this.player1)
+    if(this.player1) //PLAYER1 PLAYING
     {
       if(currentMatrixPositionInVector / 2 + diceResult < 5)
       {
@@ -457,6 +492,24 @@ class GameLogic
         }
 
       }
+      else if(currentMatrixPositionInVector / 2 + diceResult >= 5 && currentMatrixPositionInVector <= 8 && currentMatrixPositionInVector > 0)
+      {
+        let nextIndex = currentMatrixPositionInVector;
+
+        for(let i = 0; i < diceResult; i++)
+        {
+          if(nextIndex <= 8)
+            nextIndex += 2;
+          else
+            nextIndex++;
+        }
+
+        console.log("Next index = " + nextIndex);
+
+        var x = this.vectorToXML[nextIndex];
+
+        return x;
+      }
       else if(currentMatrixPositionInVector >= 10 && currentMatrixPositionInVector <= 17)
       {
 
@@ -466,7 +519,7 @@ class GameLogic
 
       }
     }
-    else
+    else //PLAYER2 PLAYING
     {
       if(Math.round(currentMatrixPositionInVector / 2) +  diceResult - 1 < 5)
       {
@@ -480,6 +533,24 @@ class GameLogic
 
           return x;
         }
+      }
+      else if(Math.round(currentMatrixPositionInVector / 2) +  diceResult - 1 >= 5 && currentMatrixPositionInVector <= 9 && currentMatrixPositionInVector > 1)
+      {
+        let nextIndex = currentMatrixPositionInVector;
+
+        for(let i = 0; i < diceResult; i++)
+        {
+          if(nextIndex <= 7)
+            nextIndex += 2;
+          else
+            nextIndex++;
+        }
+
+        console.log("Next index = " + nextIndex);
+
+        var x = this.vectorToXML[nextIndex];
+
+        return x;
       }
     }
   }
