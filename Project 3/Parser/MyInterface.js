@@ -79,4 +79,6 @@ MyInterface.prototype.addRollDiceGroup = function(scene)
   this.gui.add(scene, 'rollDice').name('Roll Dice');
 
   this.gui.add(scene, 'undo').name('Undo');
+
+  this.gui.add(scene, 'resetGame').name('Reset Game');
 }
