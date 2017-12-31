@@ -349,29 +349,6 @@ XMLscene.prototype.undo = function()
 
   let backFrom = lastPlay.pieceMovedTo;
 
-/*
-  if(moveBackTo != 'P1-Base' && moveBackTo != 'P2-Base')
-    moveBackToCoor = this.game.XMLtoCoordinates[moveBackTo];
-  else
-  {
-    if(lastPlay.wasPlayer1)
-      moveBackToCoor = this.game.XMLtoCoordinates[moveBackTo][this.game.P1Pieces.indexOf(pieceToMoveBack)];
-    else
-      moveBackToCoor = this.game.XMLtoCoordinates[moveBackTo][this.game.P2Pieces.indexOf(pieceToMoveBack)];
-  }
-
-  let backFromCoor;
-
-  if(backFrom != 'P1-Base' && backFrom != 'P2-Base')
-    backFromCoor = this.game.XMLtoCoordinates[backFrom];
-  else
-  {
-    if(lastPlay.wasPlayer1)
-      backFromCoor = this.game.XMLtoCoordinates[backFrom][this.game.P1Pieces.indexOf(pieceToMoveBack)];
-    else
-      backFromCoor = this.game.XMLtoCoordinates[backFrom][this.game.P2Pieces.indexOf(pieceToMoveBack)];
-  }*/
-
   let mov = this.reverseMov(lastPlay.translation);
 
   let bezPoints = this.game.getBezierPointsVector([0,0,0], mov);

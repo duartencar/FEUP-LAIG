@@ -43,7 +43,7 @@ MyInterface.prototype.addCamerasGroup = function(scene)
   {
   //scene.interface.setActiveCamera(scene.cameras[scene.activeCameraIndex]);
 
-  scene.camera = scene.cameras[scene.activeCameraIndex];
+  scene.cameraTransition = new CameraTransition(scene.cloneCamera(scene.camera), scene.cloneCamera(scene.cameras[scene.activeCameraIndex]), 2.5, 'LINEAR', 0);
   });
 }
 
