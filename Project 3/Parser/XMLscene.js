@@ -1,5 +1,7 @@
 var DEGREE_TO_RAD = Math.PI / 180;
 
+var diff = 0.042;
+
 /**
  * XMLscene class, representing the scene that is to be rendered.
  * @constructor
@@ -349,29 +351,6 @@ XMLscene.prototype.undo = function()
 
   let backFrom = lastPlay.pieceMovedTo;
 
-/*
-  if(moveBackTo != 'P1-Base' && moveBackTo != 'P2-Base')
-    moveBackToCoor = this.game.XMLtoCoordinates[moveBackTo];
-  else
-  {
-    if(lastPlay.wasPlayer1)
-      moveBackToCoor = this.game.XMLtoCoordinates[moveBackTo][this.game.P1Pieces.indexOf(pieceToMoveBack)];
-    else
-      moveBackToCoor = this.game.XMLtoCoordinates[moveBackTo][this.game.P2Pieces.indexOf(pieceToMoveBack)];
-  }
-
-  let backFromCoor;
-
-  if(backFrom != 'P1-Base' && backFrom != 'P2-Base')
-    backFromCoor = this.game.XMLtoCoordinates[backFrom];
-  else
-  {
-    if(lastPlay.wasPlayer1)
-      backFromCoor = this.game.XMLtoCoordinates[backFrom][this.game.P1Pieces.indexOf(pieceToMoveBack)];
-    else
-      backFromCoor = this.game.XMLtoCoordinates[backFrom][this.game.P2Pieces.indexOf(pieceToMoveBack)];
-  }*/
-
   let mov = this.reverseMov(lastPlay.translation);
 
   let bezPoints = this.game.getBezierPointsVector([0,0,0], mov);
@@ -380,19 +359,57 @@ XMLscene.prototype.undo = function()
 
   this.graph.nodes[pieceToMoveBack].animations.push(newAnimation);
 
-  if(lastPlay.pieceTobase != null)
-    console.log("Mover outra peça");
-
   let newPlay = new userPlay(!this.game.isPlayer1Playing, pieceToMoveBack, moveBackTo, this.game.cloneGameMatrix(), this.elapsedTime, mov);
 
-  this.game.plays.push(newPlay);
+  if(lastPlay.pieceTobase != null)
+  {
+    let thrownPiece = lastPlay.pieceTobase;
+
+    var thrownPieceActualPositionInVector = this.searchPieceAtAMatrix(this.game.matrix, thrownPiece);
+
+    let thrownPieceActualCoor;
+
+    if(thrownPieceActualPositionInVector[0] != 0 && thrownPieceActualPositionInVector[0] != 1)
+      thrownPieceActualCoor = this.game.XMLtoCoordinates[this.game.vectorToXML[thrownPieceActualPositionInVector[0]]];
+    else
+    {
+      let thrownPiecePlace = this.game.vectorToXML[thrownPieceActualPositionInVector[0]];
+
+      thrownPieceActualCoor = this.game.XMLtoCoordinates[thrownPiecePlace][thrownPieceActualPositionInVector[1]];
+    }
+
+
+    let thrownPiecePreviousCoor = this.game.XMLtoCoordinates[backFrom];
+
+    let thrownMov = this.game.getMov(thrownPieceActualCoor, thrownPiecePreviousCoor);
+
+    let thownBezPoints = this.game.getBezierPointsVector([0,0,0], thrownMov);
+
+    let thrownNewAnimation = new BezierAnimation(this, thrownPiece, 9, thownBezPoints);
+
+    this.graph.nodes[thrownPiece].animations.push(thrownNewAnimation);
+
+    newPlay.thrown = thrownPiece;
+  }
 
   if(search[0] != 0 && search[0] != 1)
     this.game.gameMatrix[search[0]].push(pieceToMoveBack);
   else
     this.game.gameMatrix[search[0]][search[1]] = pieceToMoveBack;
 
-  this.game.gameMatrix[this.game.XMLtoVector[backFrom]] = [];
+  if(lastPlay.pieceTobase == null)
+    this.game.gameMatrix[this.game.XMLtoVector[backFrom]] = [];
+  else
+  {
+    this.game.gameMatrix[this.game.XMLtoVector[backFrom]] = [newPlay.pieceTobase];
+
+    if(thrownPieceActualPositionInVector[0] != 0 && thrownPieceActualPositionInVector[0] != 1)
+      this.game.gameMatrix[thrownPieceActualPositionInVector[0]] = [];
+    else
+      this.game.gameMatrix[thrownPieceActualPositionInVector[0]][thrownPieceActualPositionInVector[1]] = [];
+  }
+
+  this.game.plays.push(newPlay);
 
   this.game.newState = 3;
 }
@@ -438,6 +455,31 @@ XMLscene.prototype.cloneCamera = function(cameraToClone)
   return x;
 }
 
+XMLscene.prototype.resetGame = function()
+{
+  location.reload();
+}
+
+XMLscene.prototype.checkIfPlayerExceedsLimit = function()
+{
+  if(this.game.checkPlayerTimeLimit())
+  {
+    if(this.game.player1)
+    {
+      this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['player2-view']), 2.5, 'LINEAR', 0);
+
+      this.game.changePlayer();
+    }
+    else
+    {
+      this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['player1-view']), 2.5, 'LINEAR', 0);
+
+      this.game.changePlayer();
+    }
+  }
+}
+
+
 /**
  * Displays the scene.
  */
@@ -445,17 +487,13 @@ XMLscene.prototype.display = function()
 {
   this.logPicking();
 
-
-  // ---- BEGIN Background, camera and axis setup
-
-  /*let d = new Date();
-
-  let t = d.getTime();*/
-
-  let diff = 0.042;
-
   if(this.cameraTransition != null)
     this.updateCamera(diff);
+
+  this.game.updatePlayerTime(diff);
+
+  this.checkIfPlayerExceedsLimit();
+
 
   if(this.game.stateIndex == 0)         //WAITING DICE ROLLING
     this.interface.gui.closed = false;
@@ -495,6 +533,8 @@ XMLscene.prototype.display = function()
   }
   else if(this.game.stateIndex == 3) //MOVING PIECE
   {
+    this.game.resetPlayersTime();
+
     let lastPlay = this.game.lastPlay;
 
     let movingPiece = lastPlay.pieceMoved;
