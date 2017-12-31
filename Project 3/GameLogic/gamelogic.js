@@ -89,7 +89,7 @@ class GameLogic
      'P1-Base': [[3, 6, 29], [9, 6, 29], [15, 6, 29], [21, 6, 29], [27, 6, 29], [33, 6, 29], [39, 6, 29]],
      'P2-Base': [[3, 6, -13], [9, 6, -13], [15, 6, -13], [21, 6, -13], [27, 6, -13], [33, 6, -13], [39, 6, -13]],
      'P1-Finish':[[-6, 6, 26], [-6, 6, 20], [-6, 6, 14], [-6, 6, 8], [-6, 6, 2], [-6, 6, -4], [-6, 6, -10]],
-     'P2-Finish':[[60, 6, -2], [60, 6, -4], [60, 6, 2], [60, 6, 8], [60, 6, 14], [60, 6, 20], [60, 6, 26]]
+     'P2-Finish':[[55, 6, -2], [55, 6, -4], [55, 6, 2], [55, 6, 8], [55, 6, 14], [55, 6, 20], [55, 6, 26]]
     };
 
     this.gameMatrix = [];
@@ -562,6 +562,8 @@ class GameLogic
 
         if(nextIndex == 13 && this.gameMatrix[nextIndex].length != 0)
           return null;
+        else if(this.gameMatrix[nextIndex].length != 0 && this.isEnemyPiece(this.gameMatrix[nextIndex][0]) == false)
+          return null;
         else
         {
           var x = this.vectorToXML[nextIndex];
@@ -582,6 +584,8 @@ class GameLogic
         }
 
         if(nextIndex > 22)
+          return null;
+        else if(this.gameMatrix[nextIndex].length != 0 && this.isEnemyPiece(this.gameMatrix[nextIndex][0]) == false)
           return null;
         else
         {
@@ -652,6 +656,8 @@ class GameLogic
 
         if(nextIndex == 13 && this.gameMatrix[nextIndex].length != 0)
           return null;
+        else if(this.gameMatrix[nextIndex].length != 0 && this.isEnemyPiece(this.gameMatrix[nextIndex][0]) == false)
+          return null;
         else
         {
           var x = this.vectorToXML[nextIndex];
@@ -672,6 +678,8 @@ class GameLogic
         }
 
         if(nextIndex > 23)
+          return null;
+        else if(this.gameMatrix[nextIndex].length != 0 && this.isEnemyPiece(this.gameMatrix[nextIndex][0]) == false)
           return null;
         else
         {
