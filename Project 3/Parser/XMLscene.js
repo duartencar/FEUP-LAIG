@@ -380,19 +380,57 @@ XMLscene.prototype.undo = function()
 
   this.graph.nodes[pieceToMoveBack].animations.push(newAnimation);
 
-  if(lastPlay.pieceTobase != null)
-    console.log("Mover outra peça");
-
   let newPlay = new userPlay(!this.game.isPlayer1Playing, pieceToMoveBack, moveBackTo, this.game.cloneGameMatrix(), this.elapsedTime, mov);
 
-  this.game.plays.push(newPlay);
+  if(lastPlay.pieceTobase != null)
+  {
+    let thrownPiece = lastPlay.pieceTobase;
+
+    var thrownPieceActualPositionInVector = this.searchPieceAtAMatrix(this.game.matrix, thrownPiece);
+
+    let thrownPieceActualCoor;
+
+    if(thrownPieceActualPositionInVector[0] != 0 && thrownPieceActualPositionInVector[0] != 1)
+      thrownPieceActualCoor = this.game.XMLtoCoordinates[this.game.vectorToXML[thrownPieceActualPositionInVector[0]]];
+    else
+    {
+      let thrownPiecePlace = this.game.vectorToXML[thrownPieceActualPositionInVector[0]];
+
+      thrownPieceActualCoor = this.game.XMLtoCoordinates[thrownPiecePlace][thrownPieceActualPositionInVector[1]];
+    }
+
+
+    let thrownPiecePreviousCoor = this.game.XMLtoCoordinates[backFrom];
+
+    let thrownMov = this.game.getMov(thrownPieceActualCoor, thrownPiecePreviousCoor);
+
+    let thownBezPoints = this.game.getBezierPointsVector([0,0,0], thrownMov);
+
+    let thrownNewAnimation = new BezierAnimation(this, thrownPiece, 9, thownBezPoints);
+
+    this.graph.nodes[thrownPiece].animations.push(thrownNewAnimation);
+
+    newPlay.thrown = thrownPiece;
+  }
 
   if(search[0] != 0 && search[0] != 1)
     this.game.gameMatrix[search[0]].push(pieceToMoveBack);
   else
     this.game.gameMatrix[search[0]][search[1]] = pieceToMoveBack;
 
-  this.game.gameMatrix[this.game.XMLtoVector[backFrom]] = [];
+  if(lastPlay.pieceTobase == null)
+    this.game.gameMatrix[this.game.XMLtoVector[backFrom]] = [];
+  else
+  {
+    this.game.gameMatrix[this.game.XMLtoVector[backFrom]] = [newPlay.pieceTobase];
+
+    if(thrownPieceActualPositionInVector[0] != 0 && thrownPieceActualPositionInVector[0] != 1)
+      this.game.gameMatrix[thrownPieceActualPositionInVector[0]] = [];
+    else
+      this.game.gameMatrix[thrownPieceActualPositionInVector[0]][thrownPieceActualPositionInVector[1]] = [];
+  }
+
+  this.game.plays.push(newPlay);
 
   this.game.newState = 3;
 }
