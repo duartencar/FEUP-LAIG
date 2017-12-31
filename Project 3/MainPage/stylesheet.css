@@ -81,9 +81,9 @@ nav ul li a{
 	display: none;
 	text-align: left;
 	overflow-y: scroll;
-	color: #7e8591;
+	color: white;
 	font-size: 17px;
-	text-shadow: 2px 2px black;
+	text-shadow: 3px 3px black;
 	height: 400px;
 }
 
