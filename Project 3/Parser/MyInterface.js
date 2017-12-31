@@ -76,8 +76,7 @@ MyInterface.prototype.addRollDiceGroup = function(scene)
 
   group.open();*/
 
-  this.gui.add(scene, 'rollDice').name('Roll Dice').onChange(function()
-  {
-    scene.game.newState = 5;
-  });
+  this.gui.add(scene, 'rollDice').name('Roll Dice');
+
+  this.gui.add(scene, 'undo').name('Undo');
 }

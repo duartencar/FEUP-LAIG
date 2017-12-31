@@ -141,6 +141,11 @@ class GameLogic
     return this.plays[this.plays.length - 1];
   }
 
+  get secondLastPlay()
+  {
+    return this.plays[this.plays.length - 2];
+  }
+
   isSpecialCube(place)
   {
     if(this.specialPlaces.indexOf(place) >= 0)
@@ -234,6 +239,8 @@ class GameLogic
 
     for(let i = 0; i < p2.length; i++)
       this.gameMatrix[this.XMLtoVector["P2-Base"]].push(p2[i]);
+
+    this.plays.push(new userPlay(false, 'none', 'none', this.cloneGameMatrix(), 0, [0, 0, 0]));
   }
 
   vectorToXMLinit()
@@ -356,7 +363,7 @@ class GameLogic
     var clone = [];
 
     for(let i = 0; i < this.gameMatrix.length; i++)
-      clone.push(this.gameMatrix[i]);
+      clone.push(this.gameMatrix[i].slice());
 
     return clone;
   }

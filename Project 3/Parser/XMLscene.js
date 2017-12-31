@@ -320,6 +320,78 @@ XMLscene.prototype.rollDice = function()
   this.interface.gui.closed = true;
 }
 
+XMLscene.prototype.searchPieceAtAMatrix = function(gameMatrix, pieceName)
+{
+  for(let i = 0; i < gameMatrix.length; i++)
+    if(gameMatrix[i].indexOf(pieceName) >= 0)
+      return [i, gameMatrix[i].indexOf(pieceName)];
+}
+
+XMLscene.prototype.reverseMov = function(movVector)
+{
+  let x = [];
+
+  for(let i = 0; i < 3; i++)
+    x.push(-1.0 * movVector[i]);
+
+  return x;
+}
+
+XMLscene.prototype.undo = function()
+{
+  let lastPlay = this.game.lastPlay;
+
+  let pieceToMoveBack = lastPlay.pieceMoved;
+
+  let search = this.searchPieceAtAMatrix(lastPlay.matrix, pieceToMoveBack);
+
+  let moveBackTo = this.game.vectorToXML[search[0]];
+
+  let backFrom = lastPlay.pieceMovedTo;
+
+  let moveBackToCoor;
+
+/*
+  if(moveBackTo != 'P1-Base' && moveBackTo != 'P2-Base')
+    moveBackToCoor = this.game.XMLtoCoordinates[moveBackTo];
+  else
+  {
+    if(lastPlay.wasPlayer1)
+      moveBackToCoor = this.game.XMLtoCoordinates[moveBackTo][this.game.P1Pieces.indexOf(pieceToMoveBack)];
+    else
+      moveBackToCoor = this.game.XMLtoCoordinates[moveBackTo][this.game.P2Pieces.indexOf(pieceToMoveBack)];
+  }
+
+  let backFromCoor;
+
+  if(backFrom != 'P1-Base' && backFrom != 'P2-Base')
+    backFromCoor = this.game.XMLtoCoordinates[backFrom];
+  else
+  {
+    if(lastPlay.wasPlayer1)
+      backFromCoor = this.game.XMLtoCoordinates[backFrom][this.game.P1Pieces.indexOf(pieceToMoveBack)];
+    else
+      backFromCoor = this.game.XMLtoCoordinates[backFrom][this.game.P2Pieces.indexOf(pieceToMoveBack)];
+  }*/
+
+  let mov = this.reverseMov(lastPlay.translation);
+
+  let bezPoints = this.game.getBezierPointsVector([0,0,0], mov);
+
+  let newAnimation = new BezierAnimation(this, pieceToMoveBack, 9, bezPoints);
+
+  this.graph.nodes[pieceToMoveBack].animations.push(newAnimation);
+
+  if(lastPlay.pieceTobase != null)
+    console.log("Mover outra peça");
+
+  let newPlay = new userPlay(!this.game.isPlayer1Playing, pieceToMoveBack, moveBackTo, this.game.cloneGameMatrix(), this.elapsedTime, mov);
+
+  this.game.plays.push(newPlay);
+
+  this.game.newState = 3;
+}
+
 XMLscene.prototype.updateCamera = function(diff)
 {
   this.cameraTransition.updateTime(diff);
