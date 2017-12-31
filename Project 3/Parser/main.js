@@ -108,16 +108,20 @@ main=function()
   // start
   app.run();
 
-  runClock();
+  runClock(myScene);
 }
 
 ]);
 
 
-function runClock(){
+function runClock(scene){
+    
+    this.scene = scene;
+    
     let timer = document.getElementById('timer');
     let player1score = document.getElementById('player-1-score');
     let player2score = document.getElementById('player-2-score');
+
     timer.innerHTML = '0 : 00';
 
     let counter = 0;
@@ -136,6 +140,11 @@ function runClock(){
         timer.innerHTML = minutes + ' : 0' + seconds;
       else
          timer.innerHTML = minutes + ' : ' + seconds;
+
+       player1score.innerHTML = this.scene.game.gameMatrix[22].length;
+       player2score.innerHTML = this.scene.game.gameMatrix[23].length;
+
+       console.log(this.scene.game.gameMatrix[22].length);
     }
 
     setInterval(timeAlert, 1000);
