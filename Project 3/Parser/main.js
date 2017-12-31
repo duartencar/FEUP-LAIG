@@ -98,7 +98,8 @@ main=function()
   // get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml
   // or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
 
-  var filename = getUrlVars()['file'] || "GameBoard.xml";
+  //var filename = getUrlVars()['file'] || "Bar.xml";
+  var filename = getUrlVars()['file'] || "GameBoard.xml"
 
   // create and load graph, and associate it to scene.
   // Check console for loading errors
@@ -113,11 +114,11 @@ main=function()
 ]);
 
 
-function runClock()
-{
-    var timer = document.getElementById('timer');
-
-    timer.innerHTML = '0';
+function runClock(){
+    let timer = document.getElementById('timer');
+    let player1score = document.getElementById('player-1-score');
+    let player2score = document.getElementById('player-2-score');
+    timer.innerHTML = '0 : 00';
 
     let counter = 0;
     let seconds = 0;
