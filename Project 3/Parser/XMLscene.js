@@ -349,8 +349,6 @@ XMLscene.prototype.undo = function()
 
   let backFrom = lastPlay.pieceMovedTo;
 
-  let moveBackToCoor;
-
 /*
   if(moveBackTo != 'P1-Base' && moveBackTo != 'P2-Base')
     moveBackToCoor = this.game.XMLtoCoordinates[moveBackTo];
@@ -388,6 +386,13 @@ XMLscene.prototype.undo = function()
   let newPlay = new userPlay(!this.game.isPlayer1Playing, pieceToMoveBack, moveBackTo, this.game.cloneGameMatrix(), this.elapsedTime, mov);
 
   this.game.plays.push(newPlay);
+
+  if(search[0] != 0 && search[0] != 1)
+    this.game.gameMatrix[search[0]].push(pieceToMoveBack);
+  else
+    this.game.gameMatrix[search[0]][search[1]] = pieceToMoveBack;
+
+  this.game.gameMatrix[this.game.XMLtoVector[backFrom]] = [];
 
   this.game.newState = 3;
 }
