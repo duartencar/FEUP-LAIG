@@ -600,7 +600,9 @@ class GameLogic
 
         nextIndex += 2 * diceResult;
 
-        if(nextIndex > 22 || this.gameMatrix[nextIndex].length != 0)
+        if(nextIndex > 23)
+          return null;
+        else if(nextIndex < 23 && this.gameMatrix[nextIndex].length != 0)
           return null;
         else
         {
@@ -694,7 +696,9 @@ class GameLogic
 
         nextIndex += 2 * diceResult;
 
-        if(nextIndex > 23 || this.gameMatrix[nextIndex].length != 0)
+        if(nextIndex > 23)
+          return null;
+        else if(nextIndex < 23 && this.gameMatrix[nextIndex].length != 0)
           return null;
         else
         {
