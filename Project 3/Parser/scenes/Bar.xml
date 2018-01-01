@@ -51,25 +51,25 @@
         <CAMERA id="player1-view">
           <fov value="0.7"/>
           <near value="0.1"/>
-          <far value="200"/>
-          <position xx="0.0" yy="5.0" zz="10.0" />
-          <target xx="0.0" yy="0.0" zz="0.0" />
+          <far value="500"/>
+          <position xx="3.05" yy="3.66" zz="4.45" />
+          <target xx="3.05" yy="1.21" zz="0.0" />
         </CAMERA>
 
         <CAMERA id="player2-view">
           <fov value="0.7"/>
           <near value="0.1"/>
           <far value="500"/>
-          <position xx="0.0" yy="13.0" zz="-15.0" />
-          <target xx="0.0" yy="2.0" zz="0.0" />
+          <position xx="3.05" yy="3.49" zz="0.81" />
+          <target xx="3.05" yy="3.45" zz="1.03" />
         </CAMERA>
 
         <CAMERA id="dice-view">
           <fov value="0.7"/>
           <near value="0.1"/>
           <far value="500"/>
-          <position xx="30.0" yy="30.0" zz="20.0" />
-          <target xx="31.0" yy="18.0" zz="0.0" />
+          <position xx="4.39" yy="3.09" zz="4.20" />
+          <target xx="-0.12" yy="1.55" zz="-0.40" />
         </CAMERA>
     </CAMERAS>
 
@@ -248,7 +248,7 @@
 
       <TRANSLATION x="13.7" y="7" z="10" />
       <SCALE sx="0.1" sy="0.1" sz="0.1"/>
-     
+
       <DESCENDANTS>
         <NODEREF id="player1-platform" />
         <NODEREF id="player2-platform" />
@@ -289,7 +289,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <NODE id="P2-Finish" selectable="true"> 
+    <NODE id="P2-Finish" selectable="true">
       <MATERIAL id="null"/>
       <TEXTURE id="null" />
       <ROTATION axis="y" angle="90" />
@@ -528,7 +528,7 @@
     <NODE id="Board">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
-      <TRANSLATION x="14" y="8" z="10.5" /> <!--Puts initial cube in correct position-->
+      <TRANSLATION x="14" y="7.5" z="10.5" /> <!--Puts initial cube in correct position-->
       <SCALE sx="0.1" sy="0.1" sz="0.1" />
       <DESCENDANTS>
         <NODEREF id="Normal-Cubes" />
@@ -824,8 +824,8 @@
     <NODE id="Dices">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
-      <TRANSLATION x="120" y="70" z="0" />
-
+      <TRANSLATION x="19" y="7.5" z="14.5" /> <!--Puts initial cube in correct position-->
+      <SCALE sx="0.01" sy="0.01" sz="0.01" />
       <DESCENDANTS>
         <NODEREF id="Dice-1" />
         <NODEREF id="Dice-2" />

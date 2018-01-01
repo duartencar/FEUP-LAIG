@@ -24,6 +24,8 @@ function XMLscene(interface)
 
   this.camerasID = [];
 
+  this.file = null;
+
   //holds normal dice and rotated dice
   this.dicesMatrix = [];
 
@@ -36,6 +38,10 @@ function XMLscene(interface)
   this.shaders = [];
 
   this.pickID = 0;
+
+  this.cameraTransitionsSpeed = null;
+
+  this.pieceAnimationSpeed = null;
 
   this.rotatedOnce = [false, false, false, false];
 
@@ -82,6 +88,25 @@ XMLscene.prototype.init = function(application)
   this.axis = new CGFaxis(this);
 
   this.setPickEnabled(true);
+}
+
+XMLscene.prototype.setSpeeds = function(filename)
+{
+  if(filename == 'GameBoard.xml')
+  {
+    this.pieceAnimationSpeed = 9;
+
+    this.cameraTransitionsSpeed = 2;
+  }
+  else if(filename == 'Bar.xml')
+  {
+    this.pieceAnimationSpeed = 0.9;
+
+    this.cameraTransitionsSpeed = 0.09;
+  }
+  else {
+    console.log("Ficheiro estranho");
+  }
 }
 
 
@@ -155,6 +180,8 @@ XMLscene.prototype.initCameras = function()
  */
 XMLscene.prototype.onGraphLoaded = function()
 {
+  this.camera = this.cameras[this.camerasID[0]];
+
   this.camera.near = this.graph.near;
 
   this.camera.far = this.graph.far;
@@ -315,9 +342,9 @@ XMLscene.prototype.rollDice = function()
   this.numberOfSteps = steps;
 
   if(this.game.player1 == true)
-    this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['dice-view']), 2.5, 'LINEAR', 5);
+    this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['dice-view']), this.cameraTransitionsSpeed, 'LINEAR', 5);
   else
-    this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['dice-view']), 2.5, 'LINEAR', 5);
+    this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['dice-view']), this.cameraTransitionsSpeed, 'LINEAR', 5);
 
   this.interface.gui.closed = true;
 }
@@ -355,7 +382,7 @@ XMLscene.prototype.undo = function()
 
   let bezPoints = this.game.getBezierPointsVector([0,0,0], mov);
 
-  let newAnimation = new BezierAnimation(this, pieceToMoveBack, 9, bezPoints);
+  let newAnimation = new BezierAnimation(this, pieceToMoveBack, this.pieceAnimationSpeed, bezPoints);
 
   this.graph.nodes[pieceToMoveBack].animations.push(newAnimation);
 
@@ -385,7 +412,7 @@ XMLscene.prototype.undo = function()
 
     let thownBezPoints = this.game.getBezierPointsVector([0,0,0], thrownMov);
 
-    let thrownNewAnimation = new BezierAnimation(this, thrownPiece, 9, thownBezPoints);
+    let thrownNewAnimation = new BezierAnimation(this, thrownPiece, this.pieceAnimationSpeed, thownBezPoints);
 
     this.graph.nodes[thrownPiece].animations.push(thrownNewAnimation);
 
@@ -466,13 +493,13 @@ XMLscene.prototype.checkIfPlayerExceedsLimit = function()
   {
     if(this.game.player1)
     {
-      this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['player2-view']), 2.5, 'LINEAR', 0);
+      this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['player2-view']), this.cameraTransitionsSpeed, 'LINEAR', 0);
 
       this.game.changePlayer();
     }
     else
     {
-      this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['player1-view']), 2.5, 'LINEAR', 0);
+      this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['player1-view']), this.cameraTransitionsSpeed, 'LINEAR', 0);
 
       this.game.changePlayer();
     }
@@ -494,7 +521,6 @@ XMLscene.prototype.display = function()
 
   this.checkIfPlayerExceedsLimit();
 
-
   if(this.game.stateIndex == 0)         //WAITING DICE ROLLING
     this.interface.gui.closed = false;
   else if(this.game.stateIndex == 5)    //LOOKING AT DICES
@@ -506,10 +532,10 @@ XMLscene.prototype.display = function()
       if(this.game.player1)
       {
         if(this.numberOfSteps != 0)
-          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player1-view']), 2.5, 'LINEAR', 2);
+          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player1-view']), this.cameraTransitionsSpeed, 'LINEAR', 2);
         else
           {
-            this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player2-view']), 2.5, 'LINEAR', 0);
+            this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player2-view']), this.cameraTransitionsSpeed, 'LINEAR', 0);
 
             this.game.changePlayer(this);
           }
@@ -517,10 +543,10 @@ XMLscene.prototype.display = function()
       else
       {
         if(this.numberOfSteps != 0)
-          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player2-view']), 2.5, 'LINEAR', 2);
+          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player2-view']), this.cameraTransitionsSpeed, 'LINEAR', 2);
         else
         {
-          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player1-view']), 2.5, 'LINEAR', 0);
+          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player1-view']), this.cameraTransitionsSpeed, 'LINEAR', 0);
 
           this.game.changePlayer(this);
         }
@@ -563,9 +589,9 @@ XMLscene.prototype.display = function()
       else
       {
         if(this.game.player1)
-          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['player2-view']), 2.5, 'LINEAR', 0);
+          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['player2-view']), this.cameraTransitionsSpeed, 'LINEAR', 0);
         else
-          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['player1-view']), 2.5, 'LINEAR', 0);
+          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['player1-view']), this.cameraTransitionsSpeed, 'LINEAR', 0);
 
         this.game.changePlayer(this);
       }
@@ -583,9 +609,9 @@ XMLscene.prototype.display = function()
       this.graph.nodes[thrownPiece].animations = [];
 
       if(this.game.player1)
-        this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['player2-view']), 2.5, 'LINEAR', 0);
+        this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['player2-view']), this.cameraTransitionsSpeed, 'LINEAR', 0);
       else
-        this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['player1-view']), 2.5, 'LINEAR', 0);
+        this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['player1-view']), this.cameraTransitionsSpeed, 'LINEAR', 0);
 
       this.game.changePlayer(this);
     }

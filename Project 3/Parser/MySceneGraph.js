@@ -27,6 +27,8 @@ function MySceneGraph(filename, scene)
 
   scene.graph = this;
 
+  scene.setSpeeds(filename);
+
   this.nodes = [];
 
   this.idRoot = null;                    // The id of the root element.
