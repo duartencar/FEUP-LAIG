@@ -69,33 +69,33 @@ class GameLogic
 
     this.vectorToXML = [];
 
-    this.XMLtoCoordinates =
-    {
-     'Throw-Again-Cubes-1': [3, 6, 3],
-     'Throw-Again-Cubes-16': [39, 6, 3],
-     'Normal-Cube-2': [9, 6, 3],
-     'Normal-Cube-3': [15, 6, 3],
-     'Normal-Cube-4': [21, 6, 3],
-     'Normal-Cube-17': [45, 6, 3],
-     'Normal-Cube-5': [3, 6, 9],
-     'Normal-Cube-6': [9, 6, 9],
-     'Normal-Cube-7': [15, 6, 9],
-     'Super-Cube-12': [21, 6, 9],
-     'Normal-Cube-13': [27, 6, 9],
-     'Normal-Cube-14': [33, 6, 9],
-     'Normal-Cube-15': [39, 6, 9],
-     'Normal-Cube-18': [45, 6, 9],
-     'Throw-Again-Cubes-8': [3, 6, 15],
-     'Throw-Again-Cubes-20': [39, 6, 15],
-     'Normal-Cube-9': [9, 6, 15],
-     'Normal-Cube-10': [15, 6, 15],
-     'Normal-Cube-11': [21, 6, 15],
-     'Normal-Cube-19': [45, 6, 15],
-     'P1-Base': [[3, 6, 29], [9, 6, 29], [15, 6, 29], [21, 6, 29], [27, 6, 29], [33, 6, 29], [39, 6, 29]],
-     'P2-Base': [[3, 6, -13], [9, 6, -13], [15, 6, -13], [21, 6, -13], [27, 6, -13], [33, 6, -13], [39, 6, -13]],
-     'P1-Finish':[[-6, 6, 26], [-6, 6, 20], [-6, 6, 14], [-6, 6, 8], [-6, 6, 2], [-6, 6, -4], [-6, 6, -10]],
-     'P2-Finish':[[55, 6, -2], [55, 6, -4], [55, 6, 2], [55, 6, 8], [55, 6, 14], [55, 6, 20], [55, 6, 26]]
-    };
+    this.XMLtoCoordinates;// =
+    // {
+    //  'Throw-Again-Cubes-1': [3, 6, 3],
+    //  'Throw-Again-Cubes-16': [39, 6, 3],
+    //  'Normal-Cube-2': [9, 6, 3],
+    //  'Normal-Cube-3': [15, 6, 3],
+    //  'Normal-Cube-4': [21, 6, 3],
+    //  'Normal-Cube-17': [45, 6, 3],
+    //  'Normal-Cube-5': [3, 6, 9],
+    //  'Normal-Cube-6': [9, 6, 9],
+    //  'Normal-Cube-7': [15, 6, 9],
+    //  'Super-Cube-12': [21, 6, 9],
+    //  'Normal-Cube-13': [27, 6, 9],
+    //  'Normal-Cube-14': [33, 6, 9],
+    //  'Normal-Cube-15': [39, 6, 9],
+    //  'Normal-Cube-18': [45, 6, 9],
+    //  'Throw-Again-Cubes-8': [3, 6, 15],
+    //  'Throw-Again-Cubes-20': [39, 6, 15],
+    //  'Normal-Cube-9': [9, 6, 15],
+    //  'Normal-Cube-10': [15, 6, 15],
+    //  'Normal-Cube-11': [21, 6, 15],
+    //  'Normal-Cube-19': [45, 6, 15],
+    //  'P1-Base': [[3, 6, 29], [9, 6, 29], [15, 6, 29], [21, 6, 29], [27, 6, 29], [33, 6, 29], [39, 6, 29]],
+    //  'P2-Base': [[3, 6, -13], [9, 6, -13], [15, 6, -13], [21, 6, -13], [27, 6, -13], [33, 6, -13], [39, 6, -13]],
+    //  'P1-Finish':[[-6, 6, 26], [-6, 6, 20], [-6, 6, 14], [-6, 6, 8], [-6, 6, 2], [-6, 6, -4], [-6, 6, -10]],
+    //  'P2-Finish':[[55, 6, -2], [55, 6, -4], [55, 6, 2], [55, 6, 8], [55, 6, 14], [55, 6, 20], [55, 6, 26]]
+    // };
 
     this.gameMatrix = [];
 
@@ -436,8 +436,8 @@ class GameLogic
     {
       if(i == 1)
       {
-        z[i] = initialPoint[i] + 6;
-        k[i] = finalPoint[i] + 6;
+        z[i] = initialPoint[i] + height;
+        k[i] = finalPoint[i] + height;
       }
       else
       {

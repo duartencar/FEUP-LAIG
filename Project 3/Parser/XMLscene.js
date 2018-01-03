@@ -105,6 +105,34 @@ XMLscene.prototype.setSpeeds = function(filename)
     this.cameraTransitionsSpeed = 2;
 
     this.height = 6;
+
+    this.game.XMLtoCoordinates =
+    {
+     'Throw-Again-Cubes-1': [3, 6, 3],
+     'Throw-Again-Cubes-16': [39, 6, 3],
+     'Normal-Cube-2': [9, 6, 3],
+     'Normal-Cube-3': [15, 6, 3],
+     'Normal-Cube-4': [21, 6, 3],
+     'Normal-Cube-17': [45, 6, 3],
+     'Normal-Cube-5': [3, 6, 9],
+     'Normal-Cube-6': [9, 6, 9],
+     'Normal-Cube-7': [15, 6, 9],
+     'Super-Cube-12': [21, 6, 9],
+     'Normal-Cube-13': [27, 6, 9],
+     'Normal-Cube-14': [33, 6, 9],
+     'Normal-Cube-15': [39, 6, 9],
+     'Normal-Cube-18': [45, 6, 9],
+     'Throw-Again-Cubes-8': [3, 6, 15],
+     'Throw-Again-Cubes-20': [39, 6, 15],
+     'Normal-Cube-9': [9, 6, 15],
+     'Normal-Cube-10': [15, 6, 15],
+     'Normal-Cube-11': [21, 6, 15],
+     'Normal-Cube-19': [45, 6, 15],
+     'P1-Base': [[3, 6, 29], [9, 6, 29], [15, 6, 29], [21, 6, 29], [27, 6, 29], [33, 6, 29], [39, 6, 29]],
+     'P2-Base': [[3, 6, -13], [9, 6, -13], [15, 6, -13], [21, 6, -13], [27, 6, -13], [33, 6, -13], [39, 6, -13]],
+     'P1-Finish':[[-6, 6, 26], [-6, 6, 20], [-6, 6, 14], [-6, 6, 8], [-6, 6, 2], [-6, 6, -4], [-6, 6, -10]],
+     'P2-Finish':[[55, 6, -2], [55, 6, -4], [55, 6, 2], [55, 6, 8], [55, 6, 14], [55, 6, 20], [55, 6, 26]]
+    };
   }
   else if(filename == 'Bar.xml')
   {
@@ -113,6 +141,34 @@ XMLscene.prototype.setSpeeds = function(filename)
     this.cameraTransitionsSpeed = 0.09;
 
     this.height = 0.6;
+
+    this.game.XMLtoCoordinates =
+    {
+     'Throw-Again-Cubes-1': [0.3, 0.6, 0.3],
+     'Throw-Again-Cubes-16': [3.9, 0.6, 0.3],
+     'Normal-Cube-2': [0.9, 0.6, 0.3],
+     'Normal-Cube-3': [1.5, 0.6, 0.3],
+     'Normal-Cube-4': [2.1, 0.6, 0.3],
+     'Normal-Cube-17': [4.5, 0.6, 0.3],
+     'Normal-Cube-5': [0.3, 0.6, 0.9],
+     'Normal-Cube-6': [0.9, 0.6, 0.9],
+     'Normal-Cube-7': [1.5, 0.6, 0.9],
+     'Super-Cube-12': [2.1, 0.6, 0.9],
+     'Normal-Cube-13': [2.7, 0.6, 0.9],
+     'Normal-Cube-14': [3.3, 0.6, 0.9],
+     'Normal-Cube-15': [3.9, 0.6, 0.9],
+     'Normal-Cube-18': [4.5, 0.6, 0.9],
+     'Throw-Again-Cubes-8': [0.3, 0.6, 1.5],
+     'Throw-Again-Cubes-20': [3.9, 0.6, 1.5],
+     'Normal-Cube-9': [0.9, 0.6, 1.5],
+     'Normal-Cube-10': [1.5, 0.6, 1.5],
+     'Normal-Cube-11': [2.1, 0.6, 1.5],
+     'Normal-Cube-19': [4.5, 0.6, 1.5],
+     'P1-Base': [[0.3, 0.6, 2.9], [0.9, 0.6, 2.9], [1.5, 0.6, 2.9], [2.1, 0.6, 2.9], [2.7, 0.6, 2.9], [3.3, 0.6, 2.9], [3.9, 0.6, 2.9]],
+     'P2-Base': [[0.3, 0.6, -1.3], [0.9, 0.6, -1.3], [1.5, 0.6, -1.3], [2.1, 0.6, -1.3], [2.7, 0.6, -1.3], [3.3, 0.6, -1.3], [3.9, 0.6, -1.3]],
+     'P1-Finish':[[-0.6, 0.6, 26], [-0.6, 0.6, 20], [-0.6, 0.6, 14], [-0.6, 0.6, 0.8], [-0.6, 0.6, 0.2], [-0.6, 0.6, -0.4], [-0.6, 0.6, -1.0]],
+     'P2-Finish':[[55, 6, -2], [55, 6, -4], [55, 6, 2], [55, 6, 8], [55, 6, 14], [55, 6, 20], [55, 6, 26]]
+    };
   }
   else {
     console.log("Ficheiro estranho");
