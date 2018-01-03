@@ -510,7 +510,7 @@ class GameLogic
   {
     let previousLocationInVector = this.getCurrentPiecePlace(pieceMoved);
 
-    if(this.gameMatrix[this.XMLtoVector[toWhere]].length != 0)
+    if(this.gameMatrix[this.XMLtoVector[toWhere]].length != 0 && toWhere != 'P1-Finish' && toWhere != 'P2-Finish')
     {
       let thrownPiece = this.pieceAtVectorIndex(this.XMLtoVector[toWhere]);
 
