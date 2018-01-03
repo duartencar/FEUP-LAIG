@@ -446,7 +446,7 @@ XMLscene.prototype.undo = function()
 
   let mov = this.reverseMov(lastPlay.translation);
 
-  let bezPoints = this.game.getBezierPointsVector([0,0,0], mov);
+  let bezPoints = this.game.getBezierPointsVector([0,0,0], mov, this.height);
 
   let newAnimation = new BezierAnimation(this, pieceToMoveBack, this.pieceAnimationSpeed, bezPoints);
 
@@ -476,7 +476,7 @@ XMLscene.prototype.undo = function()
 
     let thrownMov = this.game.getMov(thrownPieceActualCoor, thrownPiecePreviousCoor);
 
-    let thownBezPoints = this.game.getBezierPointsVector([0,0,0], thrownMov);
+    let thownBezPoints = this.game.getBezierPointsVector([0,0,0], thrownMov, this.height);
 
     let thrownNewAnimation = new BezierAnimation(this, thrownPiece, this.pieceAnimationSpeed, thownBezPoints);
 
@@ -575,7 +575,7 @@ XMLscene.prototype.resetGame = function()
 
       let mov = this.game.getMov(previousCoor, nextCoor);
 
-      let bezPoints = this.game.getBezierPointsVector([0,0,0], mov);
+      let bezPoints = this.game.getBezierPointsVector([0,0,0], mov, this.height);
 
       let newAnimation = new BezierAnimation(this, piece, this.pieceAnimationSpeed, bezPoints);
 
