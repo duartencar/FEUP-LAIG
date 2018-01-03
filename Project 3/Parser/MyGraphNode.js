@@ -300,7 +300,10 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
     var trans = mat4.create();
 
     //gets the animation transformation matrix
-    trans = animations[animationIndex].correctMatrix(Time, t - scene.game.lastPlay.whatTime);
+    if(scene.resetingPieces.length == 0)
+      trans = animations[animationIndex].correctMatrix(Time, t - scene.game.lastPlay.whatTime);
+    else
+      trans = animations[animationIndex].correctMatrix(Time, t - scene.resetTime);
 
     //apllies no animation matrix that belongs to node
     mat4.multiply(newMatrix, newMatrix, trans);

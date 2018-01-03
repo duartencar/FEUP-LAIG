@@ -13,7 +13,8 @@ class GameLogic
        'WaitingPick': 2,
        'MovingPickedPieace': 3,
        'MovingCamera':4,
-       'LookingAtDices':5
+       'LookingAtDices':5,
+       'ResetingGame':6
     };
 
     this.P1Pieces = ['P1A', 'P1B', 'P1C', 'P1D', 'P1E', 'P1F', 'P1G'];
@@ -128,6 +129,23 @@ class GameLogic
     this.P1Time = 0;
 
     this.P2Time = 0;
+  }
+
+  resetGame()
+  {
+    this.resetPlayersTime();
+
+    this.player1 = true;
+
+    this.P1numberOfPlays = 0;
+
+    this.P2numberOfPlays = 0;
+
+    this.gameMatrix[0] = [];
+
+    this.gameMatrix[1] = [];
+
+    this.gameMatrixInit();
   }
 
   checkPlayerTimeLimit()
@@ -287,7 +305,7 @@ class GameLogic
 
   set newState (index)
   {
-    if(!isNaN(index) && index >= 0 && index <= 5)
+    if(!isNaN(index) && index >= 0 && index <= 6)
       this.currentState = index;
   }
 
@@ -404,7 +422,7 @@ class GameLogic
     return clone;
   }
 
-  getBezierPointsVector(initialPoint, finalPoint)
+  getBezierPointsVector(initialPoint, finalPoint, height)
   {
     let x = [];
 
@@ -481,7 +499,7 @@ class GameLogic
 
     let mov = this.getMov(previousCoor, nextCoor);
 
-    let bezPoints = this.getBezierPointsVector([0,0,0], mov);
+    let bezPoints = this.getBezierPointsVector([0,0,0], mov, scene.height);
 
     let newAnimation = new BezierAnimation(scene, pieceName, scene.pieceAnimationSpeed, bezPoints);
 
@@ -521,7 +539,7 @@ class GameLogic
 
       let mov = this.getMov(previousCoor, nextCoor);
 
-      let bezPoints = this.getBezierPointsVector([0,0,0], mov);
+      let bezPoints = this.getBezierPointsVector([0,0,0], mov,  scene.height);
 
       let newAnimation = new BezierAnimation(scene, thrownPiece[0], scene.pieceAnimationSpeed, bezPoints);
 
@@ -532,7 +550,11 @@ class GameLogic
       last.thrown = thrownPiece[0];
     }
 
-    this.gameMatrix[this.XMLtoVector[toWhere]] = [pieceMoved];
+    if(toWhere != 'P1-Finish' && toWhere != 'P2-Finish')
+      this.gameMatrix[this.XMLtoVector[toWhere]] = [pieceMoved];
+    else
+      this.gameMatrix[this.XMLtoVector[toWhere]].push(pieceMoved);
+
 
     if(previousLocationInVector > 1)
       this.gameMatrix[previousLocationInVector] = [];
@@ -621,7 +643,7 @@ class GameLogic
 
         if(nextIndex > 22)
           return null;
-        else if(this.gameMatrix[nextIndex].length != 0 && this.isEnemyPiece(this.gameMatrix[nextIndex][0]) == false)
+        else if(this.gameMatrix[nextIndex].length != 0 && this.isEnemyPiece(this.gameMatrix[nextIndex][0]) == false && nextIndex != 22)
           return null;
         else
         {
@@ -636,9 +658,9 @@ class GameLogic
 
         nextIndex += 2 * diceResult;
 
-        if(nextIndex > 23)
+        if(nextIndex > 22)
           return null;
-        else if(nextIndex < 23 && this.gameMatrix[nextIndex].length != 0)
+        else if(nextIndex < 22 && this.gameMatrix[nextIndex].length != 0)
           return null;
         else
         {
@@ -717,7 +739,7 @@ class GameLogic
 
         if(nextIndex > 23)
           return null;
-        else if(this.gameMatrix[nextIndex].length != 0 && this.isEnemyPiece(this.gameMatrix[nextIndex][0]) == false)
+        else if(this.gameMatrix[nextIndex].length != 0 && this.isEnemyPiece(this.gameMatrix[nextIndex][0]) == false && nextIndex != 23)
           return null;
         else
         {

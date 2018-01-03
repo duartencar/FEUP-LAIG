@@ -37,7 +37,13 @@ function XMLscene(interface)
 
   this.shaders = [];
 
+  this.resetingPieces = [];
+
+  this.resetTime = 0;
+
   this.pickID = 0;
+
+  this.height = 0;
 
   this.cameraTransitionsSpeed = null;
 
@@ -97,12 +103,16 @@ XMLscene.prototype.setSpeeds = function(filename)
     this.pieceAnimationSpeed = 9;
 
     this.cameraTransitionsSpeed = 2;
+
+    this.height = 6;
   }
   else if(filename == 'Bar.xml')
   {
     this.pieceAnimationSpeed = 0.9;
 
     this.cameraTransitionsSpeed = 0.09;
+
+    this.height = 0.6;
   }
   else {
     console.log("Ficheiro estranho");
@@ -484,7 +494,44 @@ XMLscene.prototype.cloneCamera = function(cameraToClone)
 
 XMLscene.prototype.resetGame = function()
 {
-  location.reload();
+  //location.reload();
+
+  for(let i = 2; i < 24; i++)
+  {
+    if(this.game.gameMatrix[i].length != 0)
+    {
+      var pieceName = this.game.gameMatrix[i].slice();
+
+      var piece = pieceName[0];
+
+      this.resetingPieces.push(pieceName.slice());
+
+      let previousPlaceName = this.game.vectorToXML[i];
+
+      let previousCoor = this.game.XMLtoCoordinates[previousPlaceName];
+
+      let nextCoor;
+
+      if(this.game.P1Pieces.indexOf(piece) >= 0)
+        nextCoor = this.game.XMLtoCoordinates['P1-Base'][this.game.P1Pieces.indexOf(piece)];
+      else
+        nextCoor = this.game.XMLtoCoordinates['P2-Base'][this.game.P2Pieces.indexOf(piece)];
+
+      let mov = this.game.getMov(previousCoor, nextCoor);
+
+      let bezPoints = this.game.getBezierPointsVector([0,0,0], mov);
+
+      let newAnimation = new BezierAnimation(this, piece, this.pieceAnimationSpeed, bezPoints);
+
+      this.graph.nodes[piece].animations.push(newAnimation);
+    }
+  }
+
+  this.game.resetGame();
+
+  this.game.newState = 6;
+
+  this.resetTime = this.elapsedTime;
 }
 
 XMLscene.prototype.checkIfPlayerExceedsLimit = function()
@@ -506,7 +553,6 @@ XMLscene.prototype.checkIfPlayerExceedsLimit = function()
   }
 }
 
-
 /**
  * Displays the scene.
  */
@@ -522,7 +568,12 @@ XMLscene.prototype.display = function()
   this.checkIfPlayerExceedsLimit();
 
   if(this.game.stateIndex == 0)         //WAITING DICE ROLLING
+  {
+    this.toShade = [];
+
     this.interface.gui.closed = false;
+  }
+
   else if(this.game.stateIndex == 5)    //LOOKING AT DICES
   {
     this.game.updateDicesTime(diff);
@@ -559,6 +610,8 @@ XMLscene.prototype.display = function()
   }
   else if(this.game.stateIndex == 3) //MOVING PIECE
   {
+    this.toShade = [];
+
     this.game.resetPlayersTime();
 
     let lastPlay = this.game.lastPlay;
@@ -617,6 +670,38 @@ XMLscene.prototype.display = function()
     }
   }
 
+  else if(this.game.stateIndex == 6) //RESETING GAME
+  {
+      this.game.resetPlayersTime();
+
+      if(this.resetingPieces.length == 0)
+      {
+        if(!this.player1)
+          this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['player1-view']), this.cameraTransitionsSpeed, 'LINEAR', 0);
+        else
+          this.game.newState = 0;
+      }
+
+      for(let i = 0; i < this.resetingPieces.length; i++)
+      {
+        let resetingPieceName = this.resetingPieces[i];
+
+        let pieceAnimation = this.graph.nodes[resetingPieceName].animations[0];
+
+        if(pieceAnimation.isAnimationsComplete(this.elapsedTime - this.resetTime) >= 1.0)
+        {
+          let translation = pieceAnimation.lastPoint;
+
+          this.graph.nodes[resetingPieceName].animations = [];
+
+          mat4.translate(this.graph.nodes[resetingPieceName].transformMatrix, this.graph.nodes[resetingPieceName].transformMatrix, translation);
+
+          this.resetingPieces.splice(i, 1); //removes the pieces
+
+          i--;
+        }
+      }
+  }
   // Clear image and depth buffer everytime we update the scene
   this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
 
