@@ -72,13 +72,31 @@ MyInterface.prototype.addLightsGroup = function(lights)
 
 MyInterface.prototype.addRollDiceGroup = function(scene)
 {
-  /*var group = this.gui.addFolder("Roll Dice");
-
-  group.open();*/
+  var group = this.gui.addFolder("Game Controls");
 
   this.gui.add(scene, 'rollDice').name('Roll Dice');
 
   this.gui.add(scene, 'undo').name('Undo');
 
   this.gui.add(scene, 'resetGame').name('Reset Game');
+}
+
+MyInterface.prototype.gameSettings = function(scene)
+{
+  var group = this.gui.addFolder("Settings");
+
+  this.gui.add(this.scene, 'pieceAnimationSpeed', 2, 15).name('Piece Speed').onChange(function(x)
+	{
+		scene.pieceAnimationSpeed = x;
+	});
+
+  this.gui.add(this.scene, 'lookAtDicesTime', 0.5, 4).name('Dices Time').onChange(function(x)
+	{
+		scene.lookAtDicesTime = x;
+	});
+
+  this.gui.add(this.scene, 'cameraTransitionsSpeed', 0.01, 4).name('Camera Speed').onChange(function(x)
+	{
+		scene.cameraTransitionsSpeed = x;
+	});
 }

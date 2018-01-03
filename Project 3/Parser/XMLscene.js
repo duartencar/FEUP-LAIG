@@ -45,6 +45,8 @@ function XMLscene(interface)
 
   this.height = 0;
 
+  this.lookAtDicesTime = 1.5;
+
   this.cameraTransitionsSpeed = null;
 
   this.pieceAnimationSpeed = null;
@@ -276,6 +278,8 @@ XMLscene.prototype.onGraphLoaded = function()
   this.interface.addCamerasGroup(this);
 
   this.interface.addRollDiceGroup(this);
+
+  this.interface.gameSettings(this);
 }
 
 //Loads done shaders
@@ -634,7 +638,7 @@ XMLscene.prototype.display = function()
   {
     this.game.updateDicesTime(diff);
 
-    if(this.game.watchDicesTime >= 1.5)
+    if(this.game.watchDicesTime >= this.lookAtDicesTime)
     {
       if(this.game.player1)
       {
