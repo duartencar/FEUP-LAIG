@@ -31,6 +31,8 @@ class BezierAnimation extends Animation
 
     //Creates Casteljau points
     this.calculatePointsForDistance();
+
+    this.span = this.animationSpan;
   }
 
   /**
@@ -227,7 +229,7 @@ class BezierAnimation extends Animation
   **/
   mapTime(Time)
   {
-    return Time / this.animationSpan;
+    return Time / this.span;
   }
 
   /**
@@ -278,7 +280,7 @@ class BezierAnimation extends Animation
   **/
   correctMatrix(diffTime, totalSceneTime)
   {
-    if(totalSceneTime >= this.animationSpan)
+    if(totalSceneTime >= this.span)
     {
       let Matrix = mat4.create();
 

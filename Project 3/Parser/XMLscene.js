@@ -329,54 +329,72 @@ XMLscene.prototype.logPicking = function ()
 
 					console.log("Picked object: " + obj.nodeID + ", with pick id " + customId);
 
+          //if picked object name is one of possible picks or one of shaded objects
           if(this.game.possiblePicks.indexOf(obj.nodeID) >= 0 || this.toShade.indexOf(obj.nodeID) >= 0)
           {
             if(this.game.stateIndex == 2) //WAITING PIECE PICK
             {
+              //if there is no object shaded and the user hasn t pick the previously shaded object
               if(this.toShade.length == 0 && this.toShade[0] != obj.nodeID)
               {
+                //shade the piece
                 this.toShade.push(obj.nodeID);
 
+                //get the place where the piece can go
                 var s = this.game.pickedPieceNextPlace(obj.nodeID, this.numberOfSteps);
 
+                //if the piece can go somewhere
                 if(s != null)
                 {
+                  //shade it
                   this.toShade.push(s);
 
+                  //change state for waiting place pick
                   this.game.newState = 1;
                 }
               }
-              else
+              else //if player has picked the previously shaded piece, unshade it
                 this.toShade = [];
             }
             else if(this.game.stateIndex == 1) //WAITING BOARD PICK
             {
+              //if player has picked the previously shaded piece, unshade it
               if(obj.nodeID == this.toShade[0])
               {
                 this.toShade = []; //unPick
 
+                //change state to waiting piece pick
                 this.game.newState = 2;
               }
               else if(obj.nodeID == this.toShade[1]) //WHEN PLACE GETS SELECTED
-              {
+              {//if player picks a valid place then change game state to moving piece
                 this.game.newState = 3;
 
+                //try to get the piece name that is on that place
                 let pieceInToShade = this.game.pieceInPlace(this.toShade[1]);
 
+                //if there is no piece in the selected place or the piece in the place is an enemy piece, gmae will allow the play
                 if(pieceInToShade.length == 0 || this.game.isEnemyPiece(pieceInToShade[0]))
                 {
+                  //gets the animation to the piece
                   let pieceAnimation = this.game.getPieceAnimation(this, this.toShade[0], obj.nodeID);
 
+                  //adds it to the node
                   this.graph.nodes[this.toShade[0]].animations.push(pieceAnimation);
 
+                  //gets piece translation
                   let trans = pieceAnimation.BezierPoint(pieceAnimation.animationSpan);
 
+                  //creates a play object
                   let newPlay = new userPlay(this.game.isPlayer1Playing, this.toShade[0], this.toShade[1], this.game.cloneGameMatrix(), this.elapsedTime, trans);
 
+                  //adds it to the plays vector
                   this.game.plays.push(newPlay);
 
+                  //updates game Matrix
                   this.game.updateGameMatrix(this, this.toShade[0], this.toShade[1]);
 
+                  //UnShades all shaded objects
                   this.toShade = [];
                 }
               }
@@ -554,8 +572,6 @@ XMLscene.prototype.cloneCamera = function(cameraToClone)
 
 XMLscene.prototype.resetGame = function()
 {
-  //location.reload();
-
   for(let i = 2; i < 24; i++)
   {
     if(this.game.gameMatrix[i].length != 0)
@@ -594,6 +610,10 @@ XMLscene.prototype.resetGame = function()
   this.resetTime = this.elapsedTime;
 }
 
+/**
+ * Checks if current player has exceeded 1 minute limit.
+ * If it has, changes player and camera.
+ */
 XMLscene.prototype.checkIfPlayerExceedsLimit = function()
 {
   if(this.game.checkPlayerTimeLimit())
@@ -618,89 +638,120 @@ XMLscene.prototype.checkIfPlayerExceedsLimit = function()
  */
 XMLscene.prototype.display = function()
 {
-  this.logPicking();
+  //if game is waiting for a player to pick a piece or a board place, log the pick
+  //and take care of players times
+  if(this.game.stateIndex == 0 || this.game.stateIndex == 1 || this.game.stateIndex == 2)
+  {
+    this.logPicking();
 
+    //update current player time
+    this.game.updatePlayerTime(diff);
+
+    //check if a player as exceed the 1 minute limit
+    this.checkIfPlayerExceedsLimit();
+  }
+
+  //if there is an active camera transition update it
   if(this.cameraTransition != null)
     this.updateCamera(diff);
 
-  this.game.updatePlayerTime(diff);
-
-  this.checkIfPlayerExceedsLimit();
-
   if(this.game.stateIndex == 0)         //WAITING DICE ROLLING
   {
+    //reset shade vectro, so nothing is shaded
     this.toShade = [];
 
+    //open gui
     this.interface.gui.closed = false;
   }
 
   else if(this.game.stateIndex == 5)    //LOOKING AT DICES
   {
+    //update locking at dices time
     this.game.updateDicesTime(diff);
 
+    //if it looking at dices time is over then get a new camera transition
     if(this.game.watchDicesTime >= this.lookAtDicesTime)
     {
-      if(this.game.player1)
+      if(this.game.player1) //if it s player one playing
       {
+        //if player got at least 1 in dice rolling move to player prespective
         if(this.numberOfSteps != 0)
           this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player1-view']), this.cameraTransitionsSpeed, 'LINEAR', 2);
-        else
+        else //else move to player 2 prespective
           {
             this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player2-view']), this.cameraTransitionsSpeed, 'LINEAR', 0);
 
+            //change player playing
             this.game.changePlayer(this);
           }
       }
-      else
+      else //if its player 2 playing
       {
+        //if player got at least 1 in dice rolling move to player prespective
         if(this.numberOfSteps != 0)
           this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player2-view']), this.cameraTransitionsSpeed, 'LINEAR', 2);
-        else
+        else //else move to player 1 prespective
         {
           this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['dice-view']), this.cloneCamera(this.cameras['player1-view']), this.cameraTransitionsSpeed, 'LINEAR', 0);
 
+          //change player playing
           this.game.changePlayer(this);
         }
       }
 
+      //reset watch dices times
       this.game.resetwatchingDicesTime();
 
+      //change pieces that can be picked
       this.game.setPossiblePiecesPick();
     }
   }
   else if(this.game.stateIndex == 3) //MOVING PIECE
   {
+    //reset shade vectro, so nothing is shaded
     this.toShade = [];
 
+    //reset players time
     this.game.resetPlayersTime();
 
+    //get last play
     let lastPlay = this.game.lastPlay;
 
+    //get the piece that is moving
     let movingPiece = lastPlay.pieceMoved;
 
+    //get the moment where piece started to move
     let atWhatTime = lastPlay.whatTime;
 
+    //get the piece animation
     let movingPieceCurrentAnimation = this.graph.nodes[movingPiece].animations[0];
 
+    //get the piece that was moved by the current moving piece
     let thrownPiece = lastPlay.pieceTobase;
 
     let thrownPieceCurrentAnimation;
 
+    //if there is a thrown piece gets it s animation
     if(thrownPiece != null)
       thrownPieceCurrentAnimation = this.graph.nodes[thrownPiece].animations[0];
 
+    //If there is one piece moving and its animation is complete
     if(movingPieceCurrentAnimation.isAnimationsComplete(this.elapsedTime - atWhatTime) >= 1.0 && thrownPiece == null)
     {
+      //get the piece translation
       let translation = lastPlay.movement;
 
+      //apply the tranlation to the piece node matrix
       mat4.translate(this.graph.nodes[movingPiece].transformMatrix, this.graph.nodes[movingPiece].transformMatrix, translation);
 
+      //remove the animation from node
       this.graph.nodes[movingPiece].animations = [];
 
+      //If the last was to a special cube, then current player plays again
       if(this.game.isSpecialCube(lastPlay.pieceMovedTo))
         this.game.repeatPlayer(this);
       else
-      {
+      {  //else moves camera to the other player and changes player
         if(this.game.player1)
           this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['player2-view']), this.cameraTransitionsSpeed, 'LINEAR', 0);
         else
@@ -708,19 +759,25 @@ XMLscene.prototype.display = function()
 
         this.game.changePlayer(this);
       }
-    }
+    }//if there are two pieces oving and both animations are finished
     else if(movingPieceCurrentAnimation.isAnimationsComplete(this.elapsedTime - atWhatTime) >= 1.0 && thrownPiece != null && thrownPieceCurrentAnimation.isAnimationsComplete(this.elapsedTime - atWhatTime) >= 1.0)
     {
+      //get the piece translation
       let translation = lastPlay.movement;
 
+      //apply the tranlation to the piece node matrix
       mat4.translate(this.graph.nodes[movingPiece].transformMatrix, this.graph.nodes[movingPiece].transformMatrix, translation);
 
+      //remove the animation from node
       this.graph.nodes[movingPiece].animations = [];
 
+      //apply the tranlation to the other piece node matrix
       mat4.translate(this.graph.nodes[thrownPiece].transformMatrix, this.graph.nodes[thrownPiece].transformMatrix, thrownPieceCurrentAnimation.lastPoint);
 
+      //remove the animation from node
       this.graph.nodes[thrownPiece].animations = [];
 
+      //changes player
       if(this.game.player1)
         this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player1-view']), this.cloneCamera(this.cameras['player2-view']), this.cameraTransitionsSpeed, 'LINEAR', 0);
       else
@@ -732,30 +789,41 @@ XMLscene.prototype.display = function()
 
   else if(this.game.stateIndex == 6) //RESETING GAME
   {
+      //puts players time at 0 secs
       this.game.resetPlayersTime();
 
+      //if there are no more pieces moving
       if(this.resetingPieces.length == 0)
       {
+        //if it was player 2 playing get new camera transition to player 1
         if(!this.player1)
           this.cameraTransition = new CameraTransition(this.cloneCamera(this.cameras['player2-view']), this.cloneCamera(this.cameras['player1-view']), this.cameraTransitionsSpeed, 'LINEAR', 0);
-        else
+        else //else just change game state to waiting dice rolling
           this.game.newState = 0;
       }
 
+      //goes through every currently reseting piece
       for(let i = 0; i < this.resetingPieces.length; i++)
       {
+        //gets the piece name at i index
         let resetingPieceName = this.resetingPieces[i];
 
+        //gets it s animation
         let pieceAnimation = this.graph.nodes[resetingPieceName].animations[0];
 
+        //if piece animation is complete
         if(pieceAnimation.isAnimationsComplete(this.elapsedTime - this.resetTime) >= 1.0)
         {
+          //get the piece translation
           let translation = pieceAnimation.lastPoint;
 
+          //take off the animation
           this.graph.nodes[resetingPieceName].animations = [];
 
+          //aplly it to the piece node
           mat4.translate(this.graph.nodes[resetingPieceName].transformMatrix, this.graph.nodes[resetingPieceName].transformMatrix, translation);
 
+          //remove piece from the reseting piece vector
           this.resetingPieces.splice(i, 1); //removes the pieces
 
           i--;

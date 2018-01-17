@@ -216,13 +216,11 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
 
   let Diff;
 
-  if(this.selectable)
+  if(this.selectable && (scene.game.stateIndex == 0 || scene.game.stateIndex == 1 || scene.game.stateIndex == 2))
   {
     scene.pickID++;
 
     scene.registerForPick(scene.pickID, this);
-
-    //console.log(this.nodeID + ' registado com sucesso com ID = ' + scene.pickID);
   }
 
   //if the DifferentShader paraneter is false it is going to check if it is the selected node
