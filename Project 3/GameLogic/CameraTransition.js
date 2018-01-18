@@ -1,6 +1,15 @@
 
 class CameraTransition
 {
+  /**
+   * CameraTransition constructor - makes a camera move, from the active camera to a specified camera
+   * @param previousCamera - CGFcamera argument, containing prevoiusly active camera
+   * @param nextCamera - CGFcamera argument, containing the next camera prepective
+   * @param speed - Camera transition linear speed.
+   * @param typeOFtransition - type of transition, LINEAR or Circular
+   * @param nextState1 - Next game state
+  **/
+
   constructor(previousCamera, nextCamera, speed, typeOFtransition, nextState)
   {
     var prev  = previousCamera;

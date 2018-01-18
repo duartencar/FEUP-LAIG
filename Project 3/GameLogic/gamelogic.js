@@ -1,5 +1,3 @@
-var PIECE_ANIMATION_SPEED = 9;
-
 class GameLogic
 {
   constructor()
