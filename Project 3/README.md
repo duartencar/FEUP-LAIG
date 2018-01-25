@@ -19,7 +19,21 @@ On this first project we were suposed to:
   
     ![DiceImage]
 
-3. Parse nodes with 'selectable' attribute :white_check_mark:
+3. Everything had to be design in the game lsx file. To facilitate future game scene creations we created a camera node, witch contains all camera prespectives of the game. The game needs at least three cameras:
+   * player1-view
+   * player2-view
+   * dice-view
+   
+  The camera node code has to follow the next structure:
+  ```xml
+  <CAMERA id="player1-view">
+    <fov value="0.7"/>
+    <near value="0.1"/>
+    <far value="500"/>
+    <position xx="0.0" yy="11.0" zz="20.0" />
+    <target xx="0.0" yy="0.0" zz="0.0" />
+   </CAMERA>
+  ```
 
 4. Apply a shader to the selectable node:
     - [x] Change object size according to time
