@@ -1,21 +1,18 @@
-# Project 2
+# Project 3
 
 On this first project we were suposed to:
 
-1.Parse an animation node with the animations data to apply to objects :white_check_mark:
+1.Create more than one game scene, so we created two diferent scenes with the same board, as you can see in the pictures below:
+![gameScene1]
+![gameScene2]
 
-2. Apply animations to objects.
-    - Linear Animation:
-        - [x] Movement
-        - [ ] Rotation
-    - Circular Animation:
-        - [x] Movement
-        - [ ] Rotation
-    - Bezier Animation:
-        - [x] Movement
-        - [ ] Rotation
-    - Bezier Animation:
-        - [x] Movement
+2. Make the necessary pieces so the game could be played. So we did:
+  * Player 1 piece
+  ![player1PieceImage]
+  * Player 2 piece
+  ![player2PieceImage]
+  * Dice
+  ![DiceImage]
 
 3. Parse nodes with 'selectable' attribute :white_check_mark:
 
@@ -30,3 +27,7 @@ On this first project we were suposed to:
 # Result
 
 ![Demo](https://i.imgur.com/lWDtuVk.gif)
+
+
+[gameScene1]: ./Media/Game_Scene_1.png
+[gameScene2]: ./Media/Game_Scene_2.png
