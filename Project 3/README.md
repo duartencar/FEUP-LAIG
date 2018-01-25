@@ -8,11 +8,16 @@ On this first project we were suposed to:
 
 2. Make the necessary pieces so the game could be played. So we did:
   * Player 1 piece
-  ![player1PieceImage]
+  
+    ![player1PieceImage]
+  
   * Player 2 piece
-  ![player2PieceImage]
+  
+    ![player2PieceImage]
+  
   * Dice
-  ![DiceImage]
+  
+    ![DiceImage]
 
 3. Parse nodes with 'selectable' attribute :white_check_mark:
 
@@ -31,3 +36,7 @@ On this first project we were suposed to:
 
 [gameScene1]: ./Media/Game_Scene_1.png
 [gameScene2]: ./Media/Game_Scene_2.png
+[player1PieceImage]: ./Media/Player_One_Piece.png
+[player2PieceImage]: ./Media/Player_Two_Piece.png
+[DiceImage]: ./Media/Dice.png
+
