@@ -68,11 +68,11 @@ On this first project we were suposed to:
 # Result
  * Throwing a piece off the board
  
- ![Imgur](https://i.imgur.com/785ikBP.gif)
+ ![GamePlay]
  
  * Game Reset
  
- ![Reset](./Media/ezgif.com-video-to-gif.gif)
+ ![Reset]
 
 
 
@@ -81,5 +81,6 @@ On this first project we were suposed to:
 [player1PieceImage]: ./Media/Player_One_Piece.png
 [player2PieceImage]: ./Media/Player_Two_Piece.png
 [DiceImage]: ./Media/Dice.png
-
+[GamePlay]: ./Media/gamePlay.gif
+[Reset]: ./Media/reset.gif
 
