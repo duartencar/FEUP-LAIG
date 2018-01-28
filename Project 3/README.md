@@ -70,7 +70,11 @@ On this first project we were suposed to:
  
  ![GamePlay]
  
- * Game Reset
+ * Undo last play
+ 
+ ![Undo]
+ 
+ * Game reset
  
  ![Reset]
 
@@ -82,5 +86,6 @@ On this first project we were suposed to:
 [player2PieceImage]: ./Media/Player_Two_Piece.png
 [DiceImage]: ./Media/Dice.png
 [GamePlay]: ./Media/gamePlay.gif
+[Undo]: ./Media/undo.gif
 [Reset]: ./Media/reset.gif
 
