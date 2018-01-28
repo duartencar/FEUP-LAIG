@@ -277,7 +277,7 @@ XMLscene.prototype.onGraphLoaded = function()
 
   this.interface.addCamerasGroup(this);
 
-  this.interface.addRollDiceGroup(this);
+  this.interface.gameControlsGroup(this);
 
   this.interface.gameSettings(this);
 }

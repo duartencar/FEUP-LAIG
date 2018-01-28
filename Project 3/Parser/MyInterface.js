@@ -70,7 +70,7 @@ MyInterface.prototype.addLightsGroup = function(lights)
   }
 }
 
-MyInterface.prototype.addRollDiceGroup = function(scene)
+MyInterface.prototype.gameControlsGroup = function(scene)
 {
   var group = this.gui.addFolder("Game Controls");
 
