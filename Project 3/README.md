@@ -68,11 +68,11 @@ On this first project we were suposed to:
 # Result
  * Throwing a piece off the board
  
- ![Thrown](https://i.imgur.com/785ikBP.gif)
+ ![Imgur](https://i.imgur.com/785ikBP.gif)
  
  * Game Reset
  
- ![Reset](https://i.imgur.com/KFNgf6m.gif)
+ ![Reset](./Media/ezgif.com-video-to-gif.gif)
 
 
 
