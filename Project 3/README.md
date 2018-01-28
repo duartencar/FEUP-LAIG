@@ -24,16 +24,17 @@ On this first project we were suposed to:
    * player2-view
    * dice-view
    
-  The camera node code has to follow the next structure:
-  ```xml
-  <CAMERA id="player1-view">
-    <fov value="0.7"/>
-    <near value="0.1"/>
-    <far value="500"/>
-    <position xx="0.0" yy="11.0" zz="20.0" />
-    <target xx="0.0" yy="0.0" zz="0.0" />
-   </CAMERA>
-  ```
+   The camera node code has to follow the next structure:
+   ```xml
+   <CAMERA id="player1-view">
+     <fov value="0.7"/>
+     <near value="0.1"/>
+     <far value="500"/>
+     <position xx="0.0" yy="11.0" zz="20.0" />
+     <target xx="0.0" yy="0.0" zz="0.0" />
+    </CAMERA>
+   ```
+   The game will parse the cameras and they will be available for switching in the game interface. The camera "moves" between positions, the transtions are not instant, and are computed by [Camera Transtion](./GameLogic/CameraTransition.js) class.
 
 4. Apply a shader to the selectable node:
     - [x] Change object size according to time
