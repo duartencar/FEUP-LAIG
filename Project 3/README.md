@@ -66,8 +66,14 @@ On this first project we were suposed to:
       <img src="./Media/mainmenu.png" width="300" height="300" /> <img src="./Media/scoreboard.png" width="350" height="200" /> <img src="./Media/choosearena.png" width="175" height="300" />
    
 # Result
+ * Throwing a piece off the board
+ 
+ ![Thrown](https://i.imgur.com/785ikBP.gif)
+ 
+ * Game Reset
+ 
+ ![Reset](https://i.imgur.com/KFNgf6m.gif)
 
-![Demo](https://i.imgur.com/lWDtuVk.gif)
 
 
 [gameScene1]: ./Media/Game_Scene_1.png
