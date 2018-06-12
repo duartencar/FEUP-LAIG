@@ -97,45 +97,34 @@ MyGraphNode.prototype.getChildren = function ()
  */
 MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat)
 {
-  //Get the node children
   let nodeChildren = this.getChildren();
 
-  //Get the node Leafs
   let nodeLeafs = this.getLeaves();
 
-  //Create a new Matrix
   let newMatrix = mat4.create();
 
   let newText = null;
+
   let newMat = null;
+  
   let toDraw = null;
 
-  //If this node doesn t has a texture it inherits the fathers node texture
-  if(this.getTextureID() == "null")
-  {
-    if(Text != null)
-      newText = Text;
-    else
-      newText = this.getTextureID();
+  if(this.getTextureID() == "null") {
+    Text != null ? newText = Text : newText = this.getTextureID();
   }
-  else
+  else {
     newText = this.getTextureID();
-
-  //If this node doesn t has a material it inherits the fathers node material
-  if(this.getMaterialID() == "null")
-  {
-    if (Mat != null)
-      newMat = Mat;
-    else
-      newMat = this.getMaterialID();
   }
-  else
+    
+  if(this.getMaterialID() == "null") {
+    Mat != null ? newMat = Mat : newMat = this.getMaterialID();
+  }
+  else {
     newMat = this.getMaterialID();
-
-  //Set the newMatrix to be the multiplication of the parent node matrix and this node matrix
+  }
+    
   mat4.multiply(newMatrix, Tmatrix, this.transformMatrix);
 
-  //Analyses all the node children, calling this function
   for (let i = 0, l = nodeChildren.length; i < l; i++) {
     this.graph.nodes[nodeChildren[i]].analyse(scene, newMatrix, newText, newMat);
   }

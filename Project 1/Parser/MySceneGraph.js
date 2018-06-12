@@ -1477,6 +1477,7 @@ MySceneGraph.prototype.displayScene = function()
 
   var initialMaterial = this.nodes.root.getMaterialID(); //get a initital material
 
-  for(var i = 0; i < x.length; i++)
+  for(let i = 0, l = x.length; i < l; i++) {
     this.nodes[x[i]].analyse(this.scene, inititalMatrix, initialText, initialMaterial);
+  }
 }

@@ -53,13 +53,15 @@ MyGraphLeaf.prototype.addPatchLine = function (x)
 
 MyGraphLeaf.prototype.setArgs = function (xmlelem)
 {
-  var unChecked = xmlelem.getAttribute("args").split(" ");
+  let unChecked = xmlelem.getAttribute("args").split(" ");
 
-  var checked = [];
+  let checked = [];
 
-  for(var i = 0; i < unChecked.length; i++)
-    if (unChecked[i] != "")
+  for(let i = 0, l = unChecked.length; i < l; i++) {
+    if (unChecked[i] != "") {
       checked.push(unChecked[i]);
+    }
+  }
 
   return checked;
 };
@@ -69,66 +71,30 @@ MyGraphLeaf.prototype.setArgs = function (xmlelem)
  **/
 MyGraphLeaf.prototype.getLeaf = function (scene)
 {
+  let Leaf = null;
+
   switch(this.LeafType)
   {
     case "cylinder":
-        if(this.LeafArgs.length != 7)
-        {
-            console.log("Worng number of args for cylinder ( must be 7)");
-            break;
-        }
-        else
-        {
-          var Leaf = new myCylinder(scene, parseFloat(this.LeafArgs[0]), parseFloat(this.LeafArgs[1]), parseFloat(this.LeafArgs[2]), parseFloat(this.LeafArgs[3]), parseFloat(this.LeafArgs[4]), this.LeafArgs[5], this.LeafArgs[6]);
-          break;
-        }
+      this.LeafArgs.length != 7 ? console.log("Worng number of args for cylinder ( must be 7)") : Leaf = new myCylinder(scene, parseFloat(this.LeafArgs[0]), parseFloat(this.LeafArgs[1]), parseFloat(this.LeafArgs[2]), parseFloat(this.LeafArgs[3]), parseFloat(this.LeafArgs[4]), this.LeafArgs[5], this.LeafArgs[6]);
+          
+      break;
     case "rectangle":
-      if(this.LeafArgs.length != 4)
-      {
-        console.log("Worng number of args for rectangle ( must be 4)");
-        console.log(this.LeafArgs);
-        break;
-      }
-      else
-      {
-        var Leaf = new myRectangle(scene, parseFloat(this.LeafArgs[0]), parseFloat(this.LeafArgs[1]), parseFloat(this.LeafArgs[2]), parseFloat(this.LeafArgs[3]));
-        break;
-      }
+      this.LeafArgs.length != 4 ? console.log("Worng number of args for rectangle ( must be 4)") : Leaf = new myRectangle(scene, parseFloat(this.LeafArgs[0]), parseFloat(this.LeafArgs[1]), parseFloat(this.LeafArgs[2]), parseFloat(this.LeafArgs[3]));
+        
+      break;
     case "triangle":
-      if(this.LeafArgs.length != 9)
-      {
-        console.log("Worng number of args for triangle ( must be 6)");
-        break;
-      }
-      else
-      {
-        var Leaf = new myTriangle(scene, this.LeafArgs[0], this.LeafArgs[1], this.LeafArgs[2], this.LeafArgs[3], this.LeafArgs[4], this.LeafArgs[5], this.LeafArgs[6], this.LeafArgs[7], this.LeafArgs[8]);
-        break;
-      }
+      this.LeafArgs.length != 9 ? console.log("Worng number of args for triangle ( must be 6)") : Leaf = new myTriangle(scene, this.LeafArgs[0], this.LeafArgs[1], this.LeafArgs[2], this.LeafArgs[3], this.LeafArgs[4], this.LeafArgs[5], this.LeafArgs[6], this.LeafArgs[7], this.LeafArgs[8]);
+
+      break;
     case "sphere":
-      if(this.LeafArgs.length != 3)
-      {
-        console.log("Worng number of args for sphere ( must be 3)");
-        console.log(this.xmlelem);
-        console.log(this.LeafArgs);
-        break;
-      }
-      else
-      {
-        var Leaf = new mySphere(scene, parseFloat(this.LeafArgs[0]), parseFloat(this.LeafArgs[1]), parseFloat(this.LeafArgs[2]));
-        break;
-      }
+      this.LeafArgs.length != 3 ? console.log("Worng number of args for sphere ( must be 3)") : Leaf = new mySphere(scene, parseFloat(this.LeafArgs[0]), parseFloat(this.LeafArgs[1]), parseFloat(this.LeafArgs[2]));
+      
+      break;
     case "patch":
-      if(this.LeafArgs.length != 2)
-      {
-        console.log("Worng number of args for patch ( must be 2)");
-        break;
-      }
-      else
-      {
-        var Leaf = new myPatch(scene, this.LeafArgs[0], this.LeafArgs[1], this.patchLines);
-        break;
-      }
+      this.LeafArgs.length != 2 ? console.log("Worng number of args for patch ( must be 2)") : Leaf = new myPatch(scene, this.LeafArgs[0], this.LeafArgs[1], this.patchLines);
+      
+      break;
     default:
       console.log(this.LeafType + " is not ready yet!");
   }
@@ -145,13 +111,11 @@ MyGraphLeaf.prototype.getLeaf = function (scene)
  **/
 MyGraphLeaf.prototype.draw = function(scene, toDraw, Matrix, Texture, Material)
 {
+  let appearance = null;
+  
   scene.pushMatrix();
 
-    //If there is no meterial the default one will be applied
-    if(Material == "null")
-      var appearance = scene.graph.materials["defaultMaterial"];
-    else
-      var appearance = scene.graph.materials[Material];
+    Material == "null" ? appearance = scene.graph.materials["defaultMaterial"] : appearance = scene.graph.materials[Material];
 
     //It will only a aplly a texture if there is a material
     if(Texture != "clear" && Material != "null" && Texture != "null")
