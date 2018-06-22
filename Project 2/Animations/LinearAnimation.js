@@ -249,8 +249,6 @@ class LinearAnimation extends Animation
 
     	let Translation = this.cPoints[this.cPoints.length - 1];
 
-    	let directionAngle = Math.atan2(Translation[2], Translation[0]);
-
     	mat4.translate(Matrix, Matrix, Translation);
 
     	//mat4.rotateY(Matrix, Matrix, directionAngle);
@@ -264,10 +262,6 @@ class LinearAnimation extends Animation
   		let Matrix = mat4.create();
 
   		let Translation = this.movement(diff);
-
-  		let directionAngle = Math.atan2(Translation[2], Translation[0]);
-
-      console.log("angle(linear): " + directionAngle);
 
   		mat4.translate(Matrix, Matrix, Translation);
 

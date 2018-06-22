@@ -1334,7 +1334,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
           var curId = this.reader.getString(descendants[j], 'id');
 
-          this.log("   Descendant: "+curId);
+          this.log("   Descendant: " + curId);
 
           if (curId == null )
             this.onXMLMinorError("unable to parse descendant id");

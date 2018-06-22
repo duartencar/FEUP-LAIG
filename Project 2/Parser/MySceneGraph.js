@@ -1669,8 +1669,6 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
       var sizeChildren = 0;
 
-      var leafTypes = ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch'];
-
       for (var j = 0; j < descendants.length; j++)
       {
         if (descendants[j].nodeName == "NODEREF")
@@ -1693,35 +1691,27 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
         }
         else if (descendants[j].nodeName == "LEAF")
         {
-          var type = this.reader.getItem(descendants[j], 'type', leafTypes);
+          let leafTypes = ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch'];
 
-          if (type == null)
+          let type = this.reader.getItem(descendants[j], 'type', leafTypes);
+
+          if(type == null) {
             this.warn("Error in leaf");
-          else
-          {
-            var newLeaf = new MyGraphLeaf(this, descendants[j]);
+          }
+          else {
+            let newLeaf = new MyGraphLeaf(this, descendants[j]);
 
-            if (type != 'patch')
-              this.log("   Leaf: " + type);
+            if(type == 'patch') {
 
-            else if (type == 'patch')
-            {
-              var lineVector = new Array();
+              let lineVector = new Array();
 
-              for(var k = 0; k < descendants[j].children.length; k++)
-              {
+              for(let k = 0, len = descendants[j].children.length; k < len; k++) {
+                for(let l = 0, cLen = descendants[j].children[k].children.length; l < cLen; l++) {
+                  let point = [];
 
-                for(var l = 0; l < descendants[j].children[k].children.length; l++)
-                {
-                  var point = [];
-
-                  point.push(parseFloat(descendants[j].children[k].children[l].attributes[0].value)); //x
-
-                  point.push(parseFloat(descendants[j].children[k].children[l].attributes[1].value)); //y
-
-                  point.push(parseFloat(descendants[j].children[k].children[l].attributes[2].value)); //z
-
-                  point.push(parseFloat(descendants[j].children[k].children[l].attributes[3].value)); //w
+                  for(let index = 0; index < 4; index++) {
+                    point.push(parseFloat(descendants[j].children[k].children[l].attributes[index].value));
+                  }
 
                   lineVector.push(point);
                 }
@@ -1730,22 +1720,27 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
                 lineVector = [];
               }
+
+              newLeaf.noMorePatchLines();
             }
+            else {
+              this.log("   Leaf: " + type);
+            }
+
+            this.nodes[nodeID].addLeaf(newLeaf);
+
+            sizeChildren++;
           }
-
-          this.nodes[nodeID].addLeaf(newLeaf);
-
-          sizeChildren++;
         }
         else
-        this.onXMLMinorError("unknown tag <" + descendants[j].nodeName + ">");
+          this.onXMLMinorError("unknown tag <" + descendants[j].nodeName + ">");
 
       }
       if (sizeChildren == 0)
         return "at least one descendant must be defined for each intermediate node";
     }
     else
-    this.onXMLMinorError('unknown tag name <' + nodeName + '>');
+      this.onXMLMinorError('unknown tag name <' + nodeName + '>');
   }
 
   console.log("Parsed nodes");
@@ -1814,6 +1809,8 @@ MySceneGraph.generateRandomString = function(length) {
 */
 MySceneGraph.prototype.displayScene = function(diffTime)
 {
+  console.log(diffTime);
+  
   var x = this.nodes.root.getChildren(); //gets root children
 
   var inititalMatrix = mat4.create(); //create an initial matrix
@@ -1822,6 +1819,6 @@ MySceneGraph.prototype.displayScene = function(diffTime)
 
   var initialMaterial = this.nodes.root.getMaterialID(); //get a initital material
 
-  for(var i = 0; i < x.length; i++)
+  for(let i = 0, l = x.length; i < l; i++)
     this.nodes[x[i]].analyse(this.scene, inititalMatrix, initialText, initialMaterial, diffTime, false);
 }
