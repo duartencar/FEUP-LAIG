@@ -130,12 +130,13 @@ MyGraphNode.prototype.getNodeAnimationsDuration = function ()
 
 MyGraphNode.prototype.correctAnimationIndex = function (sceneTime)
 {
-  for(let i = 0; i < this.animations.length; i++)
+  for(let i = 0, l = this.animations.length; i < l; i++)
   {
     sceneTime -= this.animations[i].animationSpan;
 
-    if(sceneTime < 0)
+    if(sceneTime < 0) {
       return i;
+    }
   }
 
   return this.animations.length - 1;
@@ -203,16 +204,16 @@ MyGraphNode.prototype.getChildren = function ()
 /**
  * Analyses a node. It's a recursive funtion.
  */
-MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, DifferentShader)
+MyGraphNode.prototype.analyse = function (scene, Tmatrix, fatherTexture, fatherMaterial, Time, DifferentShader)
 {
   //Get the node children
-  var nodeChildren = this.getChildren();
+  let nodeChildren = this.getChildren();
 
   //Get the node Leafs
-  var nodeLeafs = this.getLeaves();
+  let nodeLeafs = this.getLeaves();
 
   //Create a new Matrix
-  var newMatrix = mat4.create();
+  let newMatrix = mat4.create();
 
   let Diff;
 
@@ -227,36 +228,14 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
   if ((DifferentShader == false) && (scene.game.possiblePicks.length != 0))
   {
     //if the selected node name is equal to this node name, activates selected shader
-    if(scene.toShade.indexOf(this.nodeID) >= 0)
-    {
+    if((Diff = scene.toShade.indexOf(this.nodeID) >= 0) == true) {
       scene.setActiveShader(scene.shaders[1]);
-      Diff = true;
     }
-    else
-      Diff = false;
   }
 
-  //If this node doesn t has a texture it inherits the fathers node texture
-  if(this.getTextureID() == 'null')
-  {
-    if(Text != null)
-      var newText = Text;
-    else
-      var newText = this.getTextureID();
-  }
-  else
-    var newText = this.getTextureID();
+  this.textureID == "null" ? newText = fatherTexture : newText = this.textureID;
 
-  //If this node doesn t has a material it inherits the fathers node material
-  if(this.getMaterialID() == 'null')
-  {
-    if (Mat != null)
-      var newMat = Mat;
-    else
-      var newMat = this.getMaterialID();
-  }
-  else
-    var newMat = this.getMaterialID();
+  this.materialID == "null" ? newMat = fatherMaterial : newMat = this.materialID;
 
   if(this.nodeID == 'Dice-1' || this.nodeID == 'Dice-2'|| this.nodeID == 'Dice-3' || this.nodeID == 'Dice-4')
   {
@@ -266,8 +245,6 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
 
     if(mustRotate == true && alreadyRotated== false)
     {
-
-
       mat4.rotateX(this.transformMatrix, this.transformMatrix, -Math.PI/2);
 
       scene.rotatedOnce[scene.diceToIndex[this.nodeID]] = true;
@@ -278,12 +255,11 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
   if(this.getAnimations() != null)
   {
     //vector with animations
-    var animations = this.getAnimations();
+    let animations = this.getAnimations();
 
     let animationIndex = this.correctAnimationIndex(scene.elapsedTime);
 
-    if(this.animationIndex != animationIndex)
-    {
+    if(this.animationIndex != animationIndex) {
       this.aniMatrix = mat4.create();
 
       this.animationIndex = animationIndex;
@@ -291,11 +267,12 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
 
     let t = scene.elapsedTime;
 
-    for(let i = 0; i < animationIndex; i++)
+    for(let i = 0; i < animationIndex; i++) {
       t -= this.animations[i].animationSpan;
+    }
 
     //creates a Matrix to store the matrix with animation transformation
-    var trans = mat4.create();
+    let trans = mat4.create();
 
     //gets the animation transformation matrix
     if(scene.resetingPieces.length == 0)
@@ -318,16 +295,12 @@ MyGraphNode.prototype.analyse = function (scene, Tmatrix, Text, Mat, Time, Diffe
     this.graph.nodes[nodeChildren[i]].analyse(scene, newMatrix, newText, newMat, Time, Diff);
 
   //Displays all the node Leafs
-  for (var i = 0; i < nodeLeafs.length; i++)
-  {
-    //gets the obect to draw
-    var toDraw = nodeLeafs[i].getLeaf(scene);
-
-    //draws it
-    nodeLeafs[i].draw(scene, toDraw, newMatrix, newText, newMat, Time, Diff);
+  for (var i = 0; i < nodeLeafs.length; i++) {
+    nodeLeafs[i].draw(newMatrix, newText, newMat);
   }
 
   //Only the node that activated the shader can disactivate the shader
-  if(Diff == true)
+  if(Diff == true) {
     scene.setActiveShader(scene.defaultShader);
+  }
 };

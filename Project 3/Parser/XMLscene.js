@@ -1,6 +1,6 @@
 var DEGREE_TO_RAD = Math.PI / 180;
 
-var diff = 0.042;
+var diff = 0.033;
 
 /**
  * XMLscene class, representing the scene that is to be rendered.
@@ -68,6 +68,8 @@ function XMLscene(interface)
   this.cameraTransition = null;
 
   this.game = new GameLogic();
+
+  this.nFrames = 0;
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -319,7 +321,7 @@ XMLscene.prototype.logPicking = function ()
   {
 		if (this.pickResults != null && this.pickResults.length > 0)
     {
-			for (var i=0; i< this.pickResults.length; i++)
+			for (let i=0, l = this.pickResults.length; i< l; i++)
       {
 				var obj = this.pickResults[i][0];
 
@@ -420,7 +422,7 @@ XMLscene.prototype.rollDice = function()
 
   let steps = 0;
 
-  for(let i = 0; i < result.length; i++)
+  for(let i = 0, l = result.length; i < l; i++)
     if(result[i] == true)
       steps++;
 
@@ -803,7 +805,7 @@ XMLscene.prototype.display = function()
       }
 
       //goes through every currently reseting piece
-      for(let i = 0; i < this.resetingPieces.length; i++)
+      for(let i = 0, l = this.resetingPieces.length; i < l; i++)
       {
         //gets the piece name at i index
         let resetingPieceName = this.resetingPieces[i];
@@ -900,4 +902,5 @@ XMLscene.prototype.display = function()
 
   this.clearPickRegistration();
 
+  this.nFrames++;
 }

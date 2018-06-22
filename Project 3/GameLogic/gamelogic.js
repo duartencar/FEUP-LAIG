@@ -114,12 +114,8 @@ class GameLogic
     this.vectorToXMLinit();
   }
 
-  updatePlayerTime(diff)
-  {
-    if(this.player1)
-      this.P1Time += diff;
-    else
-      this.P2Time += diff;
+  updatePlayerTime(diff) {
+    this.player1 ? this.P1Time += diff : this.P2Time += diff;
   }
 
   resetPlayersTime()
@@ -198,12 +194,8 @@ class GameLogic
     return this.plays[this.plays.length - 2];
   }
 
-  isSpecialCube(place)
-  {
-    if(this.specialPlaces.indexOf(place) >= 0)
-      return true;
-    else
-      return false;
+  isSpecialCube(place) {
+    return this.specialPlaces.indexOf(place) >= 0;
   }
 
   set dicesValue(x)
@@ -245,11 +237,7 @@ class GameLogic
     if(scene.rotatedOnce[3])
       mat4.rotateX(scene.graph.nodes['Dice-4'].transformMatrix, scene.graph.nodes['Dice-4'].transformMatrix, Math.PI/2);
 
-
-    if(this.player1)
-      this.P2numberOfPlays++;
-    else
-      this.P1numberOfPlays++;
+    this.player1 ? this.P2numberOfPlays++ : this.P1numberOfPlays++;
 
     this.resetDices(scene);
 
@@ -267,10 +255,7 @@ class GameLogic
     if(scene.rotatedOnce[3])
       mat4.rotateX(scene.graph.nodes['Dice-4'].transformMatrix, scene.graph.nodes['Dice-4'].transformMatrix, Math.PI/2);
 
-    if(this.player1)
-      this.P2numberOfPlays++;
-    else
-      this.P1numberOfPlays++;
+    this.player1 ? this.P2numberOfPlays++ : this.P1numberOfPlays++;
 
     this.resetDices(scene);
 
@@ -344,19 +329,11 @@ class GameLogic
 
   isEnemyPiece(pieceName)
   {
-    if(this.player1)
-    {
-      if(this.P1Pieces.indexOf(pieceName) >= 0)
-        return false;
-      else
-        return true;
+    if(this.player1) {
+      return this.P1Pieces.indexOf(pieceName) < 0;
     }
-    else
-    {
-      if(this.P2Pieces.indexOf(pieceName) >= 0)
-        return false;
-      else
-        return true;
+    else {
+      return this.P2Pieces.indexOf(pieceName) < 0;
     }
   }
 

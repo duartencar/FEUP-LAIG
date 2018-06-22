@@ -86,7 +86,7 @@ main=function()
   var myInterface = new MyInterface();
   var myScene = new XMLscene(myInterface);
 
-  myScene.setUpdatePeriod(42);
+  myScene.setUpdatePeriod(33);
 
   app.init();
 
